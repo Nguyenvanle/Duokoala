@@ -14,5 +14,6 @@ export default {
     deep: "#3F72AF",
     text: "#112D4E",
   },
-  red: "#B81C1C",
+  red: "#FF2E63",
+  dark: "#1B262C",
 };
