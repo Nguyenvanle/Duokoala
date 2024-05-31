@@ -1,5 +1,4 @@
 import { FlaticonIcon } from "@/components/FlaticonIcon";
-import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
 import { router } from "expo-router";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -8,7 +7,7 @@ export default function Index() {
   return (
     <View style={defaultStyles.pageContainer}>
       <View style={index.container}>
-        <Text style={index.text}>Roboto Font</Text>
+        <Text style={index.text}>Index Page</Text>
         <View style={index.logo}>
           <Image
             source={{
@@ -29,7 +28,7 @@ export default function Index() {
   );
 }
 
-export const index = StyleSheet.create({
+const index = StyleSheet.create({
   container: {
     flex: 1,
     alignContent: "center",

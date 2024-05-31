@@ -10,7 +10,7 @@ interface FlaticonIconProps {
 export function FlaticonIcon(props: FlaticonIconProps) {
   // view-model
   const { size, uri } = props; // lấy dữ liệu từ đưa vào trang chính (props)
-  const [hasError, setHasError] = useState<boolean>(false); // kiểm tra uri có lỗi không, mặc định là false
+  const [hasError, setHasError] = useState(false); // kiểm tra uri có lỗi không, mặc định là false
 
   useEffect(() => {
     // dùng useEffect khi muốn xử lý những vấn đề liên quan đến "cập nhật"
@@ -42,5 +42,3 @@ export function FlaticonIcon(props: FlaticonIconProps) {
     </>
   );
 }
-
-
