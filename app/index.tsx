@@ -60,6 +60,7 @@ const index = StyleSheet.create({
   text: {
     textAlign: "center",
     fontSize: 24,
+    fontWeight: "bold", // set type of text = fontWeight
   },
   logo: {
     alignContent: "center",
