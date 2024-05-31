@@ -1,11 +1,34 @@
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { defaultStyles } from "@/constants/Styles";
-import { router } from "expo-router";
 import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback } from "react";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function Index() {
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={defaultStyles.pageContainer}>
+    <View style={defaultStyles.pageContainer} onLayout={onLayoutRootView}>
       <View style={index.container}>
         <Text style={index.text}>Index Page</Text>
         <View style={index.logo}>
