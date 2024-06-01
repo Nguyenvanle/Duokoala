@@ -33,6 +33,7 @@ export function FlaticonIcon(props: FlaticonIconProps) {
             width: size,
             height: size,
           }}
+          resizeMode="contain"
           onError={() => {
             setHasError(true);
             throw new Error("Uri Incorrect \n" + uri);

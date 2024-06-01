@@ -19,6 +19,33 @@ export const defaultStyles = StyleSheet.create({
   },
   pageContainer: {
     flex: 1,
-    backgroundColor: Colors.light,
+    backgroundColor: Colors.blue.light,
+  },
+});
+
+export const text = StyleSheet.create({
+  container: {
+    flex: 0,
+    alignContent: "center",
+    justifyContent: "center",
+    alignSelf: "stretch",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "bold", // set type of text = fontWeight
+    color: Colors.blue.text,
+  },
+  subTitle: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold", // set type of text = fontWeight
+    color: Colors.blue.text,
+  },
+  mainContent: {
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "regular", // set type of text = fontWeight
+    color: Colors.blue.text,
   },
 });
