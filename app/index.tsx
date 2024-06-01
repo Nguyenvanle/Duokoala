@@ -1,83 +1,22 @@
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { defaultStyles, text } from "@/constants/Styles";
-import {
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import {
-  useFonts,
-  Roboto_400Regular,
-  Roboto_700Bold,
-} from "@expo-google-fonts/roboto";
-import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import useIndexScreenViewModel from "@/screens/index/v-model";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Colors from "@/constants/Colors";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
-import { router } from "expo-router";
+import { SplashScreen } from "expo-router";
 
 // Disable Auto Hide Loading Screen
 SplashScreen.preventAutoHideAsync();
 
 export default function IndexScreen() {
-  // I.Model:
-
-  // 1.Create Roboto Font
-  const [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-    Roboto_700Bold,
-  });
-  // 2.Create Opacity Value
-  const opacity = useSharedValue(0);
-  const [showLogo, setShowLogo] = useState(true);
-  const [showSlogan, setShowSlogan] = useState(false);
-
-  // II.V-Model
-
-  // 1. Load Roboto Font
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-  // 2. Load Animation
-  useEffect(() => {
-    const showLogoTimeout = setTimeout(() => {
-      opacity.value = withTiming(1, {
-        duration: 2000,
-        easing: Easing.inOut(Easing.ease),
-      });
-
-      setTimeout(() => {
-        setShowSlogan(true);
-        opacity.value = withTiming(0, {
-          duration: 2000,
-          easing: Easing.inOut(Easing.ease),
-        });
-
-        setTimeout(() => {
-          router.replace("sign-in");
-        }, 2000); // Thời gian chờ trước khi chuyển hướng (ví dụ: 2000ms)
-      }, 4000); // Thời gian hiển thị logo (ví dụ: 4000ms)
-    });
-
-    return () => clearTimeout(showLogoTimeout);
-  }, []);
-
+  const { fontsLoaded, opacity, onLayoutRootView } = useIndexScreenViewModel();
   const animatedStyle = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
     };
   });
 
-  // View
   if (!fontsLoaded) {
     return null;
   }
