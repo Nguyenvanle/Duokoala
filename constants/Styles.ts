@@ -48,4 +48,10 @@ export const text = StyleSheet.create({
     fontWeight: "regular", // set type of text = fontWeight
     color: Colors.blue.text,
   },
+  btnText: {
+    textAlign: "center",
+    fontSize: 14,
+    fontWeight: "bold", // set type of text = fontWeight
+    color: Colors.milk,
+  },
 });

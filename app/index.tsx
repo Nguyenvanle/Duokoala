@@ -9,8 +9,13 @@ import { SplashScreen } from "expo-router";
 // Disable Auto Hide Loading Screen
 SplashScreen.preventAutoHideAsync();
 
+const iconUri: string =
+  "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
+const routerHref: string = "/recommendation/";
+
 export default function IndexScreen() {
-  const { fontsLoaded, opacity, onLayoutRootView } = useIndexScreenViewModel();
+  const { fontsLoaded, opacity, onLayoutRootView } =
+    useIndexScreenViewModel(routerHref);
   const animatedStyle = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
@@ -27,10 +32,7 @@ export default function IndexScreen() {
       <View style={index.container}>
         {/* Logo */}
         <Animated.View style={[logo.container, animatedStyle]}>
-          <FlaticonIcon
-            size={160}
-            uri={"https://cdn-icons-png.flaticon.com/512/3069/3069172.png"}
-          />
+          <FlaticonIcon size={160} uri={iconUri} />
           <Text style={logo.text}>Duokoala</Text>
         </Animated.View>
 

@@ -10,7 +10,7 @@ import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { router } from "expo-router";
 import IndexScreenModel from "@/screens/index/model";
 
-const useIndexScreenViewModel = (): IndexScreenModel => {
+const useIndexScreenViewModel = (routerHref: string): IndexScreenModel => {
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
@@ -40,7 +40,7 @@ const useIndexScreenViewModel = (): IndexScreenModel => {
       });
 
       setTimeout(() => {
-        router.replace("sign-in");
+        router.replace(routerHref);
       }, redirectDuration); // Thời gian chờ trước khi chuyển hướng (ví dụ: 2000ms)
     }, showLogoDuration); // Thời gian hiển thị logo (ví dụ: 4000ms)
   }, []);
