@@ -4,14 +4,10 @@ import { StyleSheet, Text, View } from "react-native";
 import useIndexScreenViewModel from "@/screens/index/v-model";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Colors from "@/constants/Colors";
-import { SplashScreen } from "expo-router";
-
-// Disable Auto Hide Loading Screen
-SplashScreen.preventAutoHideAsync();
 
 const iconUri: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
-const routerHref: string = "/recommendation/";
+const routerHref: string = "/sign-in";
 
 export default function IndexScreen() {
   const { fontsLoaded, opacity, onLayoutRootView } =
