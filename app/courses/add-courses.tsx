@@ -129,7 +129,7 @@ const create = StyleSheet.create({
     fontWeight: "700",
     justifyContent: "center",
     alignItems: "center",
-    width: 170,
+    width: 160,
   },
   button2: {
     marginHorizontal: 23,
@@ -143,7 +143,7 @@ const create = StyleSheet.create({
     fontWeight: "700",
     justifyContent: "center",
     alignItems: "center",
-    width: 170,
+    width: 160,
   },
   note1: {
     textAlign: "center",
