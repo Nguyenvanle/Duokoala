@@ -13,6 +13,7 @@ export default {
     regular: "#699FEA",
     deep: "#3F72AF",
     text: "#112D4E",
+    sky: "#7FD3FF",
   },
   red: "#FF2E63",
   dark: "#1B262C",
