@@ -51,21 +51,21 @@ export default function IndexScreen() {
   useEffect(() => {
     const showLogoTimeout = setTimeout(() => {
       opacity.value = withTiming(1, {
-        duration: 2000,
+        duration: 100, //2000
         easing: Easing.inOut(Easing.ease),
       });
 
       setTimeout(() => {
         setShowSlogan(true);
         opacity.value = withTiming(0, {
-          duration: 2000,
+          duration: 100, //200
           easing: Easing.inOut(Easing.ease),
         });
 
         setTimeout(() => {
-          router.replace("sign-in");
-        }, 2000); // Thời gian chờ trước khi chuyển hướng (ví dụ: 2000ms)
-      }, 4000); // Thời gian hiển thị logo (ví dụ: 4000ms)
+          router.replace("recommendation/suggest-first");
+        }, 100); // Thời gian chờ trước khi chuyển hướng (ví dụ: 2000ms) //2000
+      }, 0); // Thời gian hiển thị logo (ví dụ: 4000ms) //4000
     });
 
     return () => clearTimeout(showLogoTimeout);
