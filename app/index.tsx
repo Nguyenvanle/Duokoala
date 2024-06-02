@@ -58,14 +58,14 @@ export default function IndexScreen() {
       setTimeout(() => {
         setShowSlogan(true);
         opacity.value = withTiming(0, {
-          duration: 200,
+          duration: 2000,
           easing: Easing.inOut(Easing.ease),
         });
 
         setTimeout(() => {
           router.replace("sign-in");
-        }, 2000); // Thời gian chờ trước khi chuyển hướng (ví dụ: 2000ms) //2000
-      }, 4000); // Thời gian hiển thị logo (ví dụ: 4000ms) //4000
+        }, 2000); // Thời gian chờ trước khi chuyển hướng (ví dụ: 2000ms)
+      }, 4000); // Thời gian hiển thị logo (ví dụ: 4000ms)
     });
 
     return () => clearTimeout(showLogoTimeout);
