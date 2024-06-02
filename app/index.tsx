@@ -11,7 +11,7 @@ SplashScreen.preventAutoHideAsync();
 
 const iconUri: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
-const routerHref: string = "/recommendation/";
+const routerHref: string = "/courses/";
 
 export default function IndexScreen() {
   const { fontsLoaded, opacity, onLayoutRootView } =
