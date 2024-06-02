@@ -35,45 +35,27 @@ export default function SuggestFirst() {
 
         <View style={suggest.subFrame}>
           <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>TOEIC</Text>
+            <Text style={text.mainContent}>Answer</Text>
           </TouchableOpacity>
           <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>IELTS</Text>
+            <Text style={text.mainContent}>Answer</Text>
           </TouchableOpacity>
           <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>VSTEP</Text>
+            <Text style={text.mainContent}>Answer</Text>
           </TouchableOpacity>
           <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>CERF</Text>
+            <Text style={text.mainContent}>Answer</Text>
           </TouchableOpacity>
         </View>
 
         <View style={suggest.decideFrame}>
           <View style={suggest.decide}>
-            <TouchableOpacity
-              style={[suggest.button, { backgroundColor: Colors.black }]}
-            >
-              <Text
-                style={[
-                  text.mainContent,
-                  { color: Colors.light, fontWeight: "bold" },
-                ]}
-              >
-                Bỏ qua
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[suggest.button, { backgroundColor: Colors.blue.deep }]}
-            >
-              <Text
-                style={[
-                  text.mainContent,
-                  { color: Colors.light, fontWeight: "bold" },
-                ]}
-              >
-                Tiếp tục
-              </Text>
-            </TouchableOpacity>
+            <View style={suggest.button}>
+              <Text>Bỏ qua</Text>
+            </View>
+            <View style={suggest.button}>
+              <Text>Tiếp tục</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -108,13 +90,13 @@ const suggest = StyleSheet.create({
   },
   decide: {
     display: "flex",
-    flexDirection: "row",
-    width: 300,
-    height: 50,
-    justifyContent: "flex-end",
-    alignItems: "flex-start",
+    width: 232,
+    height: 48,
+    paddingRight: 1,
+    justifyContent: "center",
+    alignItems: "flex-end",
+    marginVertical: 20, // Khoảng cách dọc giữa các phần tử
     flexShrink: 0,
-    gap: 20,
   },
   contentFrame: {
     display: "flex",
@@ -124,11 +106,11 @@ const suggest = StyleSheet.create({
   },
   option: {
     display: "flex",
-    minWidth: 310,
+    minWidth: 300,
     width: "auto",
     height: 56,
     padding: 15,
-    alignItems: "stretch",
+    alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
     borderRadius: 8, // Border radius
@@ -137,14 +119,8 @@ const suggest = StyleSheet.create({
   },
   button: {
     display: "flex",
-    height: 50,
-    width: 115,
+    height: 48,
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 8,
-  },
-  optionText: {
-    ...text.mainContent,
-    fontWeight: "bold",
+    alignItems: "flex-start",
   },
 });
