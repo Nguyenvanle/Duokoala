@@ -63,7 +63,7 @@ export default function IndexScreen() {
         });
 
         setTimeout(() => {
-          router.replace("sign-in");
+          router.replace("/suggest/certificate");
         }, 2000); // Thời gian chờ trước khi chuyển hướng (ví dụ: 2000ms)
       }, 4000); // Thời gian hiển thị logo (ví dụ: 4000ms)
     });

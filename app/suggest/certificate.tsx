@@ -1,3 +1,4 @@
+//"https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png"
 import {
   StyleSheet,
   Text,
@@ -10,15 +11,18 @@ import { index } from "@/app/index";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
+import Button, { HrefButton } from "@/components/Button";
 
-export default function SuggestFirst() {
+const imageUri: string =
+  "https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png";
+
+export default function Certificate() {
   return (
     <View style={defaultStyles.pageContainer}>
+      <View style={overflowLogo.container}>
+        <FlaticonIcon uri={imageUri} size={450} />
+      </View>
       <View style={suggest.container}>
-        <FlaticonIcon
-          uri="https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png"
-          size={290}
-        />
         <View style={suggest.subFrame}>
           <View style={suggest.contentFrame}>
             <Text style={text.title}>Bắt đầu thôi nào!</Text>
@@ -34,8 +38,12 @@ export default function SuggestFirst() {
         </View>
 
         <View style={suggest.subFrame}>
-          <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>TOEIC</Text>
+          <TouchableOpacity
+            style={[suggest.option, { backgroundColor: Colors.brown }]}
+          >
+            <Text style={[suggest.optionText, { color: Colors.milk }]}>
+              TOEIC
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity style={suggest.option}>
             <Text style={suggest.optionText}>IELTS</Text>
@@ -44,36 +52,21 @@ export default function SuggestFirst() {
             <Text style={suggest.optionText}>VSTEP</Text>
           </TouchableOpacity>
           <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>CERF</Text>
+            <Text style={suggest.optionText}>CEFR</Text>
           </TouchableOpacity>
         </View>
-
         <View style={suggest.decideFrame}>
           <View style={suggest.decide}>
-            <TouchableOpacity
-              style={[suggest.button, { backgroundColor: Colors.black }]}
-            >
-              <Text
-                style={[
-                  text.mainContent,
-                  { color: Colors.light, fontWeight: "bold" },
-                ]}
-              >
-                Bỏ qua
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[suggest.button, { backgroundColor: Colors.blue.deep }]}
-            >
-              <Text
-                style={[
-                  text.mainContent,
-                  { color: Colors.light, fontWeight: "bold" },
-                ]}
-              >
-                Tiếp tục
-              </Text>
-            </TouchableOpacity>
+            <HrefButton
+              backgroundColor={Colors.red}
+              title="Bỏ qua"
+              href="/suggest/score"
+            />
+            <HrefButton
+              backgroundColor={Colors.blue.regular}
+              title="Tiếp tục"
+              href="/suggest/score"
+            />
           </View>
         </View>
       </View>
@@ -81,7 +74,7 @@ export default function SuggestFirst() {
   );
 }
 
-const suggest = StyleSheet.create({
+export const suggest = StyleSheet.create({
   container: {
     ...index.container,
     justifyContent: "flex-start",
@@ -134,6 +127,7 @@ const suggest = StyleSheet.create({
     borderRadius: 8, // Border radius
     borderWidth: 3, // Độ rộng của border
     borderColor: Colors.black, // Màu sắc của border
+    backgroundColor: Colors.milk,
   },
   button: {
     display: "flex",
@@ -146,5 +140,15 @@ const suggest = StyleSheet.create({
   optionText: {
     ...text.mainContent,
     fontWeight: "bold",
+  },
+});
+
+export const overflowLogo = StyleSheet.create({
+  container: {
+    flex: 0,
+    overflow: "hidden", // Cắt icon nếu nó vượt quá kích thước khung
+    maxHeight: 260,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
