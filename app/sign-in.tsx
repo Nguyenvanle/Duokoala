@@ -12,6 +12,9 @@ const faceUri: string =
 const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
 
 export default function SignInScreen() {
+  const signInHanler = () => {
+    router.push("/auth/signUp");
+  };
   return (
     <View style={defaultStyles.pageContainer}>
       {/* root container */}
@@ -84,7 +87,7 @@ export default function SignInScreen() {
           <View style={container.register}>
             <Text style={text.mainContent}> Bạn chưa có tài khoản? </Text>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={signInHanler}>
               <Text style={text.link}>Đăng ký ngay</Text>
             </TouchableOpacity>
           </View>
@@ -162,7 +165,7 @@ export const container = StyleSheet.create({
   },
 });
 
-const signIn = StyleSheet.create({
+export const signIn = StyleSheet.create({
   container: {
     ...index.container,
   },
