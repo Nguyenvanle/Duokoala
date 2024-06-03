@@ -11,6 +11,8 @@ import { router } from "expo-router";
 import IndexScreenModel from "@/screens/index/model";
 
 const useIndexScreenViewModel = (routerHref: string): IndexScreenModel => {
+  // Disable Auto Hide Loading Screen
+  SplashScreen.preventAutoHideAsync();
   const [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,

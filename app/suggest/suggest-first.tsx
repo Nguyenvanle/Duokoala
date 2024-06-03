@@ -18,8 +18,10 @@ const imageUri: string =
 export default function SuggestFirst() {
   return (
     <View style={defaultStyles.pageContainer}>
+      <View style={overflowLogo.container}>
+        <FlaticonIcon uri={imageUri} size={470} />
+      </View>
       <View style={suggest.container}>
-        <FlaticonIcon uri={imageUri} size={290} />
         <View style={suggest.subFrame}>
           <View style={suggest.contentFrame}>
             <Text style={text.title}>Bắt đầu thôi nào!</Text>
@@ -36,7 +38,7 @@ export default function SuggestFirst() {
 
         <View style={suggest.subFrame}>
           <TouchableOpacity
-            style={[suggest.option, { backgroundColor: Colors.teal }]}
+            style={[suggest.option, { backgroundColor: Colors.brown }]}
           >
             <Text style={[suggest.optionText, { color: Colors.milk }]}>
               TOEIC
@@ -53,11 +55,9 @@ export default function SuggestFirst() {
           </TouchableOpacity>
         </View>
 
-        <View style={suggest.decideFrame}>
-          <View style={suggest.decide}>
-            <Button backgroundColor={Colors.red} title="Bỏ qua" />
-            <Button backgroundColor={Colors.blue.regular} title="Tiếp tục" />
-          </View>
+        <View style={suggest.decide}>
+          <Button backgroundColor={Colors.red} title="Bỏ qua" />
+          <Button backgroundColor={Colors.blue.regular} title="Tiếp tục" />
         </View>
       </View>
     </View>
@@ -69,6 +69,7 @@ const suggest = StyleSheet.create({
     ...index.container,
     justifyContent: "flex-start",
     alignContent: "flex-start",
+    paddingVertical: 20,
   },
   subFrame: {
     flex: 0,
@@ -93,7 +94,7 @@ const suggest = StyleSheet.create({
     alignItems: "flex-end",
     alignContent: "flex-end",
     flexShrink: 0,
-    gap: 20,
+    gap: 10,
     alignSelf: "stretch",
   },
   contentFrame: {
@@ -125,5 +126,15 @@ const suggest = StyleSheet.create({
   optionText: {
     ...text.mainContent,
     fontWeight: "bold",
+  },
+});
+
+const overflowLogo = StyleSheet.create({
+  container: {
+    flex: 0,
+    overflow: "hidden", // Cắt icon nếu nó vượt quá kích thước khung
+    maxHeight: 290,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

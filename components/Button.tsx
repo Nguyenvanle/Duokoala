@@ -22,5 +22,8 @@ const buttonStyle = StyleSheet.create({
     ...defaultStyles.btn,
     borderWidth: 3,
     borderColor: Colors.black,
+    minHeight: 48,
+    paddingHorizontal: 20,
+    minWidth: 115,
   },
 });

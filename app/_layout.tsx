@@ -6,7 +6,7 @@ export default function RootLayout() {
     <Stack screenOptions={{ statusBarColor: Colors.black }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="sign-in" options={{ headerShown: false }} />
-      <Stack.Screen name="recommendation" options={{ headerShown: false }} />
+      <Stack.Screen name="suggest" options={{ headerShown: false }} />
     </Stack>
   );
 }
