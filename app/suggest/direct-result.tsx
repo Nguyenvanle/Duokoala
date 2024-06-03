@@ -1,26 +1,27 @@
-import {
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, View } from "react-native";
 import React from "react";
-import { index } from "@/app/index";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
-import Colors from "@/constants/Colors";
-import Button, { HrefButton } from "@/components/Button";
 import { suggest } from "./certificate";
-import { justify, overSuggest } from "./question/direct";
+import { overSuggest } from "./question/direct";
+import useIndexScreenViewModel from "@/screens/index/v-model";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 
 const imageUri: string =
   "https://cdn-icons-png.flaticon.com/512/3352/3352717.png";
 
+const routerHref: string = "/tabs";
+
 export default function SuggestFirst() {
+  const { opacity } = useIndexScreenViewModel(routerHref);
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
   return (
     <View style={defaultStyles.pageContainer}>
-      <View style={overSuggest.container}>
+      <Animated.View style={[overSuggest.container, animatedStyle]}>
         <FlaticonIcon uri={imageUri} size={250} />
         <View style={suggest.subFrame}>
           <View style={suggest.contentFrame}>
@@ -35,7 +36,7 @@ export default function SuggestFirst() {
             </Text>
           </View>
         </View>
-      </View>
+      </Animated.View>
     </View>
   );
 }

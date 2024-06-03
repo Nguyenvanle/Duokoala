@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  View,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import React from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { defaultStyles, text } from "@/constants/Styles";
@@ -13,7 +6,7 @@ import { index, logo } from "@/app/index";
 import Colors from "@/constants/Colors";
 import { container } from "@/app/sign-in";
 import { BasicInput, DescriptionInput } from "@/components/BasicInput";
-import { suggest } from "@/app/suggest/suggest-first";
+import { suggest } from "@/app/suggest/certificate";
 import Button from "@/components/Button";
 
 const imageURI: string =

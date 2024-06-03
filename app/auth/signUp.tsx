@@ -19,6 +19,9 @@ export default function signUp() {
   const logIn = () => {
     router.replace("/sign-in");
   };
+  const signUp = () => {
+    router.replace("suggest/certificate");
+  };
   return (
     <ScrollView style={defaultStyles.pageContainer}>
       {/* root container */}
@@ -69,7 +72,10 @@ export default function signUp() {
           </View>
 
           {/* button container */}
-          <TouchableOpacity style={{ ...container.button, marginTop: 10 }}>
+          <TouchableOpacity
+            style={{ ...container.button, marginTop: 10 }}
+            onPress={signUp}
+          >
             <Text style={{ ...text.btnText, color: Colors.light }}>
               ĐĂNG KÝ
             </Text>

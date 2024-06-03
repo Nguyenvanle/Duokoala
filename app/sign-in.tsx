@@ -52,7 +52,7 @@ export default function SignInScreen() {
           <TouchableOpacity
             style={container.button}
             onPress={() => {
-              router.push("/tabs");
+              router.push("/suggest/certificate");
             }}
           >
             <Text style={[text.btnText, { color: Colors.light }]}>
