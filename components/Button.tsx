@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { defaultStyles, text } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
+import { router } from "expo-router";
 
 interface ButtonProps {
   backgroundColor: string;
@@ -12,6 +13,25 @@ export default function Button(props: ButtonProps) {
   const { backgroundColor, title } = props;
   return (
     <TouchableOpacity style={[buttonStyle.container, { backgroundColor }]}>
+      <Text style={text.btnText}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
+
+interface HrefButtonProps {
+  backgroundColor: string;
+  title: string;
+  href: string;
+}
+export function HrefButton(props: HrefButtonProps) {
+  const { backgroundColor, title, href } = props;
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        router.replace(href);
+      }}
+      style={[buttonStyle.container, { backgroundColor }]}
+    >
       <Text style={text.btnText}>{title}</Text>
     </TouchableOpacity>
   );

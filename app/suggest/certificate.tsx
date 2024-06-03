@@ -1,3 +1,4 @@
+//"https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png"
 import {
   StyleSheet,
   Text,
@@ -10,16 +11,27 @@ import { index } from "@/app/index";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
+<<<<<<<< HEAD:app/suggest/suggest-first.tsx
 import Button from "@/components/Button";
 
 const imageUri: string =
   "https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png";
+========
+import Button, { HrefButton } from "@/components/Button";
+>>>>>>>> feature/recommendation-page:app/suggest/certificate.tsx
 
-export default function SuggestFirst() {
+const imageUri: string =
+  "https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png";
+
+export default function Certificate() {
   return (
     <View style={defaultStyles.pageContainer}>
       <View style={overflowLogo.container}>
+<<<<<<<< HEAD:app/suggest/suggest-first.tsx
         <FlaticonIcon uri={imageUri} size={470} />
+========
+        <FlaticonIcon uri={imageUri} size={450} />
+>>>>>>>> feature/recommendation-page:app/suggest/certificate.tsx
       </View>
       <View style={suggest.container}>
         <View style={suggest.subFrame}>
@@ -51,13 +63,29 @@ export default function SuggestFirst() {
             <Text style={suggest.optionText}>VSTEP</Text>
           </TouchableOpacity>
           <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>CERF</Text>
+            <Text style={suggest.optionText}>CEFR</Text>
           </TouchableOpacity>
         </View>
+<<<<<<<< HEAD:app/suggest/suggest-first.tsx
 
         <View style={suggest.decide}>
           <Button backgroundColor={Colors.red} title="Bỏ qua" />
           <Button backgroundColor={Colors.blue.regular} title="Tiếp tục" />
+========
+        <View style={suggest.decideFrame}>
+          <View style={suggest.decide}>
+            <HrefButton
+              backgroundColor={Colors.red}
+              title="Bỏ qua"
+              href="/suggest/score"
+            />
+            <HrefButton
+              backgroundColor={Colors.blue.regular}
+              title="Tiếp tục"
+              href="/suggest/score"
+            />
+          </View>
+>>>>>>>> feature/recommendation-page:app/suggest/certificate.tsx
         </View>
       </View>
     </View>
@@ -129,11 +157,19 @@ export const suggest = StyleSheet.create({
   },
 });
 
+<<<<<<<< HEAD:app/suggest/suggest-first.tsx
 const overflowLogo = StyleSheet.create({
   container: {
     flex: 0,
     overflow: "hidden", // Cắt icon nếu nó vượt quá kích thước khung
     maxHeight: 290,
+========
+export const overflowLogo = StyleSheet.create({
+  container: {
+    flex: 0,
+    overflow: "hidden", // Cắt icon nếu nó vượt quá kích thước khung
+    maxHeight: 260,
+>>>>>>>> feature/recommendation-page:app/suggest/certificate.tsx
     alignItems: "center",
     justifyContent: "center",
   },
