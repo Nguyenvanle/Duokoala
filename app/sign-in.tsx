@@ -1,119 +1,87 @@
-import {
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
-import React, { useState } from "react";
-import { defaultStyles } from "@/constants/Styles";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { BasicInput } from "@/components/BasicInput";
-export default function SignInScreen() {
-  const [isChecked, setIsChecked] = useState(false);
+import { index, koalaUri, logo } from "./index";
 
+const faceUri: string =
+  "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
+
+const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
+
+export default function SignInScreen() {
   return (
-    <View
-      style={{
-        ...defaultStyles.pageContainer,
-        display: "flex",
-        alignItems: "center",
-        padding: 30,
-      }}
-    >
-      {/* container */}
-      <View style={container.logo}>
-        <FlaticonIcon
-          size={120}
-          uri={"https://cdn-icons-png.flaticon.com/512/3069/3069172.png"}
-        ></FlaticonIcon>
-        <Text style={text.logo}> DUOKOALA</Text>
-      </View>
-      <View style={container.form}>
-        {/* test thử, ko ổn thì sửa:))) */}
-        <Text style={{ ...text.logo, fontSize: 24 }}>Đăng nhập</Text>
-        <View style={container.input}>
-          <BasicInput
-            placeholder="Tên đăng nhập"
-            isPassword={false}
-          ></BasicInput>
-          <BasicInput placeholder="Mật khẩu" isPassword={true}></BasicInput>
+    <View style={defaultStyles.pageContainer}>
+      {/* root container */}
+      <View style={signIn.container}>
+        {/* logo container */}
+        <View style={logo.container}>
+          <FlaticonIcon size={160} uri={koalaUri} />
+
+          <Text style={logo.text}>DUOKOALA</Text>
         </View>
-        <TouchableOpacity>
-          <Text style={{ ...text.button, alignSelf: "flex-end" }}>
-            Quên mật khẩu?
-          </Text>
-        </TouchableOpacity>
-        <View style={{ flexDirection: "row" }}>
-          {/* <CheckBox value={isChecked} onValueChange={setIsChecked} /> */}
-          <View
-            style={{
-              width: 15,
-              height: 15,
-              backgroundColor: Colors.light,
-              marginRight: 5,
-              borderWidth: 2,
-            }}
-          ></View>
-          <Text style={{ ...text.button, fontSize: 10 }}>Tôi đồng ý với </Text>
-          <TouchableOpacity>
-            <Text
-              style={{
-                ...text.button,
-                fontSize: 10,
-                color: Colors.blue.deep,
-              }}
-            >
-              "Thỏa thuận dịch vụ & bảo mật"
+
+        {/* form container */}
+        <View style={container.form}>
+          <Text style={text.title}>Đăng nhập</Text>
+
+          {/* input container */}
+          <View style={container.input}>
+            <Text style={text.subTitle}>Email</Text>
+
+            <BasicInput placeholder="koala@gmail.com" isPassword={false} />
+
+            {/* pass container */}
+            <View style={signIn.passContainer}>
+              <Text style={text.subTitle}>Mật khẩu</Text>
+
+              <TouchableOpacity style={signIn.forgotContainer}>
+                <Text style={signIn.passLinkText}>Quên mật khẩu?</Text>
+              </TouchableOpacity>
+            </View>
+
+            <BasicInput placeholder="matkhau123" isPassword={true}></BasicInput>
+          </View>
+
+          {/* button container */}
+          <TouchableOpacity style={container.button}>
+            <Text style={{ ...text.btnText, color: Colors.light }}>
+              ĐĂNG NHẬP
             </Text>
           </TouchableOpacity>
-        </View>
-        <TouchableOpacity style={container.button}>
-          <Text style={{ ...text.button, color: Colors.light }}>ĐĂNG NHẬP</Text>
-        </TouchableOpacity>
-        <View style={container.center}>
-          <View style={container.line}>
-            <Text> </Text>
+
+          {/* line container */}
+          <View style={container.center}>
+            <View style={container.line} />
+
+            {/* sign in with */}
+            <View style={signIn.signInWithContainer}>
+              <Text style={[text.btnText, { color: Colors.blue.text }]}>
+                Hoặc đăng nhập bằng
+              </Text>
+            </View>
           </View>
-          <View
-            style={{
-              ...container.center,
-              backgroundColor: Colors.blue.sky,
-              paddingLeft: 5,
-              paddingRight: 5,
-            }}
-          >
-            <Text style={text.button}>Hoặc đăng nhập bằng</Text>
+
+          {/* social sign in container */}
+          <View style={container.social}>
+            <View style={container.icon}>
+              <FlaticonIcon uri={ggUri} size={40} />
+            </View>
+
+            <View style={container.icon}>
+              <FlaticonIcon uri={faceUri} size={40} />
+            </View>
           </View>
-        </View>
-        <View style={container.social}>
-          <View style={container.icon}>
-            <Image
-              style={{ width: 40, height: 40 }}
-              source={{
-                uri: "https://cdn-icons-png.flaticon.com/128/2875/2875331.png",
-              }}
-            ></Image>
+
+          {/* sign up link container*/}
+          <View style={container.register}>
+            <Text style={text.mainContent}> Bạn chưa có tài khoản? </Text>
+
+            <TouchableOpacity>
+              <Text style={text.link}>Đăng ký ngay</Text>
+            </TouchableOpacity>
           </View>
-          <View style={container.icon}>
-            <Image
-              style={{ width: 40, height: 40 }}
-              source={{
-                uri: "https://cdn-icons-png.flaticon.com/128/15047/15047667.png",
-              }}
-            ></Image>
-          </View>
-        </View>
-        <View style={container.register}>
-          <Text style={text.button}> Bạn chưa có tài khoản? </Text>
-          <TouchableOpacity>
-            <Text style={{ ...text.button, color: Colors.blue.deep }}>
-              Đăng ký ngay
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -132,7 +100,6 @@ const container = StyleSheet.create({
   },
   form: {
     justifyContent: "center",
-    // alignItems: "center",
     flexDirection: "column",
     backgroundColor: Colors.blue.sky,
     width: "100%",
@@ -144,8 +111,10 @@ const container = StyleSheet.create({
     paddingTop: 10,
   },
   input: {
-    width: "100%",
-    gap: 20,
+    alignItems: "flex-start",
+    gap: 5,
+    flex: 0,
+    alignSelf: "stretch",
   },
   button: {
     backgroundColor: Colors.blue.regular,
@@ -186,17 +155,32 @@ const container = StyleSheet.create({
     flexDirection: "row",
   },
 });
-const text = StyleSheet.create({
-  logo: {
-    color: Colors.blue.text,
-    textAlign: "center",
-    fontSize: 32,
-    fontWeight: "700",
-    marginBottom: 10,
+
+const signIn = StyleSheet.create({
+  container: {
+    ...index.container,
   },
-  button: {
-    color: Colors.blue.text,
-    fontSize: 14,
-    fontWeight: "700",
+  passContainer: {
+    flex: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignSelf: "stretch",
+    alignItems: "flex-end",
+  },
+  passLinkText: {
+    ...text.link,
+    height: "100%",
+    textAlignVertical: "center",
+  },
+  forgotContainer: {
+    flex: 0,
+    alignSelf: "stretch",
+    flexDirection: "row",
+  },
+  signInWithContainer: {
+    ...container.center,
+    backgroundColor: Colors.blue.sky,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
 });
