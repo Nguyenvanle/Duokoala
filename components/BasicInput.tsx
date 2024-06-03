@@ -1,4 +1,5 @@
 import Colors from "@/constants/Colors";
+import { text } from "@/constants/Styles";
 import { useState } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
 
@@ -23,15 +24,47 @@ export function BasicInput(props: BasicInputProps) {
     </>
   );
 }
+
+export function DescriptionInput(props: BasicInputProps) {
+  const { placeholder, isPassword } = props;
+  const [text, setText] = useState("");
+  return (
+    <>
+      <TextInput
+        style={input.description}
+        placeholder={placeholder}
+        placeholderTextColor={Colors.mute}
+        onChangeText={(inputText) => setText(inputText)}
+        value={text}
+        textAlignVertical="top"
+        secureTextEntry={isPassword}
+        multiline={true}
+        numberOfLines={4}
+      ></TextInput>
+    </>
+  );
+}
+
 const input = StyleSheet.create({
   normal: {
+    ...text.mainContent,
+    textAlign: "left",
     backgroundColor: Colors.light,
     borderWidth: 2,
     borderRadius: 40,
     borderColor: Colors.blue.text,
     height: 50,
-    fontSize: 16,
-    fontWeight: "700",
+    paddingLeft: 20,
+    alignSelf: "stretch",
+  },
+  description: {
+    ...text.mainContent,
+    textAlign: "left",
+    paddingVertical: 10,
+    backgroundColor: Colors.light,
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: Colors.blue.text,
     paddingLeft: 20,
     alignSelf: "stretch",
   },

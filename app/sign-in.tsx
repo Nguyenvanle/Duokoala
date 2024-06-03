@@ -4,6 +4,7 @@ import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { BasicInput } from "@/components/BasicInput";
 import { index, koalaUri, logo } from "./index";
+import { router } from "expo-router";
 
 const faceUri: string =
   "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
@@ -45,8 +46,13 @@ export default function SignInScreen() {
           </View>
 
           {/* button container */}
-          <TouchableOpacity style={container.button}>
-            <Text style={{ ...text.btnText, color: Colors.light }}>
+          <TouchableOpacity
+            style={container.button}
+            onPress={() => {
+              router.push("/tabs");
+            }}
+          >
+            <Text style={[text.btnText, { color: Colors.light }]}>
               ĐĂNG NHẬP
             </Text>
           </TouchableOpacity>
@@ -88,7 +94,7 @@ export default function SignInScreen() {
   );
 }
 
-const container = StyleSheet.create({
+export const container = StyleSheet.create({
   center: {
     justifyContent: "center",
     alignItems: "center",

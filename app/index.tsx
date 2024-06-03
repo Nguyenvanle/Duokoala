@@ -50,6 +50,7 @@ export const index = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   slogan: {
     flex: 0,

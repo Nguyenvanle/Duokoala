@@ -64,7 +64,7 @@ export default function SuggestFirst() {
   );
 }
 
-const suggest = StyleSheet.create({
+export const suggest = StyleSheet.create({
   container: {
     ...index.container,
     justifyContent: "flex-start",
