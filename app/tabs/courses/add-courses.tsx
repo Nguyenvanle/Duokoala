@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { defaultStyles, text } from "@/constants/Styles";
@@ -13,8 +19,11 @@ const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
 
 const pHolder = {
-  name: "Điền tên khóa học",
-  description: "Mô tả tổng quan khóa học",
+  name: "TOEIC 450,...",
+  description: "Khóa học dành cho ...",
+  lesson: "Bài giảng",
+  references: "Tài liệu hỗ trợ cho khóa học",
+  exercise: "Bài tập",
 };
 
 export default function AddCourses() {
@@ -30,11 +39,11 @@ export default function AddCourses() {
         <View style={container.form}>
           {/* input container */}
           <View style={container.input}>
-            <Text style={text.subTitle}>Tên khóa học</Text>
+            <Text style={text.subTitle}>TÊN KHÓA HỌC</Text>
 
             <BasicInput placeholder={pHolder.name} isPassword={false} />
 
-            <Text style={text.subTitle}>Mô tả khóa học</Text>
+            <Text style={text.subTitle}>MÔ TẢ KHÓA HỌC</Text>
 
             <View style={{ alignSelf: "stretch" }}>
               <DescriptionInput
@@ -42,22 +51,21 @@ export default function AddCourses() {
                 isPassword={false}
               />
             </View>
+            <Text style={text.subTitle}>BÀI GIẢNG</Text>
 
-            <Text style={text.subTitle}>Tên khóa học</Text>
+            <BasicInput placeholder={pHolder.lesson} isPassword={false} />
 
-            <BasicInput placeholder={pHolder.name} isPassword={false} />
+            <Text style={text.subTitle}>TÀI LIỆU THAM KHẢO</Text>
 
-            <Text style={text.subTitle}>Tên khóa học</Text>
+            <BasicInput placeholder={pHolder.references} isPassword={false} />
 
-            <BasicInput placeholder={pHolder.name} isPassword={false} />
+            <Text style={text.subTitle}>BÀI TẬP</Text>
 
-            <Text style={text.subTitle}>Tên khóa học</Text>
-
-            <BasicInput placeholder={pHolder.name} isPassword={false} />
+            <BasicInput placeholder={pHolder.exercise} isPassword={false} />
 
             <View style={create.btnContainer}>
-              <Button backgroundColor={Colors.red} title="Bỏ qua" />
-              <Button backgroundColor={Colors.blue.regular} title="Tiếp tục" />
+              <Button backgroundColor={Colors.red} title="HỦY" />
+              <Button backgroundColor={Colors.blue.regular} title="TIẾP TỤC" />
             </View>
           </View>
         </View>
