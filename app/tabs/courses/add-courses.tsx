@@ -20,11 +20,11 @@ const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
 
 const pHolder = {
-  name: "TOEIC 450,...",
-  description: "Khóa học dành cho ...",
-  lesson: "Bài giảng",
-  references: "Tài liệu hỗ trợ cho khóa học",
-  exercise: "Bài tập",
+  name: "Nhập tên khóa học",
+  description: "Nhập mô tả tổng quan cho khóa học",
+  lesson: "Tải bài giảng cho khóa học",
+  references: "Tải tài liệu hỗ trợ cho khóa học",
+  exercise: "Tải bài tập lên cho khóa học",
 };
 
 export default function AddCourses() {
