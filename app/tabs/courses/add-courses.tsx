@@ -56,20 +56,39 @@ export default function AddCourses() {
             <BasicInput placeholder={pHolder.level} isPassword={false} />
 
             <Text style={text.subTitle}>BÀI GIẢNG</Text>
+
             <TouchableOpacity style={create.normal}>
               <Text style={create.tHolder}>Bài giảng</Text>
+              <View style={create.tHolder}>
+                <FlaticonIcon
+                  uri={"https://cdn-icons-png.flaticon.com/512/81/81081.png"}
+                  size={20}
+                />
+              </View>
             </TouchableOpacity>
 
             <Text style={text.subTitle}>TÀI LIỆU THAM KHẢO</Text>
 
             <TouchableOpacity style={create.normal}>
               <Text style={create.tHolder}>Tài liệu hỗ trợ cho khóa học</Text>
+              <View style={create.tHolder}>
+                <FlaticonIcon
+                  uri={"https://cdn-icons-png.flaticon.com/512/81/81081.png"}
+                  size={20}
+                />
+              </View>
             </TouchableOpacity>
 
             <Text style={text.subTitle}>BÀI TẬP</Text>
 
             <TouchableOpacity style={create.normal}>
               <Text style={create.tHolder}>Bài tập của khóa học</Text>
+              <View style={create.tHolder}>
+                <FlaticonIcon
+                  uri={"https://cdn-icons-png.flaticon.com/512/81/81081.png"}
+                  size={20}
+                />
+              </View>
             </TouchableOpacity>
 
             <View style={create.btnContainer}>
@@ -100,10 +119,13 @@ const create = StyleSheet.create({
     height: 50,
     paddingLeft: 20,
     alignSelf: "stretch",
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
   tHolder: {
     color: Colors.mute,
     paddingTop: 13,
     fontSize: 16,
+    paddingRight: 20,
   },
 });
