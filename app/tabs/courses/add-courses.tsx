@@ -12,11 +12,7 @@ import { defaultStyles, text } from "@/constants/Styles";
 import { index, logo } from "@/app/index";
 import Colors from "@/constants/Colors";
 import { container } from "@/app/sign-in";
-import {
-  BasicInput,
-  DescriptionInput,
-  TouchInput,
-} from "@/components/BasicInput";
+import { BasicInput, DescriptionInput } from "@/components/BasicInput";
 import { suggest } from "@/app/suggest/certificate";
 import Button from "@/components/Button";
 
@@ -26,8 +22,6 @@ const imageURI: string =
 const pHolder = {
   name: "TOEIC 450,...",
   description: "Khóa học dành cho ...",
-};
-const tHolder = {
   lesson: "Bài giảng",
   references: "Tài liệu hỗ trợ cho khóa học",
   exercise: "Bài tập",
@@ -59,24 +53,21 @@ export default function AddCourses() {
               />
             </View>
             <Text style={text.subTitle}>BÀI GIẢNG</Text>
-            <TouchableOpacity style={text.subTitle}>
-<<<<<<< Updated upstream
-              <TouchInput
-                placeholder={tHolder.lesson}
-                isPassword={false}
-                handlePress="https://docs.google.com/forms/d/1nCI5wEgwenUyU6BKmpx9lsciXRS6MsklHgjF_2-dJYI/edit"
-              />
-=======
-              <BasicInput placeholder={pHolder.lesson} isPassword={false} />
->>>>>>> Stashed changes
+            <TouchableOpacity style={create.normal}>
+              <Text style={create.tHolder}>Bài giảng</Text>
             </TouchableOpacity>
+
             <Text style={text.subTitle}>TÀI LIỆU THAM KHẢO</Text>
 
-            {/* <BasicInput placeholder={pHolder.references} isPassword={false} /> */}
+            <TouchableOpacity style={create.normal}>
+              <Text style={create.tHolder}>Tài liệu hỗ trợ cho khóa học</Text>
+            </TouchableOpacity>
 
             <Text style={text.subTitle}>BÀI TẬP</Text>
 
-            {/* <BasicInput placeholder={pHolder.exercise} isPassword={false} /> */}
+            <TouchableOpacity style={create.normal}>
+              <Text style={create.tHolder}>Bài tập của khóa học</Text>
+            </TouchableOpacity>
 
             <View style={create.btnContainer}>
               <Button backgroundColor={Colors.red} title="HỦY" />
@@ -95,5 +86,21 @@ const create = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     paddingTop: 16,
+  },
+  normal: {
+    ...text.mainContent,
+    textAlign: "left",
+    backgroundColor: Colors.light,
+    borderWidth: 2,
+    borderRadius: 40,
+    borderColor: Colors.blue.text,
+    height: 50,
+    paddingLeft: 20,
+    alignSelf: "stretch",
+  },
+  tHolder: {
+    color: Colors.mute,
+    paddingTop: 13,
+    fontSize: 16,
   },
 });

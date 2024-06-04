@@ -24,3 +24,16 @@
           </TouchableOpacity>
         </View> */
 }
+
+{
+  // const link = [
+  //   "https://docs.google.com/forms/d/1wsOPK7OLjz8FhQApNQPdfpqcLzxj9SLtIgMZRVJzPWo/edit",
+  //   "https://coccoc.com/search?query=gg+form",
+  //   "https://www.coze.com/space/7355006769027940359/bot/7358030805853454337",
+  // ];
+  // const handlePress = (index = 0) => {
+  //   const url = link[index];
+  //   Linking.openURL(url);
+  // };
+  //Liên kết gg form
+}

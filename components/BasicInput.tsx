@@ -51,27 +51,7 @@ export function DescriptionInput(props: BasicInputProps) {
   );
 }
 
-export function TouchInput(props: TouchInputProps) {
-  const { placeholder, isPassword, handlePress } = props;
-  return (
-    <>
-      <TextInput
-        // style={styles.subTitle1}
-        placeholder={placeholder}
-        secureTextEntry={isPassword}
-      ></TextInput>
-    </>
-  );
-}
-
-const styles = StyleSheet.create({
-  subTitle1: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold", // set type of text = fontWeight
-    color: Colors.blue.text,
-  },
-});
+const styles = StyleSheet.create({});
 
 const input = StyleSheet.create({
   normal: {
