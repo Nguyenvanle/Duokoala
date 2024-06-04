@@ -22,9 +22,7 @@ const imageURI: string =
 const pHolder = {
   name: "TOEIC 450,...",
   description: "Khóa học dành cho ...",
-  lesson: "Bài giảng",
-  references: "Tài liệu hỗ trợ cho khóa học",
-  exercise: "Bài tập",
+  level: "Độ khó",
 };
 
 export default function AddCourses() {
@@ -52,6 +50,11 @@ export default function AddCourses() {
                 isPassword={false}
               />
             </View>
+
+            <Text style={text.subTitle}>ĐỘ KHÓ</Text>
+
+            <BasicInput placeholder={pHolder.level} isPassword={false} />
+
             <Text style={text.subTitle}>BÀI GIẢNG</Text>
             <TouchableOpacity style={create.normal}>
               <Text style={create.tHolder}>Bài giảng</Text>
