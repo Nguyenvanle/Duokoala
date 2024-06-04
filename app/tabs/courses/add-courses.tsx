@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { defaultStyles, text } from "@/constants/Styles";
 import { index, logo } from "@/app/index";
@@ -15,7 +15,6 @@ import { container } from "@/app/sign-in";
 import { BasicInput, DescriptionInput } from "@/components/BasicInput";
 import { suggest } from "@/app/suggest/certificate";
 import Button from "@/components/Button";
-import { Picker } from "@react-native-picker/picker";
 
 const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
@@ -27,17 +26,6 @@ const pHolder = {
 };
 
 export default function AddCourses() {
-  const [selectedValue, setSelectedValue] = useState("Dễ");
-  const [isPickerShown, setPickerShown] = useState(false);
-
-  const showPicker = () => {
-    setPickerShown(true);
-  };
-
-  const hidePicker = () => {
-    setPickerShown(false);
-  };
-
   return (
     <ScrollView style={defaultStyles.pageContainer}>
       <View style={index.container}>
@@ -64,36 +52,8 @@ export default function AddCourses() {
             </View>
 
             <Text style={text.subTitle}>ĐỘ KHÓ</Text>
-            <TouchableOpacity style={create.normal} onPress={showPicker}>
-              <Picker
-                style={{
-                  flex: 0,
-                  backgroundColor: "red",
-                }}
-                selectedValue={selectedValue}
-                onValueChange={(itemValue, itemIndex) =>
-                  setSelectedValue(itemValue)
-                }
-              >
-                <Picker.Item label="Easy" value="Dễ" style={create.normal} />
-                <Picker.Item
-                  label="Medium"
-                  value="Trung bình"
-                  style={create.normal}
-                />
-                <Picker.Item
-                  label="Difficult"
-                  value="Khó"
-                  style={create.normal}
-                />
-                <Picker.Item
-                  label="Advanced"
-                  value="Cực Khó"
-                  style={create.normal}
-                />
-              </Picker>
-            </TouchableOpacity>
-            {/* <BasicInput placeholder={pHolder.level} isPassword={false} /> */}
+
+            <BasicInput placeholder={pHolder.level} isPassword={false} />
 
             <Text style={text.subTitle}>BÀI GIẢNG</Text>
             <TouchableOpacity style={create.normal}>
@@ -137,6 +97,7 @@ const create = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 40,
     borderColor: Colors.blue.text,
+    height: 50,
     paddingLeft: 20,
     alignSelf: "stretch",
   },
@@ -144,9 +105,5 @@ const create = StyleSheet.create({
     color: Colors.mute,
     paddingTop: 13,
     fontSize: 16,
-  },
-  pickercontainer: {
-    width: "100%",
-    alignItems: "center",
   },
 });
