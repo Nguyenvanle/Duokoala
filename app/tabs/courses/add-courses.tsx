@@ -60,11 +60,15 @@ export default function AddCourses() {
             </View>
             <Text style={text.subTitle}>BÀI GIẢNG</Text>
             <TouchableOpacity style={text.subTitle}>
+<<<<<<< Updated upstream
               <TouchInput
                 placeholder={tHolder.lesson}
                 isPassword={false}
                 handlePress="https://docs.google.com/forms/d/1nCI5wEgwenUyU6BKmpx9lsciXRS6MsklHgjF_2-dJYI/edit"
               />
+=======
+              <BasicInput placeholder={pHolder.lesson} isPassword={false} />
+>>>>>>> Stashed changes
             </TouchableOpacity>
             <Text style={text.subTitle}>TÀI LIỆU THAM KHẢO</Text>
 
