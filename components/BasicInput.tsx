@@ -1,11 +1,17 @@
 import Colors from "@/constants/Colors";
 import { text } from "@/constants/Styles";
+import { router } from "expo-router";
 import { useState } from "react";
-import { TextInput, StyleSheet, View } from "react-native";
+import { TextInput, StyleSheet, View, Text } from "react-native";
 
 interface BasicInputProps {
   placeholder: string;
   isPassword: boolean;
+}
+interface TouchInputProps {
+  placeholder: string;
+  isPassword: boolean;
+  handlePress: string;
 }
 
 export function BasicInput(props: BasicInputProps) {
@@ -44,6 +50,28 @@ export function DescriptionInput(props: BasicInputProps) {
     </>
   );
 }
+
+export function TouchInput(props: TouchInputProps) {
+  const { placeholder, isPassword, handlePress } = props;
+  return (
+    <>
+      <TextInput
+        // style={styles.subTitle1}
+        placeholder={placeholder}
+        secureTextEntry={isPassword}
+      ></TextInput>
+    </>
+  );
+}
+
+const styles = StyleSheet.create({
+  subTitle1: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold", // set type of text = fontWeight
+    color: Colors.blue.text,
+  },
+});
 
 const input = StyleSheet.create({
   normal: {

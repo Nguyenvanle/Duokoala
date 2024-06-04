@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import React from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
@@ -11,7 +12,11 @@ import { defaultStyles, text } from "@/constants/Styles";
 import { index, logo } from "@/app/index";
 import Colors from "@/constants/Colors";
 import { container } from "@/app/sign-in";
-import { BasicInput, DescriptionInput } from "@/components/BasicInput";
+import {
+  BasicInput,
+  DescriptionInput,
+  TouchInput,
+} from "@/components/BasicInput";
 import { suggest } from "@/app/suggest/certificate";
 import Button from "@/components/Button";
 
@@ -21,6 +26,8 @@ const imageURI: string =
 const pHolder = {
   name: "TOEIC 450,...",
   description: "Khóa học dành cho ...",
+};
+const tHolder = {
   lesson: "Bài giảng",
   references: "Tài liệu hỗ trợ cho khóa học",
   exercise: "Bài tập",
@@ -52,16 +59,20 @@ export default function AddCourses() {
               />
             </View>
             <Text style={text.subTitle}>BÀI GIẢNG</Text>
-
-            <BasicInput placeholder={pHolder.lesson} isPassword={false} />
-
+            <TouchableOpacity style={text.subTitle}>
+              <TouchInput
+                placeholder={tHolder.lesson}
+                isPassword={false}
+                handlePress="https://docs.google.com/forms/d/1nCI5wEgwenUyU6BKmpx9lsciXRS6MsklHgjF_2-dJYI/edit"
+              />
+            </TouchableOpacity>
             <Text style={text.subTitle}>TÀI LIỆU THAM KHẢO</Text>
 
-            <BasicInput placeholder={pHolder.references} isPassword={false} />
+            {/* <BasicInput placeholder={pHolder.references} isPassword={false} /> */}
 
             <Text style={text.subTitle}>BÀI TẬP</Text>
 
-            <BasicInput placeholder={pHolder.exercise} isPassword={false} />
+            {/* <BasicInput placeholder={pHolder.exercise} isPassword={false} /> */}
 
             <View style={create.btnContainer}>
               <Button backgroundColor={Colors.red} title="HỦY" />
