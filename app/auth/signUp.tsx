@@ -15,12 +15,12 @@ import { index, koalaUri, logo } from "../index";
 import { signIn } from "../sign-in";
 import { router } from "expo-router";
 export default function signUp() {
-  const signUpImage = "@/assets/images/Frame 10.png";
+  const signUpImage = "@/assets/images/Frame10.png";
   const logIn = () => {
     router.replace("/sign-in");
   };
   const signUp = () => {
-    router.replace("suggest/certificate");
+    router.replace("/auth/confirm");
   };
   return (
     <ScrollView style={defaultStyles.pageContainer}>
@@ -28,7 +28,7 @@ export default function signUp() {
       <View style={{ ...signIn.container, justifyContent: "flex-start" }}>
         {/* logo container */}
         <View style={logo.container}>
-          <Image source={require("@/assets/images/Frame10.png")} />
+          <Image source={require(signUpImage)} />
 
           <Text style={{ ...logo.text, fontSize: 30 }}>DUOKOALA</Text>
         </View>
@@ -143,21 +143,7 @@ const container = StyleSheet.create({
     backgroundColor: Colors.blue.text,
     transform: [{ translateY: 12 }],
   },
-  social: {
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  icon: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 50,
-    height: 50,
-    backgroundColor: Colors.light,
-    borderColor: Colors.blue.text,
-    borderWidth: 2,
-    borderRadius: 50,
-  },
+
   register: {
     justifyContent: "space-evenly",
     alignItems: "center",
