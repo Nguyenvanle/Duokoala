@@ -43,6 +43,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="meetup" color={color} />
           ),
+          headerBackgroundContainerStyle: { backgroundColor: "red" },
         }}
       />
     </Tabs>
