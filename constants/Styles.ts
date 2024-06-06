@@ -67,4 +67,10 @@ export const text = StyleSheet.create({
     fontWeight: "regular", // set type of text = fontWeight
     color: Colors.blue.deep,
   },
+  titleCourse: {
+    textAlign: "center",
+    fontSize: 24,
+    fontWeight: "bold", // set type of text = fontWeight
+    color: Colors.red,
+  },
 });

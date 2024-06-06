@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 export default function RootLayout() {
   return (
     <Stack screenOptions={{ statusBarColor: Colors.black }}>
-      <Stack.Screen name="add-courses" options={{ headerShown: false }} />
+      <Stack.Screen name="add_courses" options={{ headerShown: false }} />
     </Stack>
   );
 }

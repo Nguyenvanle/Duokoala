@@ -15,6 +15,7 @@ import { container } from "@/app/sign-in";
 import { BasicInput, DescriptionInput } from "@/components/BasicInput";
 import { suggest } from "@/app/suggest/certificate";
 import Button from "@/components/Button";
+import { router } from "expo-router";
 
 const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
@@ -23,6 +24,10 @@ const pHolder = {
   name: "TOEIC 450,...",
   description: "Khóa học dành cho ...",
   level: "Độ khó",
+};
+
+const JoinCoursesHandler = () => {
+  router.push("/join_courses.tsx");
 };
 
 export default function AddCourses() {
