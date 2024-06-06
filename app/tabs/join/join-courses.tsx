@@ -1,13 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { defaultStyles, text } from "@/constants/Styles";
+import { text } from "@/constants/Styles";
 import { container } from "@/app/sign-in";
 import { index, logo } from "@/app";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Button from "@/components/Button";
 import Colors from "@/constants/Colors";
 import { suggest } from "@/app/suggest/certificate";
-import { router } from "expo-router";
 const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
 const course = { name_course: "Ôn luyện TOEIC 4 kỹ năng 700+" };

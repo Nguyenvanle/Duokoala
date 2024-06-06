@@ -36,6 +36,16 @@ export default function TabLayout() {
           headerBackgroundContainerStyle: { backgroundColor: "red" },
         }}
       />
+      <Tabs.Screen
+        name="join"
+        options={{
+          title: "Tham Gia Khóa Học",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="cog" color={color} />
+          ),
+          headerBackgroundContainerStyle: { backgroundColor: "red" },
+        }}
+      />
     </Tabs>
   );
 }
