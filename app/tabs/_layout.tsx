@@ -36,6 +36,16 @@ export default function TabLayout() {
           headerBackgroundContainerStyle: { backgroundColor: "red" },
         }}
       />
+      <Tabs.Screen
+        name="profiles"
+        options={{
+          title: "Cá Nhân",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="user" color={color} />
+          ),
+          headerBackgroundContainerStyle: { backgroundColor: "red" },
+        }}
+      />
     </Tabs>
   );
 }
