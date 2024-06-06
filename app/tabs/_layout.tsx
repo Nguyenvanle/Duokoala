@@ -41,9 +41,8 @@ export default function TabLayout() {
         options={{
           title: "Tham Gia Khóa Học",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="cog" color={color} />
+            <FontAwesome size={28} name="meetup" color={color} />
           ),
-          headerBackgroundContainerStyle: { backgroundColor: "red" },
         }}
       />
     </Tabs>
