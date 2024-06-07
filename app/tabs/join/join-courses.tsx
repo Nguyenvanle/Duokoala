@@ -138,6 +138,7 @@ const join = StyleSheet.create({
     backgroundColor: Colors.milk,
     margin: 10,
     borderRadius: 10,
+    borderWidth: 4,
   },
   slogan: {
     flex: 0,

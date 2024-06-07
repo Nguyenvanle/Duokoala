@@ -49,7 +49,7 @@ export default function TabLayout() {
         options={{
           title: "Tham Gia Khóa Học",
           tabBarIcon: ({ color }) => (
-            <FontAwesome size={28} name="meetup" color={color} />
+            <FlaticonIcon size={28} uri={icon.course} color={color} />
           ),
           headerBackgroundContainerStyle: { backgroundColor: "red" },
         }}
