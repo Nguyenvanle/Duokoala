@@ -4,7 +4,7 @@ export default {
   mute: "#B7C4CF",
   teal: "#00ADB5",
   light: "#EEEEEE",
-  green: "#43766C",
+  green: "#40A578",
   milk: "#F8FAE5",
   beige: "#B19470",
   brown: "#76453B",
@@ -17,4 +17,5 @@ export default {
   },
   red: "#FF2E63",
   dark: "#1B262C",
+  purple: "#640D6B",
 };

@@ -1,94 +1,134 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  ImageSourcePropType,
+  Text,
+  FlatList,
+} from "react-native";
 import { defaultStyles, text } from "@/constants/Styles";
 import { index } from "@/app/index";
-import { container } from "@/app/sign-in";
-import Colors from "@/constants/Colors";
-import * as Progress from "react-native-progress";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-
+import React from "react";
+import UserGreeting from "@/components/UserGreeting";
+import StudyTime from "@/components/StudyTime";
+import Course from "@/components/Course";
+import { Link } from "expo-router";
 const user = {
   name: "Tiến Đạt",
   role: "HV",
   process: 0.75,
 };
-const fontSize: number = 34;
 const clockUri: string =
   "https://cdn-icons-png.flaticon.com/512/2755/2755545.png";
+const courseImageUrl: ImageSourcePropType = require("@/assets/images/course/toeic-700.jpg");
+const routerHref: string = "/tabs/courses/add-courses";
+
+const coursesData = [
+  {
+    title: "Khóa học TOEIC 700+",
+    imageUrl: courseImageUrl,
+    instructor: "Tiến Đạt",
+    level: "hard",
+    tags: ["toeic", "700+", "hard"],
+  },
+  {
+    title: "Khóa học IELTS 7.0+",
+    imageUrl: courseImageUrl,
+    instructor: "Minh Anh",
+    level: "advanced",
+    tags: ["ielts", "7.0+", "hard"],
+  },
+  {
+    title: "Khóa học tiếng Anh giao tiếp",
+    imageUrl: courseImageUrl,
+    instructor: "Hồng Nhung",
+    level: "easy",
+    tags: ["community", "english", "easy"],
+  },
+];
 
 export default function HomeScreen() {
   return (
     <ScrollView style={defaultStyles.pageContainer}>
       {/* root */}
       <View style={home.container}>
-        {/* hello */}
-        <View style={{ alignItems: "flex-start" }}>
-          <Text style={text.subTitle}>Xin chào {user.name} 🥰</Text>
+        {/* Greeting */}
+        <UserGreeting name={user.name} role={user.role} />
 
-          {/* display depend on user role */}
-          {user.role === "GV" ? (
-            <Text style={text.mainContent}>Bắt đầu dạy nào!</Text>
-          ) : (
-            <Text style={text.mainContent}>Bắt đầu học nào!</Text>
+        {/* Study Time */}
+        <StudyTime process={user.process} clockUri={clockUri} />
+
+        {/* Newest Courses */}
+        <View style={home.text}>
+          <Text style={text.subTitle}>Khóa học mới nhất</Text>
+          <Link style={text.link} href={routerHref}>
+            Xem thêm
+          </Link>
+        </View>
+
+        <FlatList
+          contentContainerStyle={{ gap: 6 }}
+          data={coursesData}
+          keyExtractor={(item) => item.title}
+          scrollEnabled={false}
+          renderItem={({ item }) => (
+            <Course
+              title={item.title}
+              imageUrl={item.imageUrl}
+              instructor={item.instructor}
+              level={item.level}
+              tags={item.tags}
+            />
           )}
+        />
+
+        {/* Suggest Courses */}
+        <View style={home.text}>
+          <Text style={text.subTitle}>Dành cho bạn</Text>
+          <Link style={text.link} href={routerHref}>
+            Xem thêm
+          </Link>
         </View>
 
-        {/* study time */}
-        <View style={studyTime.container}>
-          <View style={studyTime.leftContainer}>
-            <Text style={{ ...text.btnText, color: "black" }}>
-              Thời gian học hôm nay
-            </Text>
-
-            <Text style={home.timeTextRed}>
-              45/{<Text style={home.timeTextMilk}>60 phút</Text>}
-            </Text>
-
-            <Progress.Bar
-              progress={user.process}
-              color={Colors.red}
-              unfilledColor={Colors.milk}
-              borderWidth={0}
-              height={10}
-              width={170}
+        <FlatList
+          contentContainerStyle={{ gap: 6 }}
+          data={coursesData}
+          scrollEnabled={false}
+          keyExtractor={(item) => item.title}
+          renderItem={({ item }) => (
+            <Course
+              title={item.title}
+              imageUrl={item.imageUrl}
+              instructor={item.instructor}
+              level={item.level}
+              tags={item.tags}
             />
-          </View>
+          )}
+        />
 
-          <View style={studyTime.rightContainer}>
-            <FlaticonIcon size={80} uri={clockUri} />
-          </View>
+        {/* Subscribed Courses */}
+        <View style={home.text}>
+          <Text style={text.subTitle}>Đã đăng ký</Text>
+          <Link style={text.link} href={routerHref}>
+            Xem thêm
+          </Link>
         </View>
 
-        {/* course */}
-        <View style={course.textContainer}>
-          <Text style={text.subTitle}>Khóa học</Text>
-          <Text style={text.link}>Xem thêm</Text>
-        </View>
-        <View style={course.container}>
-          <View style={course.rightContainer}>
-            <Image
-              source={require("@/assets/images/course/toeic-700.jpg")}
-              style={{
-                width: 100,
-                height: 100,
-              }}
-              resizeMode="contain"
-              onError={() => {
-                throw new Error("Require Link Incorrect");
-              }}
+        <FlatList
+          contentContainerStyle={{ gap: 6 }}
+          data={coursesData}
+          scrollEnabled={false}
+          keyExtractor={(item) => item.title}
+          renderItem={({ item }) => (
+            <Course
+              title={item.title}
+              imageUrl={item.imageUrl}
+              instructor={item.instructor}
+              level={item.level}
+              tags={item.tags}
             />
-          </View>
-          <View style={course.leftContainer}>
-            <Text style={{ ...text.btnText, color: "black" }}>
-              Khóa học TOEIC 700+
-            </Text>
-
-            <Text style={[text.note, { color: Colors.blue.text }]}>
-              Giảng viên: {user.name}
-            </Text>
-            <Text style={text.mainContent}>Tag: </Text>
-            <Text style={text.link}>#toeic #700+ #hard</Text>
-          </View>
-        </View>
+          )}
+        />
       </View>
     </ScrollView>
   );
@@ -98,65 +138,11 @@ const home = StyleSheet.create({
   container: {
     ...index.container,
     gap: 10,
+    justifyContent: "flex-start",
   },
-  timeTextRed: {
-    ...text.title,
-    color: Colors.red,
-    fontSize: fontSize,
-  },
-  timeTextMilk: {
-    ...text.title,
-    color: Colors.milk,
-    fontSize: fontSize,
-  },
-});
-
-const studyTime = StyleSheet.create({
-  container: {
-    ...container.form,
-    borderRadius: 20,
-    borderWidth: 2,
-    backgroundColor: Colors.blue.sky,
-    alignItems: "flex-start",
-    flexDirection: "row",
-    alignContent: "space-between",
-    padding: 12,
-  },
-  leftContainer: {
-    flex: 1,
-    alignItems: "flex-start",
-    flexDirection: "column",
-    gap: 4,
-  },
-  rightContainer: {
-    flex: 0,
-    alignItems: "flex-end",
-    flexDirection: "column",
-  },
-});
-
-const course = StyleSheet.create({
-  container: {
-    ...studyTime.container,
-    backgroundColor: Colors.milk,
-  },
-  textContainer: {
+  text: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-  },
-  leftContainer: {
-    ...studyTime.leftContainer,
-  },
-  rightContainer: {
-    ...studyTime.rightContainer,
-    borderWidth: 2,
-    borderRadius: 20,
-    backgroundColor: Colors.light,
-    justifyContent: "center",
-    alignItems: "center",
-    width: 90,
-    height: 90,
-    overflow: "hidden",
   },
 });
