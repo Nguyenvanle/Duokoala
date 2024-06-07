@@ -9,35 +9,51 @@ import { container } from "@/app/sign-in";
 import { suggest } from "@/app/suggest/certificate";
 
 const imageCourse: string =
-  "https://th.bing.com/th/id/R.1b0e780d92d6ce16ecbf1b8e70b11241?rik=g8lhidF%2fT9Z1Qw&pid=ImgRaw&r=0";
+  "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
 
 const course = { name_course: "Ôn luyện TOEIC 4 kỹ năng 700+" };
 
+const level = { medium: "Trung Bình", easy: "Dễ", difficult: "Khó" };
+
+const level_color = {
+  medium: Colors.teal,
+  easy: Colors.green,
+  difficult: Colors.red,
+};
+
+const info_course = {
+  name_user: "Nguyễn Lê Tiến Đạt",
+  description:
+    "Khóa học TOEIC 4 kỹ năng hỗ trợ 2 phần thi riêng biệt: \nBài thi TOEIC Listening / Reading  \nBài thi TOEIC Speaking/Writing \n\n + Đối với phần thi Listening và Reading: Đây chính là bài thi Toeic phổ biến nhất ở Việt Nam hiện nay gồm 2 bài thi Nghe và Đọc với tổng cộng 200 câu trắc nghiệm. Mức điểm cho cả hai phần Listening/ Reading nằm trong khoảng từ 10 đến 990 điểm. \n\n + Đối với phần thi Speaking và Writing: Đây là bài thi Toeic mà các bạn có thể đăng ký thi nếu Trường hoặc công ty của các bạn yêu cầu. Tổng điểm của bài thi Speaking/Writing là 400 điểm.",
+};
+
 export default function JoinCourses() {
   return (
-    <View style={defaultStyles.pageContainer}>
-      <View style={index.container}>
-        {/* <View style={logo.container}>
-          <FlaticonIcon uri={imageURI} size={200} />
-        </View> */}
-        <View style={join.form}>
-          <View style={join.input}>
-            <Text style={join.subTitle1}>
-              BẠN CÓ CHẮC CHẮN THAM GIA KHÓA HỌC
-            </Text>
-            <FlaticonIcon uri={imageCourse} size={270} />
-            <Text style={join.titleCourse}>{course.name_course}</Text>
-            <Text style={join.note1}>
-              Lưu ý: Khóa học chỉ được bắt đầu khi bạn "Tham gia" khóa học
-            </Text>
-            <View style={join.btnContainer}>
-              <Button backgroundColor={Colors.red} title="HỦY" />
-              <Button backgroundColor={Colors.blue.regular} title="THAM GIA" />
-            </View>
-          </View>
+    <ScrollView style={join.pageContainer}>
+      <View style={{ flexDirection: "row", flex: 0, padding: 10 }}>
+        <FlaticonIcon uri={imageCourse} size={120} />
+        <View style={{ flexDirection: "column", flex: 1, padding: 10 }}>
+          <Text numberOfLines={2} style={join.titleCourse}>
+            {course.name_course}
+          </Text>
+          <Text style={join.mainContent}>Độ Khó: {level.medium}</Text>
         </View>
       </View>
-    </View>
+
+      <View style={join.description}>
+        <Text style={join.mainContent}>Tác Giả:</Text>
+        <Text style={join.mainCourse}>{info_course.name_user}</Text>
+        <Text style={join.mainContent}>Giới Thiệu:</Text>
+        <Text style={join.mainCourse}>{info_course.description}</Text>
+        <Text style={join.note1}>
+          Khóa học chỉ được bắt đầu khi bạn "Tham Gia" khóa học
+        </Text>
+      </View>
+      <View style={join.btnContainer}>
+        <Button backgroundColor={Colors.red} title="HỦY" />
+        <Button backgroundColor={Colors.blue.regular} title="THAM GIA" />
+      </View>
+    </ScrollView>
   );
 }
 
@@ -46,7 +62,7 @@ const join = StyleSheet.create({
     ...suggest.decide,
     justifyContent: "space-evenly",
     alignItems: "center",
-    paddingTop: 16,
+    paddingTop: 10,
   },
   subTitle1: {
     textAlign: "center",
@@ -64,11 +80,11 @@ const join = StyleSheet.create({
     paddingTop: 10,
   },
   titleCourse: {
-    textAlign: "center",
-    fontSize: 24,
+    alignContent: "stretch",
+    fontSize: 20,
     fontWeight: "bold", // set type of text = fontWeight
-    color: Colors.red,
-    alignSelf: "center",
+    color: Colors.blue.deep,
+    paddingVertical: 5,
   },
   form: {
     justifyContent: "center",
@@ -83,9 +99,31 @@ const join = StyleSheet.create({
     alignSelf: "center",
   },
   input: {
-    alignItems: "center",
-    gap: 5,
+    alignSelf: "stretch",
+    justifyContent: "flex-start",
+  },
+  mainContent: {
+    textAlign: "left",
+    fontSize: 16,
+    fontWeight: "bold", // set type of text = fontWeight
+    color: Colors.blue.deep,
+    paddingVertical: 10,
+  },
+  mainCourse: {
+    textAlign: "left",
+    fontSize: 16,
+    fontWeight: "regular", // set type of text = fontWeight
+    color: Colors.brown,
+  },
+  pageContainer: {
+    flex: 1,
+    backgroundColor: Colors.blue.light,
+    paddingTop: 20,
+  },
+  description: {
     flex: 0,
     alignSelf: "stretch",
+    color: Colors.milk,
+    padding: 10,
   },
 });
