@@ -5,6 +5,7 @@ import {
   View,
   Image,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
@@ -25,7 +26,10 @@ export default function signUp() {
   return (
     <ScrollView style={defaultStyles.pageContainer}>
       {/* root container */}
-      <View style={{ ...signIn.container, justifyContent: "flex-start" }}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={{ ...signIn.container, justifyContent: "flex-start" }}
+      >
         {/* logo container */}
         <View style={logo.container}>
           <Image source={require(signUpImage)} />
@@ -34,7 +38,10 @@ export default function signUp() {
         </View>
 
         {/* form container */}
-        <View style={container.form}>
+        <ImageBackground
+          source={require("@/assets/images/radiant-bg.png")}
+          style={container.form}
+        >
           <Text style={text.title}>Đăng ký</Text>
 
           {/* input container */}
@@ -91,8 +98,8 @@ export default function signUp() {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </View>
+        </ImageBackground>
+      </ImageBackground>
     </ScrollView>
   );
 }
@@ -111,13 +118,13 @@ const container = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
     backgroundColor: Colors.blue.sky,
-    width: "100%",
     borderWidth: 4,
     borderRadius: 40,
     borderColor: Colors.blue.text,
     gap: 10,
     padding: 20,
     paddingTop: 10,
+    overflow: "hidden",
   },
   input: {
     alignItems: "flex-start",

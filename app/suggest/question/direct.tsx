@@ -1,4 +1,5 @@
 import {
+  ImageBackground,
   StyleSheet,
   Text,
   Touchable,
@@ -14,26 +15,30 @@ import Button, { HrefButton } from "@/components/Button";
 import { overflowLogo, suggest } from "../certificate";
 
 const imageUri: string =
-  "https://cdn-icons-png.flaticon.com/512/3240/3240831.png";
+  "https://cdn-icons-png.flaticon.com/512/10211/10211870.png";
 
 export default function SuggestFirst() {
   return (
-    <View style={defaultStyles.pageContainer}>
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
       <View style={overSuggest.container}>
-        <View style={justify.justifyIcon}>
-          <FlaticonIcon uri={imageUri} size={250} />
-        </View>
-        <View style={suggest.subFrame}>
-          <View style={suggest.contentFrame}>
-            <Text style={text.title}>Đánh giá năng lực</Text>
+        <View style={{ paddingVertical: 100 }}>
+          <FlaticonIcon uri={imageUri} size={300} />
+          <View style={suggest.subFrame}>
+            <View style={suggest.contentFrame}>
+              <Text style={text.title}>Đánh giá năng lực</Text>
+            </View>
           </View>
-        </View>
 
-        <View style={suggest.subFrame}>
-          <View style={suggest.contentFrame}>
-            <Text style={text.mainContent}>
-              Có lẽ chúng ta nên làm bài kiểm tra nhỏ đánh giá năng lực của bạn
-            </Text>
+          <View style={suggest.subFrame}>
+            <View style={suggest.contentFrame}>
+              <Text style={text.mainContent}>
+                Có lẽ chúng ta nên làm bài kiểm tra nhỏ đánh giá năng lực của
+                bạn
+              </Text>
+            </View>
           </View>
         </View>
         <View style={overSuggest.decide}>
@@ -43,13 +48,13 @@ export default function SuggestFirst() {
             href="/suggest/question/text-question"
           />
           <HrefButton
-            backgroundColor={Colors.teal}
+            backgroundColor={Colors.blue.regular}
             title="Đồng ý"
             href="/suggest/question/text-question"
           />
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 
@@ -57,11 +62,12 @@ export const overSuggest = StyleSheet.create({
   container: {
     ...suggest.container,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   decide: {
     ...suggest.decide,
-    justifyContent: "center",
+    flex: 0,
+    justifyContent: "flex-end",
     paddingTop: 15,
     gap: 15,
   },

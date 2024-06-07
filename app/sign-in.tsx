@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
@@ -18,7 +24,10 @@ export default function SignInScreen() {
   return (
     <View style={defaultStyles.pageContainer}>
       {/* root container */}
-      <View style={signIn.container}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={signIn.container}
+      >
         {/* logo container */}
         <View style={logo.container}>
           <FlaticonIcon size={160} uri={koalaUri} />
@@ -27,7 +36,10 @@ export default function SignInScreen() {
         </View>
 
         {/* form container */}
-        <View style={container.form}>
+        <ImageBackground
+          source={require("@/assets/images/radiant-bg.png")}
+          style={container.form}
+        >
           <Text style={text.title}>Đăng nhập</Text>
 
           {/* input container */}
@@ -62,13 +74,14 @@ export default function SignInScreen() {
 
           {/* line container */}
           <View style={container.center}>
-            <View style={container.line} />
-
             {/* sign in with */}
             <View style={signIn.signInWithContainer}>
+              <View style={container.line} />
               <Text style={[text.btnText, { color: Colors.blue.text }]}>
                 Hoặc đăng nhập bằng
               </Text>
+
+              <View style={container.line} />
             </View>
           </View>
 
@@ -91,8 +104,8 @@ export default function SignInScreen() {
               <Text style={text.link}>Đăng ký ngay</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </View>
+        </ImageBackground>
+      </ImageBackground>
     </View>
   );
 }
@@ -111,13 +124,13 @@ export const container = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
     backgroundColor: Colors.blue.sky,
-    width: "100%",
     borderWidth: 4,
     borderRadius: 40,
     borderColor: Colors.blue.text,
     gap: 10,
     padding: 20,
     paddingTop: 10,
+    overflow: "hidden",
   },
   input: {
     alignItems: "flex-start",
@@ -139,9 +152,8 @@ export const container = StyleSheet.create({
   },
   line: {
     height: 2,
-    width: "100%",
+    width: "25%",
     backgroundColor: Colors.blue.text,
-    transform: [{ translateY: 12 }],
   },
   social: {
     justifyContent: "space-evenly",
@@ -168,6 +180,7 @@ export const container = StyleSheet.create({
 export const signIn = StyleSheet.create({
   container: {
     ...index.container,
+    justifyContent: "flex-start",
   },
   passContainer: {
     flex: 0,
@@ -188,8 +201,9 @@ export const signIn = StyleSheet.create({
   },
   signInWithContainer: {
     ...container.center,
-    backgroundColor: Colors.blue.sky,
     paddingLeft: 5,
     paddingRight: 5,
+    flexDirection: "row",
+    gap: 4,
   },
 });

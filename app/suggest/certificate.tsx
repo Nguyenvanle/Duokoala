@@ -1,5 +1,11 @@
 //"https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png"
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { index } from "@/app/index";
 import { defaultStyles, text } from "@/constants/Styles";
@@ -12,9 +18,12 @@ const imageUri: string =
 
 export default function Certificate() {
   return (
-    <View style={defaultStyles.pageContainer}>
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
       <View style={overflowLogo.container}>
-        <FlaticonIcon uri={imageUri} size={450} />
+        <FlaticonIcon uri={imageUri} size={340} />
       </View>
       <View style={suggest.container}>
         <View style={suggest.subFrame}>
@@ -33,7 +42,7 @@ export default function Certificate() {
 
         <View style={suggest.subFrame}>
           <TouchableOpacity
-            style={[suggest.option, { backgroundColor: Colors.brown }]}
+            style={[suggest.option, { backgroundColor: Colors.blue.deep }]}
           >
             <Text style={[suggest.optionText, { color: Colors.milk }]}>
               TOEIC
@@ -65,7 +74,7 @@ export default function Certificate() {
           </View>
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 

@@ -10,8 +10,8 @@ export default {
   brown: "#76453B",
   blue: {
     light: "#A7F6FF",
-    regular: "#699FEA",
-    deep: "#3F72AF",
+    regular: "#3282B8",
+    deep: "#0F4C75",
     text: "#112D4E",
     sky: "#7FD3FF",
   },

@@ -1,13 +1,13 @@
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { defaultStyles, text } from "@/constants/Styles";
-import { StyleSheet, Text, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import useIndexScreenViewModel from "@/screens/index/v-model";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Colors from "@/constants/Colors";
 
 export const koalaUri: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
-const routerHref: string = "/sign-in";
+const routerHref: string = "/suggest/direct-result";
 
 export default function IndexScreen() {
   const { fontsLoaded, opacity, onLayoutRootView } =
@@ -25,7 +25,10 @@ export default function IndexScreen() {
   return (
     <View style={defaultStyles.pageContainer} onLayout={onLayoutRootView}>
       {/* container */}
-      <View style={index.container}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={index.container}
+      >
         {/* Logo */}
         <Animated.View style={[logo.container, animatedStyle]}>
           <FlaticonIcon size={160} uri={koalaUri} />
@@ -39,7 +42,7 @@ export default function IndexScreen() {
             Khai Phá Tiềm Năng Tiếng Anh Của Bạn
           </Text>
         </Animated.View>
-      </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -51,6 +54,7 @@ export const index = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 20,
     paddingBottom: 20,
+    margin: -1,
   },
   slogan: {
     flex: 0,

@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { ImageBackground, Text, View } from "react-native";
 import React from "react";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
@@ -20,8 +20,17 @@ export default function SuggestFirst() {
     };
   });
   return (
-    <View style={defaultStyles.pageContainer}>
-      <Animated.View style={[overSuggest.container, animatedStyle]}>
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
+      <Animated.View
+        style={[
+          overSuggest.container,
+          { justifyContent: "center" },
+          animatedStyle,
+        ]}
+      >
         <FlaticonIcon uri={imageUri} size={250} />
         <View style={suggest.subFrame}>
           <View style={suggest.contentFrame}>
@@ -37,6 +46,6 @@ export default function SuggestFirst() {
           </View>
         </View>
       </Animated.View>
-    </View>
+    </ImageBackground>
   );
 }

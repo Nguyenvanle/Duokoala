@@ -1,4 +1,5 @@
 import {
+  ImageBackground,
   StyleSheet,
   Text,
   Touchable,
@@ -17,7 +18,10 @@ const imageUri: string =
   "https://tienganhmoingay.com/media/images/uploads/2015/10/14/new-image.jpg";
 export default function PictureQuestion() {
   return (
-    <View style={defaultStyles.pageContainer}>
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
       <View style={suggest.container}>
         <View style={overflowLogo.container}>
           <FlaticonIcon uri={imageUri} size={320} />
@@ -39,23 +43,23 @@ export default function PictureQuestion() {
         <View style={suggest.subFrame}>
           <TouchableOpacity style={suggest.option}>
             <Text style={suggest.optionText}>
-              They’re reading the newspaper
+              They're reading the newspaper
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>They’re leaving the room</Text>
+            <Text style={suggest.optionText}>They're leaving the room</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[suggest.option, { backgroundColor: Colors.brown }]}
+            style={[suggest.option, { backgroundColor: Colors.blue.deep }]}
           >
             <Text style={[suggest.optionText, { color: Colors.milk }]}>
-              They’re standing near the table
+              They're standing near the table
             </Text>
           </TouchableOpacity>
           <TouchableOpacity style={suggest.option}>
             <Text style={suggest.optionText}>
-              They’re turning on the machine
+              They're turning on the machine
             </Text>
           </TouchableOpacity>
         </View>
@@ -73,6 +77,6 @@ export default function PictureQuestion() {
           />
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }

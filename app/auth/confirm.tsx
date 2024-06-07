@@ -1,4 +1,11 @@
-import { ScrollView, StyleSheet, Text, View, Image } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+} from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
@@ -12,9 +19,12 @@ export default function confirm() {
   const sizeIcon: number = 150;
 
   return (
-    <ScrollView style={defaultStyles.pageContainer}>
+    <View style={defaultStyles.pageContainer}>
       {/* root container */}
-      <View style={signIn.container}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={signIn.container}
+      >
         {/* logo container */}
         <View style={logo.container}>
           <Image
@@ -26,7 +36,10 @@ export default function confirm() {
         </View>
 
         {/* form container */}
-        <View style={container.form}>
+        <ImageBackground
+          source={require("@/assets/images/radiant-bg.png")}
+          style={container.form}
+        >
           <View style={container.text}>
             <Text style={text.mainContent}>
               Vui lòng kiểm tra email của bạn
@@ -48,19 +61,19 @@ export default function confirm() {
           {/* button container */}
           <View style={container.button}>
             <HrefButton
-              backgroundColor={"red"}
+              backgroundColor={Colors.red}
               title={"LẤY MÃ"}
               href={"/auth/confirm"}
             ></HrefButton>
             <HrefButton
-              backgroundColor={"blue"}
+              backgroundColor={Colors.blue.regular}
               title={"XÁC NHẬN"}
               href={"/suggest/certificate"}
             ></HrefButton>
           </View>
-        </View>
-      </View>
-    </ScrollView>
+        </ImageBackground>
+      </ImageBackground>
+    </View>
   );
 }
 
@@ -78,13 +91,13 @@ const container = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
     backgroundColor: Colors.blue.sky,
-    width: "100%",
     borderWidth: 4,
     borderRadius: 40,
     borderColor: Colors.blue.text,
     gap: 10,
     padding: 20,
     paddingTop: 10,
+    overflow: "hidden",
   },
   input: {
     alignItems: "flex-start",
@@ -93,7 +106,7 @@ const container = StyleSheet.create({
     alignSelf: "stretch",
   },
   button: {
-    flex: 1,
+    flex: 0,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignSelf: "stretch",

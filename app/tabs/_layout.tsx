@@ -18,7 +18,7 @@ export default function TabLayout() {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         tabBarStyle: tabStyle.tabBarStyle,
-        headerStyle: { backgroundColor: Colors.blue.light },
+        headerStyle: { backgroundColor: "#A7F6FF" },
         headerTitleAlign: "center",
         headerTitleStyle: { ...text.title },
       }}
@@ -48,10 +48,7 @@ export default function TabLayout() {
         name="join"
         options={{
           title: "Tham Gia Khóa Học",
-          tabBarIcon: ({ color }) => (
-            <FlaticonIcon size={28} uri={icon.course} color={color} />
-          ),
-          headerBackgroundContainerStyle: { backgroundColor: "red" },
+          tabBarIcon: () => <FlaticonIcon size={28} uri={icon.user} />,
         }}
       />
     </Tabs>
@@ -62,7 +59,7 @@ const tabStyle = StyleSheet.create({
   tabBarStyle: {
     height: 60,
     paddingBottom: 7,
-    backgroundColor: Colors.blue.light,
+    backgroundColor: "#7EAEED",
     borderTopWidth: 0, // Tắt đường viền trên cùng
     shadowColor: "transparent", // Tắt bóng (shadow) trên iOS
     elevation: 0, // Tắt bóng (shadow) trên Android

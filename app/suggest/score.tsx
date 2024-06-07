@@ -1,4 +1,5 @@
 import {
+  ImageBackground,
   StyleSheet,
   Text,
   Touchable,
@@ -17,7 +18,10 @@ const imageUri: string =
   "https://cdn-icons-png.flaticon.com/512/1604/1604895.png";
 export default function Score() {
   return (
-    <View style={defaultStyles.pageContainer}>
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
       <View style={suggest.container}>
         <View style={overflowLogo.container}>
           <FlaticonIcon uri={imageUri} size={250} />
@@ -38,7 +42,7 @@ export default function Score() {
 
         <View style={suggest.subFrame}>
           <TouchableOpacity
-            style={[suggest.option, { backgroundColor: Colors.brown }]}
+            style={[suggest.option, { backgroundColor: Colors.blue.deep }]}
           >
             <Text style={[suggest.optionText, { color: Colors.milk }]}>
               900+ điểm
@@ -68,6 +72,6 @@ export default function Score() {
           />
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }

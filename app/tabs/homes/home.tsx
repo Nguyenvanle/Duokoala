@@ -5,6 +5,7 @@ import {
   ImageSourcePropType,
   Text,
   FlatList,
+  ImageBackground,
 } from "react-native";
 import { defaultStyles, text } from "@/constants/Styles";
 import { index } from "@/app/index";
@@ -51,7 +52,10 @@ export default function HomeScreen() {
   return (
     <ScrollView style={defaultStyles.pageContainer}>
       {/* root */}
-      <View style={home.container}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={home.container}
+      >
         {/* Greeting */}
         <UserGreeting name={user.name} role={user.role} />
 
@@ -129,7 +133,7 @@ export default function HomeScreen() {
             />
           )}
         />
-      </View>
+      </ImageBackground>
     </ScrollView>
   );
 }
@@ -139,6 +143,7 @@ const home = StyleSheet.create({
     ...index.container,
     gap: 10,
     justifyContent: "flex-start",
+
   },
   text: {
     flexDirection: "row",

@@ -1,4 +1,5 @@
 import {
+  ImageBackground,
   StyleSheet,
   Text,
   Touchable,
@@ -17,7 +18,10 @@ const imageUri: string =
   "https://cdn-icons-png.flaticon.com/512/9888/9888830.png";
 export default function TextQuestion() {
   return (
-    <View style={defaultStyles.pageContainer}>
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
       <View style={suggest.container}>
         <View style={overflowLogo.container}>
           <FlaticonIcon uri={imageUri} size={260} />
@@ -41,7 +45,7 @@ export default function TextQuestion() {
             <Text style={suggest.optionText}>Hospital</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[suggest.option, { backgroundColor: Colors.brown }]}
+            style={[suggest.option, { backgroundColor: Colors.blue.deep }]}
           >
             <Text style={[suggest.optionText, { color: Colors.milk }]}>
               Cinema
@@ -68,6 +72,6 @@ export default function TextQuestion() {
           />
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
