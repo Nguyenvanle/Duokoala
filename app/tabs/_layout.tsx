@@ -44,6 +44,16 @@ export default function TabLayout() {
           tabBarIcon: () => <FlaticonIcon size={28} uri={icon.user} />,
         }}
       />
+      <Tabs.Screen
+        name="join"
+        options={{
+          title: "Tham Gia Khóa Học",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="meetup" color={color} />
+          ),
+          headerBackgroundContainerStyle: { backgroundColor: "red" },
+        }}
+      />
     </Tabs>
   );
 }
