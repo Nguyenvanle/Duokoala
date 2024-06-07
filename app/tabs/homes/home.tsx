@@ -21,7 +21,7 @@ const user = {
 const clockUri: string =
   "https://cdn-icons-png.flaticon.com/512/2755/2755545.png";
 const courseImageUrl: ImageSourcePropType = require("@/assets/images/course/toeic-700.jpg");
-const routerHref: string = "/tabs/courses/add-courses";
+const routerHref: string = "/tabs/join/join-courses";
 
 const coursesData = [
   {

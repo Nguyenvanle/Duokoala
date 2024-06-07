@@ -21,8 +21,9 @@ interface CourseProps {
   tags: string[];
 }
 
+
 export const levelTemplate = ["easy", "medium", "hard", "advanced"];
-const routerHref : string = "/tabs/courses/add-courses";
+const routerHref: string = "/tabs/join/";
 
 const Course: React.FC<CourseProps> = ({
   title,
@@ -31,7 +32,6 @@ const Course: React.FC<CourseProps> = ({
   level,
   tags,
 }) => {
-
   const [levelColor, setLevelColor] = useState(Colors.green);
 
   useEffect(() => {
@@ -52,7 +52,15 @@ const Course: React.FC<CourseProps> = ({
   }, []);
 
   return (
-    <TouchableOpacity style={course.container} onPress={() => {router.push(routerHref)}}>
+    <TouchableOpacity
+      style={course.container}
+      onPress={() => {
+        router.push({
+          pathname: routerHref,
+          params: { title: title },
+        });
+      }}
+    >
       <View style={course.leftContainer}>
         <Image
           source={imageUrl}

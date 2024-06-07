@@ -1,12 +1,10 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Button from "@/components/Button";
 import Colors from "@/constants/Colors";
-import { defaultStyles, text } from "@/constants/Styles";
-import { index, logo } from "@/app/index";
-import { container } from "@/app/sign-in";
 import { suggest } from "@/app/suggest/certificate";
+import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 
 const imageCourse: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
@@ -28,6 +26,12 @@ const info_course = {
 };
 
 export default function JoinCourses() {
+  const { title } = useGlobalSearchParams();
+
+  useEffect(() => {
+    console.log(title);
+  }, [title]);
+
   return (
     <ScrollView style={join.pageContainer}>
       <View
@@ -39,7 +43,14 @@ export default function JoinCourses() {
         }}
       >
         <FlaticonIcon uri={imageCourse} size={120} />
-        <View style={{ flexDirection: "column", flex: 1, padding: 10 }}>
+        <View
+          style={{
+            flexDirection: "column",
+            flex: 1,
+            paddingHorizontal: 10,
+            justifyContent: "flex-start",
+          }}
+        >
           <Text numberOfLines={2} style={join.titleCourse}>
             {course.name_course}
           </Text>
@@ -94,8 +105,7 @@ const join = StyleSheet.create({
     alignContent: "stretch",
     fontSize: 20,
     fontWeight: "bold", // set type of text = fontWeight
-    color: Colors.blue.deep,
-    paddingVertical: 5,
+    color: Colors.blue.text,
   },
   form: {
     justifyContent: "center",
