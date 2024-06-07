@@ -64,16 +64,6 @@ export default function HomeScreen() {
           <Text style={text.link}>Xem thêm</Text>
         </View>
         <View style={course.container}>
-          <View style={course.leftContainer}>
-            <Text style={{ ...text.btnText, color: "black" }}>
-              Khóa học TOEIC 700+
-            </Text>
-
-            <Text style={text.mainContent}>Giảng viên: {user.name}</Text>
-            <Text style={text.mainContent}>Tag: </Text>
-            <Text style={text.link}>#toeic #700+ #hard</Text>
-          </View>
-
           <View style={course.rightContainer}>
             <Image
               source={require("@/assets/images/course/toeic-700.jpg")}
@@ -86,6 +76,17 @@ export default function HomeScreen() {
                 throw new Error("Require Link Incorrect");
               }}
             />
+          </View>
+          <View style={course.leftContainer}>
+            <Text style={{ ...text.btnText, color: "black" }}>
+              Khóa học TOEIC 700+
+            </Text>
+
+            <Text style={[text.note, { color: Colors.blue.text }]}>
+              Giảng viên: {user.name}
+            </Text>
+            <Text style={text.mainContent}>Tag: </Text>
+            <Text style={text.link}>#toeic #700+ #hard</Text>
           </View>
         </View>
       </View>

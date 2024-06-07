@@ -1,17 +1,11 @@
 //"https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png"
-import {
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { index } from "@/app/index";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
-import Button, { HrefButton } from "@/components/Button";
+import { HrefButton } from "@/components/Button";
 
 const imageUri: string =
   "https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png";
