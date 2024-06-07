@@ -29,31 +29,38 @@ const info_course = {
 
 export default function JoinCourses() {
   return (
-    <ScrollView style={join.pageContainer}>
-      <View style={{ flexDirection: "row", flex: 0, padding: 10 }}>
-        <FlaticonIcon uri={imageCourse} size={120} />
-        <View style={{ flexDirection: "column", flex: 1, padding: 10 }}>
-          <Text numberOfLines={2} style={join.titleCourse}>
-            {course.name_course}
-          </Text>
-          <Text style={join.mainContent}>Độ Khó: {level.medium}</Text>
+    <View style={join.pageContainer}>
+      <View style={join.container}>
+        <View style={{ flexDirection: "row", flex: 0, padding: 10 }}>
+          <FlaticonIcon uri={imageCourse} size={120} />
+          <View style={{ flexDirection: "column", flex: 1, padding: 10 }}>
+            <Text numberOfLines={2} style={join.titleCourse}>
+              {course.name_course}
+            </Text>
+            <Text style={join.mainContent}>Độ Khó: {level.medium}</Text>
+          </View>
+        </View>
+
+        <View style={join.line}></View>
+
+        <View style={join.description}>
+          <View style={{ flexDirection: "row", paddingBottom: 25 }}>
+            <Text style={join.mainContent}>Tác Giả: </Text>
+            <Text style={join.mainCourse}> {info_course.name_user}</Text>
+          </View>
+          <Text style={join.mainContent}>Giới Thiệu:</Text>
+          <Text style={join.mainCourse}>{info_course.description}</Text>
         </View>
       </View>
+      <Text style={join.note1}>
+        Khóa học chỉ được bắt đầu khi bạn "Tham Gia" khóa học
+      </Text>
 
-      <View style={join.description}>
-        <Text style={join.mainContent}>Tác Giả:</Text>
-        <Text style={join.mainCourse}>{info_course.name_user}</Text>
-        <Text style={join.mainContent}>Giới Thiệu:</Text>
-        <Text style={join.mainCourse}>{info_course.description}</Text>
-        <Text style={join.note1}>
-          Khóa học chỉ được bắt đầu khi bạn "Tham Gia" khóa học
-        </Text>
-      </View>
       <View style={join.btnContainer}>
         <Button backgroundColor={Colors.red} title="HỦY" />
         <Button backgroundColor={Colors.blue.regular} title="THAM GIA" />
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -107,7 +114,6 @@ const join = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold", // set type of text = fontWeight
     color: Colors.blue.deep,
-    paddingVertical: 10,
   },
   mainCourse: {
     textAlign: "left",
@@ -118,12 +124,32 @@ const join = StyleSheet.create({
   pageContainer: {
     flex: 1,
     backgroundColor: Colors.blue.light,
-    paddingTop: 20,
   },
   description: {
     flex: 0,
     alignSelf: "stretch",
     color: Colors.milk,
     padding: 10,
+  },
+  container: {
+    alignContent: "center",
+    justifyContent: "center",
+    flex: 0,
+    backgroundColor: Colors.milk,
+    margin: 10,
+    borderRadius: 10,
+  },
+  slogan: {
+    flex: 0,
+    alignContent: "center",
+    justifyContent: "center",
+    gap: 10,
+  },
+  line: {
+    padding: 1,
+    height: 0,
+    width: "95%",
+    alignSelf: "center",
+    backgroundColor: Colors.black,
   },
 });
