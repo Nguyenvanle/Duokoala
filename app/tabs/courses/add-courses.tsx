@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
@@ -15,27 +16,34 @@ import { container } from "@/app/sign-in";
 import { BasicInput, DescriptionInput } from "@/components/BasicInput";
 import { suggest } from "@/app/suggest/certificate";
 import Button from "@/components/Button";
+import { home } from "../homes/home";
 
 const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
 
 const pHolder = {
-  name: "TOEIC 450,...",
-  description: "Khóa học dành cho ...",
-  level: "Độ khó",
+  name: "Nhập tên khóa học",
+  description: "Nhập mô tả về khóa học",
+  level: "Nhập độ khó cho khóa học",
 };
 
 export default function AddCourses() {
   return (
     <ScrollView style={defaultStyles.pageContainer}>
-      <View style={index.container}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={home.container}
+      >
         {/* root container */}
         <View style={logo.container}>
           <FlaticonIcon uri={imageURI} size={160} />
         </View>
 
         {/* form container */}
-        <View style={container.form}>
+        <ImageBackground
+          source={require("@/assets/images/radiant-bg.png")}
+          style={container.form}
+        >
           {/* input container */}
           <View style={container.input}>
             <Text style={text.subTitle}>TÊN KHÓA HỌC</Text>
@@ -96,8 +104,8 @@ export default function AddCourses() {
               <Button backgroundColor={Colors.blue.regular} title="TIẾP TỤC" />
             </View>
           </View>
-        </View>
-      </View>
+        </ImageBackground>
+      </ImageBackground>
     </ScrollView>
   );
 }

@@ -138,12 +138,11 @@ export default function HomeScreen() {
   );
 }
 
-const home = StyleSheet.create({
+export const home = StyleSheet.create({
   container: {
     ...index.container,
     gap: 10,
     justifyContent: "flex-start",
-
   },
   text: {
     flexDirection: "row",

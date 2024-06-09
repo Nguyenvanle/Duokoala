@@ -4,12 +4,14 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { SelectButton } from "@/components/SelectButton";
+import { index } from "@/app/index";
 
 export default function userScreen() {
   const user = {
@@ -26,7 +28,10 @@ export default function userScreen() {
   return (
     <ScrollView style={defaultStyles.pageContainer}>
       {/* page container */}
-      <View style={container.page}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={container.page}
+      >
         {/* info container */}
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
@@ -81,13 +86,16 @@ export default function userScreen() {
             }}
           />
         </View>
-      </View>
+      </ImageBackground>
     </ScrollView>
   );
 }
 
 const container = StyleSheet.create({
   page: {
+    ...index.container,
+    gap: 10,
+    justifyContent: "flex-start",
     padding: 30,
   },
   info: {
