@@ -1,23 +1,14 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Button from "@/components/Button";
 import Colors from "@/constants/Colors";
 import { suggest } from "@/app/suggest/certificate";
-import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
+import { useGlobalSearchParams } from "expo-router";
+import { levelTemplate } from "@/components/Course";
 
 const imageCourse: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
-
-const course = { name_course: "Ôn luyện TOEIC 4 kỹ năng 700+" };
-
-const level = { medium: "Trung Bình", easy: "Dễ", difficult: "Khó" };
-
-const level_color = {
-  medium: Colors.teal,
-  easy: Colors.green,
-  difficult: Colors.red,
-};
 
 const info_course = {
   name_user: "Nguyễn Lê Tiến Đạt",
@@ -26,10 +17,27 @@ const info_course = {
 };
 
 export default function JoinCourses() {
-  const { title } = useGlobalSearchParams();
+  const { title, level, instructor } = useGlobalSearchParams();
+
+  const course = { name_course: title };
+
+  const [levelColor, setLevelColor] = useState(Colors.green);
 
   useEffect(() => {
-    console.log(title);
+    switch (level) {
+      case levelTemplate[1]:
+        setLevelColor(Colors.teal);
+        break;
+      case levelTemplate[2]:
+        setLevelColor(Colors.purple);
+        break;
+      case levelTemplate[3]:
+        setLevelColor(Colors.red);
+        break;
+      default:
+        setLevelColor(Colors.green);
+        break;
+    }
   }, [title]);
 
   return (
@@ -54,14 +62,16 @@ export default function JoinCourses() {
           <Text numberOfLines={2} style={join.titleCourse}>
             {course.name_course}
           </Text>
-          <Text style={join.mainContent}>Độ Khó: {level.medium}</Text>
+          <Text style={join.mainContent}>
+            Độ Khó: <Text style={{ color: levelColor }}>{level}</Text>
+          </Text>
         </View>
       </View>
       <View style={join.container}>
         <View style={join.description}>
           <View style={{ flexDirection: "row", paddingBottom: 25 }}>
             <Text style={join.mainContent}>Tác Giả: </Text>
-            <Text style={join.mainCourse}> {info_course.name_user}</Text>
+            <Text style={join.mainCourse}> {instructor}</Text>
           </View>
           <Text style={join.mainContent}>Giới Thiệu:</Text>
           <Text style={join.mainCourse}>{info_course.description}</Text>

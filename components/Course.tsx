@@ -21,7 +21,6 @@ interface CourseProps {
   tags: string[];
 }
 
-
 export const levelTemplate = ["easy", "medium", "hard", "advanced"];
 const routerHref: string = "/tabs/join/";
 
@@ -57,7 +56,11 @@ const Course: React.FC<CourseProps> = ({
       onPress={() => {
         router.push({
           pathname: routerHref,
-          params: { title: title },
+          params: {
+            title: title,
+            level: level,
+            instructor: instructor,
+          },
         });
       }}
     >
