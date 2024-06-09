@@ -26,7 +26,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="courses"
         options={{
-          title: "Tạo Khóa Học",
+          title: "Khóa Học",
           tabBarIcon: () => <FlaticonIcon size={30} uri={icon.course} />,
         }}
       />
