@@ -21,8 +21,8 @@ interface CourseProps {
   tags: string[];
 }
 
-export const levelTemplate = ["easy", "medium", "hard", "advanced"];
-const routerHref: string = "/tabs/join/";
+export const levelTemplate = ["Easy", "Medium", "Hard", "Advanced"];
+const routerHref: string = "/tabs/join/join-courses";
 
 const Course: React.FC<CourseProps> = ({
   title,
@@ -60,6 +60,9 @@ const Course: React.FC<CourseProps> = ({
             title: title,
             level: level,
             instructor: instructor,
+            tag1: tags[0],
+            tag2: tags[1],
+            tag3: tags[2],
           },
         });
       }}
