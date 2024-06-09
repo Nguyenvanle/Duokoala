@@ -288,8 +288,8 @@ const containerStyle = StyleSheet.create({
     alignSelf: "stretch",
     overflow: "hidden",
     flexDirection: "row",
-    maxWidth: 86,
-    maxHeight: 86,
+    maxWidth: 70,
+    maxHeight: 70,
   },
 });
 
