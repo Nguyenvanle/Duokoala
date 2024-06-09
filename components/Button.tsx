@@ -53,7 +53,7 @@ export function HrefButton(props: HrefButtonProps) {
   );
 }
 
-const buttonStyle = StyleSheet.create({
+export const buttonStyle = StyleSheet.create({
   container: {
     ...defaultStyles.btn,
     borderWidth: 3,
