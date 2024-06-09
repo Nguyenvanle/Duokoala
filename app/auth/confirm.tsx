@@ -55,7 +55,7 @@ export default function confirm() {
             <HrefButton
               backgroundColor={"blue"}
               title={"XÁC NHẬN"}
-              href={"/suggest/certificate"}
+              href={"/auth/intro"}
             ></HrefButton>
           </View>
         </View>
