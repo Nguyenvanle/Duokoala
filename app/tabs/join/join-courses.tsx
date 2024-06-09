@@ -1,80 +1,146 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-import Button from "@/components/Button";
+import {
+  FlatList,
+  Image,
+  ImageBackground,
+  ImageSourcePropType,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import Colors from "@/constants/Colors";
 import { suggest } from "@/app/suggest/certificate";
-import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
+import { Link, useGlobalSearchParams } from "expo-router";
+import Course, { levelTemplate } from "@/components/Course";
+import { coursesData, home } from "@/app/tabs/homes/home";
+import { defaultStyles, text } from "@/constants/Styles";
+import { FlaticonIcon } from "@/components/FlaticonIcon";
+import { create } from "../courses/add-courses";
+import Button, { StretchButton } from "@/components/Button";
+import { studyTime } from "@/components/StudyTime";
 
 const imageCourse: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
 
-const course = { name_course: "Ôn luyện TOEIC 4 kỹ năng 700+" };
-
-const level = { medium: "Trung Bình", easy: "Dễ", difficult: "Khó" };
-
-const level_color = {
-  medium: Colors.teal,
-  easy: Colors.green,
-  difficult: Colors.red,
-};
-
 const info_course = {
-  name_user: "Nguyễn Lê Tiến Đạt",
   description:
     "Khóa học TOEIC 4 kỹ năng hỗ trợ 2 phần thi riêng biệt: \nBài thi TOEIC Listening / Reading  \nBài thi TOEIC Speaking/Writing \n\n + Đối với phần thi Listening và Reading: Đây chính là bài thi Toeic phổ biến nhất ở Việt Nam hiện nay gồm 2 bài thi Nghe và Đọc với tổng cộng 200 câu trắc nghiệm. Mức điểm cho cả hai phần Listening/ Reading nằm trong khoảng từ 10 đến 990 điểm. \n\n + Đối với phần thi Speaking và Writing: Đây là bài thi Toeic mà các bạn có thể đăng ký thi nếu Trường hoặc công ty của các bạn yêu cầu. Tổng điểm của bài thi Speaking/Writing là 400 điểm.",
 };
 
+const routerHref: string = "/tabs/join/join-courses";
+const courseImageUrl: ImageSourcePropType = require("@/assets/images/course/toeic-700.jpg");
+
+const gallery = [
+  {
+    id: "1",
+    src: courseImageUrl,
+  },
+  {
+    id: "2",
+    src: courseImageUrl,
+  },
+  {
+    id: "3",
+    src: courseImageUrl,
+  },
+  {
+    id: "4",
+    src: courseImageUrl,
+  },
+];
+
 export default function JoinCourses() {
-  const { title } = useGlobalSearchParams();
+  const { title, level, instructor, tag1, tag2, tag3 } =
+    useGlobalSearchParams();
+
+  const [levelColor, setLevelColor] = useState(Colors.green);
 
   useEffect(() => {
-    console.log(title);
+    switch (level) {
+      case levelTemplate[1]:
+        setLevelColor(Colors.teal);
+        break;
+      case levelTemplate[2]:
+        setLevelColor(Colors.purple);
+        break;
+      case levelTemplate[3]:
+        setLevelColor(Colors.red);
+        break;
+      default:
+        setLevelColor(Colors.green);
+        break;
+    }
   }, [title]);
 
   return (
-    <ScrollView style={join.pageContainer}>
-      <View
-        style={{
-          flexDirection: "row",
-          flex: 0,
-          padding: 20,
-          paddingHorizontal: 10,
-        }}
+    <ScrollView style={defaultStyles.pageContainer}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={home.container}
       >
-        <FlaticonIcon uri={imageCourse} size={120} />
-        <View
-          style={{
-            flexDirection: "column",
-            flex: 1,
-            paddingHorizontal: 10,
-            justifyContent: "flex-start",
-          }}
-        >
-          <Text numberOfLines={2} style={join.titleCourse}>
-            {course.name_course}
+        <View style={containerStyle.top}>
+          <FlaticonIcon size={100} uri={imageCourse} />
+          <Text style={textStyle.title}>{title}</Text>
+          <Text style={textStyle.mainContent}>
+            {instructor} • <Text style={{ color: levelColor }}>{level}</Text>
           </Text>
-          <Text style={join.mainContent}>Độ Khó: {level.medium}</Text>
-        </View>
-      </View>
-      <View style={join.container}>
-        <View style={join.description}>
-          <View style={{ flexDirection: "row", paddingBottom: 25 }}>
-            <Text style={join.mainContent}>Tác Giả: </Text>
-            <Text style={join.mainCourse}> {info_course.name_user}</Text>
+          <View style={containerStyle.btn}>
+            <StretchButton
+              backgroundColor={Colors.blue.regular}
+              title="Trở về"
+              href="/tabs"
+            />
+            <StretchButton
+              backgroundColor={Colors.teal}
+              title="Tham gia"
+              href="/tabs"
+            />
           </View>
-          <Text style={join.mainContent}>Giới Thiệu:</Text>
-          <Text style={join.mainCourse}>{info_course.description}</Text>
         </View>
-      </View>
-      <Text style={join.note1}>
-        Khóa học chỉ được bắt đầu khi bạn "Tham Gia" khóa học
-      </Text>
+        <View style={containerStyle.bottom}>
+          <View style={containerStyle.buttontab}>
+            <Text style={textStyle.texttab}>{tag1}</Text>
+            <Text style={textStyle.texttab}>{tag2}</Text>
+            <Text style={textStyle.texttab}>{tag3}</Text>
+            <Text style={textStyle.texttab}>course</Text>
+          </View>
 
-      <View style={join.btnContainer}>
-        <Button backgroundColor={Colors.red} title="HỦY" />
-        <Button backgroundColor={Colors.blue.regular} title="THAM GIA" />
-      </View>
+          <View style={containerStyle.description}>
+            <Text style={textStyle.description}>Mô tả</Text>
+            <Text style={textStyle.mainContent}>{info_course.description}</Text>
+          </View>
+
+          <View style={home.text}>
+            <Text style={text.subTitle}>Hình ảnh</Text>
+            <Link style={text.link} href={routerHref}>
+              Xem thêm
+            </Link>
+          </View>
+
+          <FlatList
+            contentContainerStyle={containerStyle.gallery}
+            data={gallery}
+            keyExtractor={(item) => item.id}
+            scrollEnabled={false}
+            renderItem={({ item }) => (
+              <View style={containerStyle.image}>
+                <Image
+                  source={courseImageUrl}
+                  style={{
+                    width: 100,
+                    height: 100,
+                  }}
+                  resizeMode="contain"
+                  onError={() => {
+                    throw new Error("Require Link Incorrect");
+                  }}
+                />
+              </View>
+            )}
+          />
+        </View>
+      </ImageBackground>
     </ScrollView>
   );
 }
@@ -165,5 +231,90 @@ const join = StyleSheet.create({
     width: "95%",
     alignSelf: "center",
     backgroundColor: Colors.black,
+  },
+});
+
+const containerStyle = StyleSheet.create({
+  top: {
+    flex: 0,
+    gap: 20,
+    alignItems: "center",
+    backgroundColor: Colors.blue.light,
+    padding: 20,
+    borderBottomRightRadius: 24,
+    borderBottomLeftRadius: 24,
+    marginHorizontal: -20,
+  },
+  bottom: {
+    flex: 0,
+    gap: 10,
+  },
+  btn: {
+    ...create.btnContainer,
+    paddingTop: 0,
+    gap: 20,
+  },
+  tabs: {
+    flex: 0,
+    padding: 10,
+    alignItems: "stretch",
+  },
+  buttontab: {
+    flex: 0,
+    justifyContent: "space-between",
+    alignSelf: "stretch",
+    flexDirection: "row",
+    gap: 10,
+  },
+  description: {
+    flex: 0,
+    alignItems: "flex-start",
+    paddingVertical: 10,
+    alignSelf: "stretch",
+    gap: 10,
+  },
+  gallery: {
+    flex: 0,
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "space-between",
+  },
+  image: {
+    ...studyTime.rightContainer,
+    borderRadius: 20,
+    backgroundColor: Colors.light,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "stretch",
+    overflow: "hidden",
+    flexDirection: "row",
+    maxWidth: 70,
+    maxHeight: 70,
+  },
+});
+
+const textStyle = StyleSheet.create({
+  title: {
+    ...text.title,
+  },
+
+  texttab: {
+    ...text.note,
+    color: Colors.blue.text,
+    paddingTop: 6,
+    backgroundColor: Colors.light,
+    borderRadius: 10,
+    flex: 1,
+    overflow: "hidden",
+    paddingVertical: 5,
+  },
+  description: {
+    ...text.subTitle,
+    fontWeight: "bold",
+  },
+  mainContent: {
+    ...text.mainContent,
+    textAlign: "left",
+    color: Colors.grey,
   },
 });

@@ -110,7 +110,7 @@ export default function AddCourses() {
   );
 }
 
-const create = StyleSheet.create({
+export const create = StyleSheet.create({
   btnContainer: {
     ...suggest.decide,
     justifyContent: "space-evenly",

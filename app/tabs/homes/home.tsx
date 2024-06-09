@@ -24,26 +24,26 @@ const clockUri: string =
 const courseImageUrl: ImageSourcePropType = require("@/assets/images/course/toeic-700.jpg");
 const routerHref: string = "/tabs/join/join-courses";
 
-const coursesData = [
+export const coursesData = [
   {
     title: "Khóa học TOEIC 700+",
     imageUrl: courseImageUrl,
     instructor: "Tiến Đạt",
-    level: "hard",
+    level: "Hard",
     tags: ["toeic", "700+", "hard"],
   },
   {
     title: "Khóa học IELTS 7.0+",
     imageUrl: courseImageUrl,
     instructor: "Minh Anh",
-    level: "advanced",
+    level: "Advanced",
     tags: ["ielts", "7.0+", "hard"],
   },
   {
     title: "Khóa học tiếng Anh giao tiếp",
     imageUrl: courseImageUrl,
     instructor: "Hồng Nhung",
-    level: "easy",
+    level: "Easy",
     tags: ["community", "english", "easy"],
   },
 ];

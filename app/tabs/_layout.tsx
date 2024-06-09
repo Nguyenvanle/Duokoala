@@ -49,6 +49,7 @@ export default function TabLayout() {
         options={{
           title: "Tham Gia Khóa Học",
           tabBarIcon: () => <FlaticonIcon size={28} uri={icon.user} />,
+          href: null,
         }}
       />
     </Tabs>
