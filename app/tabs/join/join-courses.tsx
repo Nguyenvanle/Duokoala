@@ -106,8 +106,8 @@ export default function JoinCourses() {
             <Text style={textStyle.texttab}>course</Text>
           </View>
 
+          <Text style={textStyle.description}>Mô tả</Text>
           <View style={containerStyle.description}>
-            <Text style={textStyle.description}>Mô tả</Text>
             <Text style={textStyle.mainContent}>{info_course.description}</Text>
           </View>
 
@@ -269,9 +269,11 @@ const containerStyle = StyleSheet.create({
   description: {
     flex: 0,
     alignItems: "flex-start",
-    paddingVertical: 10,
+    padding: 14,
     alignSelf: "stretch",
     gap: 10,
+    backgroundColor: Colors.milk,
+    borderRadius: 20,
   },
   gallery: {
     flex: 0,
@@ -311,6 +313,7 @@ const textStyle = StyleSheet.create({
   description: {
     ...text.subTitle,
     fontWeight: "bold",
+    textAlign: "left",
   },
   mainContent: {
     ...text.mainContent,
