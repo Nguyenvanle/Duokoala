@@ -26,7 +26,7 @@ export default function userScreen() {
     logOut: "https://cdn-icons-png.flaticon.com/128/10561/10561233.png",
   };
   return (
-    <ScrollView style={defaultStyles.pageContainer}>
+    <View style={defaultStyles.pageContainer}>
       {/* page container */}
       <ImageBackground
         source={require("@/assets/images/radiant-bg.png")}
@@ -87,7 +87,7 @@ export default function userScreen() {
           />
         </View>
       </ImageBackground>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -95,8 +95,9 @@ const container = StyleSheet.create({
   page: {
     ...index.container,
     gap: 10,
-    justifyContent: "flex-start",
     padding: 30,
+    flex: 1,
+    justifyContent: "center",
   },
   info: {
     justifyContent: "center",
