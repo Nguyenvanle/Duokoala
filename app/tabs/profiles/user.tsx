@@ -4,12 +4,14 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { SelectButton } from "@/components/SelectButton";
+import { index } from "@/app";
 
 export default function userScreen() {
   const user = {
@@ -24,9 +26,12 @@ export default function userScreen() {
     logOut: "https://cdn-icons-png.flaticon.com/128/10561/10561233.png",
   };
   return (
-    <ScrollView style={defaultStyles.pageContainer}>
+    <View style={defaultStyles.pageContainer}>
       {/* page container */}
-      <View style={container.page}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={container.page}
+      >
         {/* info container */}
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
@@ -81,14 +86,16 @@ export default function userScreen() {
             }}
           />
         </View>
-      </View>
-    </ScrollView>
+      </ImageBackground>
+    </View>
   );
 }
 
 const container = StyleSheet.create({
   page: {
     padding: 30,
+    flex: 1,
+    justifyContent: "center",
   },
   info: {
     justifyContent: "center",
