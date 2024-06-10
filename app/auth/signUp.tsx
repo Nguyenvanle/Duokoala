@@ -24,17 +24,17 @@ export default function signUp() {
     router.replace("/auth/confirm");
   };
   return (
-    <ScrollView style={defaultStyles.pageContainer}>
+    <View style={defaultStyles.pageContainer}>
       {/* root container */}
       <ImageBackground
         source={require("@/assets/images/radiant-bg.png")}
         style={{ ...signIn.container, justifyContent: "flex-start" }}
       >
         {/* logo container */}
-        <View style={logo.container}>
+        <View style={[logo.container, { padding: 0 }]}>
           <Image source={require(signUpImage)} />
 
-          <Text style={{ ...logo.text, fontSize: 30 }}>DUOKOALA</Text>
+          {/* <Text style={{ ...logo.text, fontSize: 30 }}>DUOKOALA</Text> */}
         </View>
 
         {/* form container */}
@@ -100,7 +100,7 @@ export default function signUp() {
           </View>
         </ImageBackground>
       </ImageBackground>
-    </ScrollView>
+    </View>
   );
 }
 

@@ -94,7 +94,7 @@ export default class Intro extends Component {
         <View style={styles.button}>
           <FlaticonIcon
             size={35}
-            uri={"https://cdn-icons-png.flaticon.com/128/2722/2722998.png"}
+            uri={"https://cdn-icons-png.flaticon.com/128/2723/2723639.png"}
           />
         </View>
       </View>

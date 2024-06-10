@@ -24,7 +24,7 @@ export function StretchButton(props: HrefButtonProps) {
     <TouchableOpacity
       style={[buttonStyle.stretchContainer, { backgroundColor }]}
       onPress={() => {
-        router.replace(href);
+        router.back();
       }}
     >
       <Text style={{ ...text.mainContent, color: Colors.blue.text }}>
