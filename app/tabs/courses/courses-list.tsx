@@ -2,25 +2,17 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
   TouchableOpacity,
-  TextInput,
   ImageBackground,
   FlatList,
   ImageSourcePropType,
 } from "react-native";
 import React from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
-import { defaultStyles, text } from "@/constants/Styles";
-import { index, logo } from "@/app/index";
+import { text } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
-import { container } from "@/app/sign-in";
-import { BasicInput, DescriptionInput } from "@/components/BasicInput";
-import { suggest } from "@/app/suggest/certificate";
-import Button from "@/components/Button";
 import { home } from "../homes/home";
 import Course from "@/components/Course";
-import { containerStyle } from "../join/join-courses";
 import { router } from "expo-router";
 
 const AddCoursesHandler = () => {
@@ -114,7 +106,7 @@ export default function AddCourses() {
               }}
             >
               <FlaticonIcon
-                uri="https://cdn-icons-png.flaticon.com/512/1665/1665680.png"
+                uri="https://cdn-icons-png.flaticon.com/512/992/992651.png"
                 size={33}
               />
             </TouchableOpacity>
@@ -169,13 +161,16 @@ export const textList = StyleSheet.create({
   },
   texttab: {
     ...text.note,
-    color: Colors.blue.deep,
-    paddingTop: 10,
-    backgroundColor: Colors.light,
+    color: Colors.blue.text,
+    backgroundColor: Colors.milk,
     borderRadius: 10,
     flex: 1,
     overflow: "hidden",
     paddingVertical: 10,
     fontWeight: "bold",
+    justifyContent: "center",
+    alignItems: "center",
+    lineHeight: 16,
+    borderWidth: 2,
   },
 });
