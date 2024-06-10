@@ -3,7 +3,7 @@ import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
 import { router } from "expo-router";
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 
 const slides = [
@@ -40,13 +40,16 @@ const slides = [
 export default class Intro extends Component {
   _renderItem = ({ item }: any) => {
     return (
-      <View style={styles.slide}>
+      <ImageBackground
+        source={require("@/assets/images/radiant-bg.png")}
+        style={styles.slide}
+      >
         <Image source={item.image} style={styles.image} resizeMode="contain" />
         <View style={styles.content}>
           <Text style={text.subTitle}>{item.title}</Text>
           <Text style={[text.mainContent, { fontSize: 14 }]}>{item.text1}</Text>
         </View>
-      </View>
+      </ImageBackground>
     );
   };
   _onDone = () => {
