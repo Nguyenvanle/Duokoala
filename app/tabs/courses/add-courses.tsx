@@ -15,8 +15,9 @@ import Colors from "@/constants/Colors";
 import { container } from "@/app/sign-in";
 import { BasicInput, DescriptionInput } from "@/components/BasicInput";
 import { suggest } from "@/app/suggest/certificate";
-import Button from "@/components/Button";
+import Button, { buttonStyle } from "@/components/Button";
 import { home } from "../homes/home";
+import { router } from "expo-router";
 
 const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
@@ -100,7 +101,17 @@ export default function AddCourses() {
             </TouchableOpacity>
 
             <View style={create.btnContainer}>
-              <Button backgroundColor={Colors.red} title="HỦY" />
+              <TouchableOpacity
+                style={create.container}
+                onPress={() => {
+                  {
+                    router.push("/tabs/courses/courses-list");
+                  }
+                }}
+              >
+                <Text style={text.btnText}>HỦY</Text>
+                {/* <Button backgroundColor={Colors.red} title="HỦY" /> */}
+              </TouchableOpacity>
               <Button backgroundColor={Colors.blue.regular} title="TIẾP TỤC" />
             </View>
           </View>
@@ -135,5 +146,14 @@ export const create = StyleSheet.create({
     paddingTop: 13,
     fontSize: 16,
     paddingRight: 20,
+  },
+  container: {
+    ...defaultStyles.btn,
+    borderWidth: 3,
+    borderColor: Colors.black,
+    minHeight: 48,
+    paddingHorizontal: 20,
+    minWidth: 115,
+    backgroundColor: Colors.red,
   },
 });

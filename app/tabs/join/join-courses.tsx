@@ -234,7 +234,7 @@ const join = StyleSheet.create({
   },
 });
 
-const containerStyle = StyleSheet.create({
+export const containerStyle = StyleSheet.create({
   top: {
     flex: 0,
     gap: 20,
