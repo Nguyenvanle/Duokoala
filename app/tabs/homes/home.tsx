@@ -2,72 +2,27 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  ImageSourcePropType,
   Text,
   FlatList,
   ImageBackground,
-  ActivityIndicator,
 } from "react-native";
 import { defaultStyles, text } from "@/constants/Styles";
 import { index } from "@/app/index";
 import React, { useEffect, useState } from "react";
 import UserGreeting from "@/components/UserGreeting";
 import StudyTime from "@/components/StudyTime";
-import Course from "@/components/Course";
 import { Link } from "expo-router";
 import KoalaLoading from "@/components/KoalaLoading";
-
-interface User {
-  name: string;
-  role: string;
-  process: number;
-}
-
-interface Course {
-  title: string;
-  imageUrl: ImageSourcePropType;
-  instructor: string;
-  level: string;
-  tags: string[];
-}
-
-const user: User = {
-  name: "Tiến Đạt",
-  role: "HV",
-  process: 0.75,
-};
+import { user } from "@/models/user/model";
+import { CourseProps, coursesData } from "@/models/course/model";
+import Course from "@/components/Course";
 const clockUri: string =
   "https://cdn-icons-png.flaticon.com/512/2755/2755545.png";
-const courseImageUrl: ImageSourcePropType = require("@/assets/images/course/toeic-700.jpg");
 const routerHref: string = "/tabs/join/join-courses";
-
-export const coursesData: Course[] = [
-  {
-    title: "Khóa học TOEIC 700+",
-    imageUrl: courseImageUrl,
-    instructor: "Tiến Đạt",
-    level: "Hard",
-    tags: ["toeic", "700+", "hard"],
-  },
-  {
-    title: "Khóa học IELTS 7.0+",
-    imageUrl: courseImageUrl,
-    instructor: "Minh Anh",
-    level: "Advanced",
-    tags: ["ielts", "7.0+", "hard"],
-  },
-  {
-    title: "Khóa học tiếng Anh giao tiếp",
-    imageUrl: courseImageUrl,
-    instructor: "Hồng Nhung",
-    level: "Easy",
-    tags: ["community", "english", "easy"],
-  },
-];
 
 export default function HomeScreen() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<CourseProps[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,7 +47,11 @@ export default function HomeScreen() {
           <UserGreeting name={user.name} role={user.role} />
 
           {/* Study Time */}
-          <StudyTime process={user.process} clockUri={clockUri} />
+          <StudyTime
+            clockUri={clockUri}
+            currentTime={user.currentTime}
+            targetTime={user.targetTime}
+          />
 
           {/* Newest Courses */}
           <View style={home.text}>
