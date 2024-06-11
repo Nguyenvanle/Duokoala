@@ -6,15 +6,32 @@ import {
   Text,
   FlatList,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import { defaultStyles, text } from "@/constants/Styles";
 import { index } from "@/app/index";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserGreeting from "@/components/UserGreeting";
 import StudyTime from "@/components/StudyTime";
 import Course from "@/components/Course";
 import { Link } from "expo-router";
-const user = {
+import KoalaLoading from "@/components/KoalaLoading";
+
+interface User {
+  name: string;
+  role: string;
+  process: number;
+}
+
+interface Course {
+  title: string;
+  imageUrl: ImageSourcePropType;
+  instructor: string;
+  level: string;
+  tags: string[];
+}
+
+const user: User = {
   name: "Tiến Đạt",
   role: "HV",
   process: 0.75,
@@ -24,7 +41,7 @@ const clockUri: string =
 const courseImageUrl: ImageSourcePropType = require("@/assets/images/course/toeic-700.jpg");
 const routerHref: string = "/tabs/join/join-courses";
 
-export const coursesData = [
+export const coursesData: Course[] = [
   {
     title: "Khóa học TOEIC 700+",
     imageUrl: courseImageUrl,
@@ -49,93 +66,108 @@ export const coursesData = [
 ];
 
 export default function HomeScreen() {
-  return (
-    <ScrollView style={defaultStyles.pageContainer}>
-      {/* root */}
-      <ImageBackground
-        source={require("@/assets/images/radiant-bg.png")}
-        style={home.container}
-      >
-        {/* Greeting */}
-        <UserGreeting name={user.name} role={user.role} />
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [courses, setCourses] = useState<Course[]>([]);
 
-        {/* Study Time */}
-        <StudyTime process={user.process} clockUri={clockUri} />
+  useEffect(() => {
+    const fetchData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setCourses(coursesData);
+      setIsLoading(false);
+    };
 
-        {/* Newest Courses */}
-        <View style={home.text}>
-          <Text style={text.subTitle}>Khóa học mới nhất</Text>
-          <Link style={text.link} href={routerHref}>
-            Xem thêm
-          </Link>
-        </View>
+    fetchData();
+  }, []);
 
-        <FlatList
-          contentContainerStyle={{ gap: 6 }}
-          data={coursesData}
-          keyExtractor={(item) => item.title}
-          scrollEnabled={false}
-          renderItem={({ item }) => (
-            <Course
-              title={item.title}
-              imageUrl={item.imageUrl}
-              instructor={item.instructor}
-              level={item.level}
-              tags={item.tags}
-            />
-          )}
-        />
+  if (isLoading) return <KoalaLoading></KoalaLoading>;
+  else
+    return (
+      <ScrollView style={defaultStyles.pageContainer}>
+        {/* root */}
+        <ImageBackground
+          source={require("@/assets/images/radiant-bg.png")}
+          style={home.container}
+        >
+          {/* Greeting */}
+          <UserGreeting name={user.name} role={user.role} />
 
-        {/* Suggest Courses */}
-        <View style={home.text}>
-          <Text style={text.subTitle}>Dành cho bạn</Text>
-          <Link style={text.link} href={routerHref}>
-            Xem thêm
-          </Link>
-        </View>
+          {/* Study Time */}
+          <StudyTime process={user.process} clockUri={clockUri} />
 
-        <FlatList
-          contentContainerStyle={{ gap: 6 }}
-          data={coursesData}
-          scrollEnabled={false}
-          keyExtractor={(item) => item.title}
-          renderItem={({ item }) => (
-            <Course
-              title={item.title}
-              imageUrl={item.imageUrl}
-              instructor={item.instructor}
-              level={item.level}
-              tags={item.tags}
-            />
-          )}
-        />
+          {/* Newest Courses */}
+          <View style={home.text}>
+            <Text style={text.subTitle}>Khóa học mới nhất</Text>
+            <Link style={text.link} href={routerHref}>
+              Xem thêm
+            </Link>
+          </View>
 
-        {/* Subscribed Courses */}
-        <View style={home.text}>
-          <Text style={text.subTitle}>Đã đăng ký</Text>
-          <Link style={text.link} href={routerHref}>
-            Xem thêm
-          </Link>
-        </View>
+          <FlatList
+            contentContainerStyle={{ gap: 6 }}
+            data={courses}
+            keyExtractor={(item) => item.title}
+            scrollEnabled={false}
+            renderItem={({ item }) => (
+              <Course
+                title={item.title}
+                imageUrl={item.imageUrl}
+                instructor={item.instructor}
+                level={item.level}
+                tags={item.tags}
+              />
+            )}
+          />
 
-        <FlatList
-          contentContainerStyle={{ gap: 6 }}
-          data={coursesData}
-          scrollEnabled={false}
-          keyExtractor={(item) => item.title}
-          renderItem={({ item }) => (
-            <Course
-              title={item.title}
-              imageUrl={item.imageUrl}
-              instructor={item.instructor}
-              level={item.level}
-              tags={item.tags}
-            />
-          )}
-        />
-      </ImageBackground>
-    </ScrollView>
-  );
+          {/* Suggest Courses */}
+          <View style={home.text}>
+            <Text style={text.subTitle}>Dành cho bạn</Text>
+            <Link style={text.link} href={routerHref}>
+              Xem thêm
+            </Link>
+          </View>
+
+          <FlatList
+            contentContainerStyle={{ gap: 6 }}
+            data={coursesData}
+            scrollEnabled={false}
+            keyExtractor={(item) => item.title}
+            renderItem={({ item }) => (
+              <Course
+                title={item.title}
+                imageUrl={item.imageUrl}
+                instructor={item.instructor}
+                level={item.level}
+                tags={item.tags}
+              />
+            )}
+          />
+
+          {/* Subscribed Courses */}
+          <View style={home.text}>
+            <Text style={text.subTitle}>Đã đăng ký</Text>
+            <Link style={text.link} href={routerHref}>
+              Xem thêm
+            </Link>
+          </View>
+
+          <FlatList
+            contentContainerStyle={{ gap: 6 }}
+            data={coursesData}
+            scrollEnabled={false}
+            keyExtractor={(item) => item.title}
+            renderItem={({ item }) => (
+              <Course
+                title={item.title}
+                imageUrl={item.imageUrl}
+                instructor={item.instructor}
+                level={item.level}
+                tags={item.tags}
+              />
+            )}
+          />
+        </ImageBackground>
+      </ScrollView>
+    );
 }
 
 export const home = StyleSheet.create({
@@ -143,10 +175,16 @@ export const home = StyleSheet.create({
     ...index.container,
     gap: 10,
     justifyContent: "flex-start",
+    flex: 1,
   },
   text: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

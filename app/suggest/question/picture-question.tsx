@@ -68,12 +68,12 @@ export default function PictureQuestion() {
           <HrefButton
             backgroundColor={Colors.red}
             title="Bỏ qua"
-            href="/suggest/direct-result"
+            href="/tabs"
           />
           <HrefButton
             backgroundColor={Colors.blue.regular}
             title="Tiếp tục"
-            href="/suggest/direct-result"
+            href="/tabs"
           />
         </View>
       </View>
