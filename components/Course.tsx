@@ -3,10 +3,9 @@ import {
   Text,
   View,
   Image,
-  ImageSourcePropType,
   TouchableOpacity,
 } from "react-native";
-import { defaultStyles, text } from "@/constants/Styles";
+import {  text } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
 import React, { useEffect, useState } from "react";
 import { studyTime } from "./StudyTime";
@@ -25,6 +24,9 @@ const Course: React.FC<CourseProps> = ({
   tags,
 }) => {
   const [levelColor, setLevelColor] = useState(Colors.green);
+
+  const imageSource =
+    typeof imageUrl === "string" ? { uri: imageUrl } : imageUrl;
 
   useEffect(() => {
     switch (level) {
@@ -62,14 +64,14 @@ const Course: React.FC<CourseProps> = ({
     >
       <View style={course.leftContainer}>
         <Image
-          source={imageUrl}
+          source={imageSource}
           style={{
             width: 100,
             height: 100,
           }}
-          resizeMode="contain"
-          onError={() => {
-            throw new Error("Require Link Incorrect");
+          resizeMode="cover"
+          onError={(error: any) => {
+            throw new Error("Require Link Incorrect" + error.message);
           }}
         />
       </View>

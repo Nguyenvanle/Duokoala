@@ -10,6 +10,9 @@ import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 import { router } from "expo-router";
 import IndexScreenModel from "@/screens/index/model";
 
+export const showLogoDuration = 1500;
+export const redirectDuration = 500;
+
 const useIndexScreenViewModel = (routerHref: string): IndexScreenModel => {
   // Disable Auto Hide Loading Screen
   SplashScreen.preventAutoHideAsync();
@@ -28,8 +31,6 @@ const useIndexScreenViewModel = (routerHref: string): IndexScreenModel => {
 
   // Load Animation
   useEffect(() => {
-    const showLogoDuration = 1000;
-    const redirectDuration = 500;
     opacity.value = withTiming(1, {
       duration: redirectDuration,
       easing: Easing.inOut(Easing.ease),

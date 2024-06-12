@@ -3,4 +3,6 @@ interface UserProps {
   role: string;
   currentTime: number;
   targetTime: number;
+  createdCourses: number;
+  targetCourses: number;
 }
