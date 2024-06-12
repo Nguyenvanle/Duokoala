@@ -9,17 +9,19 @@ import { text } from "@/constants/Styles";
 const fontSize: number = 34;
 
 interface StudyTimeProps {
+  user: UserProps | null;
   clockUri: string;
   currentTime: number;
   targetTime: number;
 }
 
-const StudyTime: React.FC<StudyTimeProps> = ({
-  clockUri,
-  currentTime,
-  targetTime,
-}) => {
-  const process: number = currentTime / targetTime;
+const StudyTime: React.FC<StudyTimeProps> = (props) => {
+  const { user, clockUri } = props;
+
+  if (user === null) return;
+
+  const process: number = user.currentTime / user.targetTime;
+
   return (
     <View style={studyTime.container}>
       <View style={studyTime.leftContainer}>
@@ -28,8 +30,8 @@ const StudyTime: React.FC<StudyTimeProps> = ({
         </Text>
 
         <Text style={home.timeTextRed}>
-          {currentTime}/
-          {<Text style={home.timeTextMilk}>{targetTime} phút</Text>}
+          {user.currentTime}/
+          {<Text style={home.timeTextMilk}>{user.targetTime} phút</Text>}
         </Text>
 
         <Progress.Bar

@@ -1,13 +1,6 @@
-export interface User {
+interface UserProps {
   name: string;
-  role: boolean; //teacher = true
+  role: string;
   currentTime: number;
   targetTime: number;
 }
-
-export const user: User = {
-  name: "Tiến Đạt",
-  role: true,
-  currentTime: 45,
-  targetTime: 180,
-};
