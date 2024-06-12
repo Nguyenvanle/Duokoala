@@ -2,16 +2,17 @@ import { Text, View } from "react-native";
 import { text } from "@/constants/Styles";
 import React from "react";
 
+
 interface UserGreetingProps {
-  name: string;
-  role: string;
+  user: UserProps | null;
 }
 
-const UserGreeting: React.FC<UserGreetingProps> = ({ name, role }) => {
+const UserGreeting: React.FC<UserGreetingProps> = (props) => {
+  const { user } = props;
   return (
     <View style={{ alignItems: "flex-start" }}>
-      <Text style={text.subTitle}>Xin chào {name} 🥰</Text>
-      {role === "GV" ? (
+      <Text style={text.subTitle}>Xin chào {user?.name} 🥰</Text>
+      {user?.role === "Teacher" ? (
         <Text style={text.mainContent}>Bắt đầu dạy nào!</Text>
       ) : (
         <Text style={text.mainContent}>Bắt đầu học nào!</Text>

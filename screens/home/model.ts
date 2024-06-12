@@ -1,4 +1,4 @@
-import { CourseProps } from "@/models/course/model";
+import { CourseProps, coursesData } from "@/models/course/model";
 import { create } from "zustand";
 
 interface HomeState {
@@ -30,33 +30,9 @@ export const useHomeModel = create<HomeState>((set) => ({
         targetTime: 60,
       },
       courses: {
-        newest: [
-          {
-            title: "Course 1",
-            imageUrl: "",
-            instructor: "",
-            level: "",
-            tags: [],
-          },
-        ],
-        suggested: [
-          {
-            title: "Course 2",
-            imageUrl: "",
-            instructor: "",
-            level: "",
-            tags: [],
-          },
-        ],
-        subscribed: [
-          {
-            title: "Course 3",
-            imageUrl: "",
-            instructor: "",
-            level: "",
-            tags: [],
-          },
-        ],
+        newest: coursesData,
+        suggested: coursesData,
+        subscribed: coursesData,
       },
       iconUri: {
         clock: "https://cdn-icons-png.flaticon.com/512/2755/2755545.png",

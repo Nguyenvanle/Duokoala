@@ -12,14 +12,7 @@ import React, { useEffect, useState } from "react";
 import { studyTime } from "./StudyTime";
 import { FlaticonIcon } from "./FlaticonIcon";
 import { router } from "expo-router";
-
-interface CourseProps {
-  title: string;
-  imageUrl: ImageSourcePropType;
-  instructor: string;
-  level: string;
-  tags: string[];
-}
+import { CourseProps } from "@/models/course/model";
 
 export const levelTemplate = ["Easy", "Medium", "Hard", "Advanced"];
 const routerHref: string = "/tabs/join/join-courses";
