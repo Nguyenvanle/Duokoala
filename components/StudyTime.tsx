@@ -11,8 +11,6 @@ const fontSize: number = 34;
 interface StudyTimeProps {
   user: UserProps | null;
   clockUri: string;
-  currentTime: number;
-  targetTime: number;
 }
 
 const StudyTime: React.FC<StudyTimeProps> = (props) => {
