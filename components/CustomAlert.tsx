@@ -62,6 +62,8 @@ const CustomAlert = (props: CustomAlertProps) => {
       <AwesomeAlert
         show={props.isShow}
         showProgress={false}
+        closeOnTouchOutside={false}
+        closeOnHardwareBackPress={false}
         showConfirmButton={true}
         confirmText={props.textButton}
         confirmButtonTextStyle={text.btnText}
