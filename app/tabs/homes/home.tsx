@@ -6,7 +6,6 @@ import {
   Text,
   FlatList,
   ImageBackground,
-  ActivityIndicator,
 } from "react-native";
 import { defaultStyles, text } from "@/constants/Styles";
 import { index } from "@/app/index";
@@ -16,32 +15,20 @@ import StudyTime from "@/components/StudyTime";
 import Course from "@/components/Course";
 import { Link } from "expo-router";
 import KoalaLoading from "@/components/KoalaLoading";
+import { CourseProps } from "@/models/course/model";
 
-interface User {
-  name: string;
-  role: string;
-  process: number;
-}
-
-interface Course {
-  title: string;
-  imageUrl: ImageSourcePropType;
-  instructor: string;
-  level: string;
-  tags: string[];
-}
-
-const user: User = {
+const user: UserProps = {
   name: "Tiến Đạt",
   role: "HV",
-  process: 0.75,
+  currentTime: 80,
+  targetTime: 180,
 };
 const clockUri: string =
   "https://cdn-icons-png.flaticon.com/512/2755/2755545.png";
 const courseImageUrl: ImageSourcePropType = require("@/assets/images/course/toeic-700.jpg");
 const routerHref: string = "/tabs/join/join-courses";
 
-export const coursesData: Course[] = [
+export const coursesData: CourseProps[] = [
   {
     title: "Khóa học TOEIC 700+",
     imageUrl: courseImageUrl,
@@ -67,7 +54,7 @@ export const coursesData: Course[] = [
 
 export default function HomeScreen() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<CourseProps[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,7 +79,7 @@ export default function HomeScreen() {
           <UserGreeting name={user.name} role={user.role} />
 
           {/* Study Time */}
-          <StudyTime process={user.process} clockUri={clockUri} />
+          <StudyTime clockUri={clockUri} user={user} />
 
           {/* Newest Courses */}
           <View style={home.text}>
