@@ -30,9 +30,9 @@ export const useHomeModel = create<HomeState>((set) => ({
         targetTime: 60,
       },
       courses: {
-        newest: coursesData,
-        suggested: coursesData,
-        subscribed: coursesData,
+        newest: coursesData.newest,
+        suggested: coursesData.suggested,
+        subscribed: coursesData.subscribed,
       },
       iconUri: {
         clock: "https://cdn-icons-png.flaticon.com/512/2755/2755545.png",
