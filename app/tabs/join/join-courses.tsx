@@ -1,4 +1,5 @@
 import {
+  Dimensions,
   FlatList,
   Image,
   ImageBackground,
@@ -10,18 +11,14 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Colors from "@/constants/Colors";
-import { suggest } from "@/app/suggest/certificate";
 import { Link, useGlobalSearchParams } from "expo-router";
-import Course, { levelTemplate } from "@/components/Course";
-import { coursesData, home } from "@/app/tabs/homes/home";
+import { levelTemplate } from "@/components/Course";
+import { home } from "@/app/tabs/homes/home";
 import { defaultStyles, text } from "@/constants/Styles";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-import { create } from "../courses/add-courses";
-import Button, { StretchButton } from "@/components/Button";
+import { create } from "@/app/tabs/courses/add-courses";
+import { StretchButton } from "@/components/Button";
 import { studyTime } from "@/components/StudyTime";
-
-const imageCourse: string =
-  "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
+import HeaderImage from "@/screens/course/join/HeaderImage";
 
 const info_course = {
   description:
@@ -53,6 +50,17 @@ const gallery = [
 export default function JoinCourses() {
   const { title, level, instructor, tag1, tag2, tag3 } =
     useGlobalSearchParams();
+  const rating: number = 4.5;
+  const course = {
+    title: title,
+    level: level,
+    instructor: instructor,
+    tag1: tag1,
+    tag2: tag2,
+    tag3: tag3,
+    time: "1h 20m",
+    lesson: 18,
+  };
 
   const [levelColor, setLevelColor] = useState(Colors.green);
 
@@ -80,30 +88,24 @@ export default function JoinCourses() {
         style={home.container}
       >
         <View style={containerStyle.top}>
-          <FlaticonIcon size={100} uri={imageCourse} />
-          <Text style={textStyle.title}>{title}</Text>
-          <Text style={textStyle.mainContent}>
-            {instructor} • <Text style={{ color: levelColor }}>{level}</Text>
-          </Text>
-          <View style={containerStyle.btn}>
-            <StretchButton
-              backgroundColor={Colors.blue.regular}
-              title="Trở về"
-              href="/tabs"
-            />
-            <StretchButton
-              backgroundColor={Colors.teal}
-              title="Tham gia"
-              href="/tabs"
-            />
+          <HeaderImage />
+          <View style={{ alignSelf: "stretch" }}>
+            <Text style={textStyle.subTitle}>
+              {course.instructor} |{" "}
+              <Text style={{ color: levelColor }}>{course.level}</Text>
+            </Text>
+            <Text style={textStyle.title}>{course.title}</Text>
+            <Text style={textStyle.mainContent}>
+              {course.time} • {course.lesson} phần
+            </Text>
           </View>
         </View>
         <View style={containerStyle.bottom}>
-          <View style={containerStyle.buttontab}>
-            <Text style={textStyle.texttab}>{tag1}</Text>
-            <Text style={textStyle.texttab}>{tag2}</Text>
-            <Text style={textStyle.texttab}>{tag3}</Text>
-            <Text style={textStyle.texttab}>course</Text>
+          <View style={containerStyle.buttonTab}>
+            <Text style={textStyle.textTab}>{tag1}</Text>
+            <Text style={textStyle.textTab}>{tag2}</Text>
+            <Text style={textStyle.textTab}>{tag3}</Text>
+            <Text style={textStyle.rating}>⭐ {rating}</Text>
           </View>
 
           <Text style={textStyle.description}>Mô tả</Text>
@@ -126,7 +128,7 @@ export default function JoinCourses() {
             renderItem={({ item }) => (
               <View style={containerStyle.image}>
                 <Image
-                  source={courseImageUrl}
+                  source={item.src}
                   style={{
                     width: 100,
                     height: 100,
@@ -139,111 +141,32 @@ export default function JoinCourses() {
               </View>
             )}
           />
+
+          <View style={containerStyle.btn}>
+            <View>
+              <StretchButton
+                backgroundColor={Colors.blue.regular}
+                title="Trở về"
+                href="/tabs"
+              />
+            </View>
+            <StretchButton
+              backgroundColor={Colors.green}
+              title="Tham gia"
+              href="/tabs"
+            />
+          </View>
         </View>
       </ImageBackground>
     </ScrollView>
   );
 }
 
-const join = StyleSheet.create({
-  btnContainer: {
-    ...suggest.decide,
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    paddingTop: 10,
-  },
-  subTitle1: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold", // set type of text = fontWeight
-    color: Colors.black,
-    paddingTop: 15,
-  },
-  note1: {
-    textAlign: "center",
-    fontSize: 14,
-    fontWeight: "normal", // set type of text = fontWeight
-    fontStyle: "italic",
-    color: Colors.blue.deep,
-    paddingTop: 10,
-  },
-  titleCourse: {
-    alignContent: "stretch",
-    fontSize: 20,
-    fontWeight: "bold", // set type of text = fontWeight
-    color: Colors.blue.text,
-  },
-  form: {
-    justifyContent: "center",
-    backgroundColor: Colors.blue.sky,
-    width: "100%",
-    borderWidth: 4,
-    borderRadius: 40,
-    borderColor: Colors.blue.text,
-    gap: 10,
-    padding: 20,
-    paddingTop: 10,
-    alignSelf: "center",
-  },
-  input: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-  },
-  mainContent: {
-    textAlign: "left",
-    fontSize: 16,
-    fontWeight: "bold", // set type of text = fontWeight
-    color: Colors.blue.deep,
-  },
-  mainCourse: {
-    textAlign: "left",
-    fontSize: 16,
-    fontWeight: "regular", // set type of text = fontWeight
-    color: Colors.brown,
-  },
-  pageContainer: {
-    flex: 1,
-    backgroundColor: Colors.blue.light,
-  },
-  description: {
-    flex: 0,
-    alignSelf: "stretch",
-    color: Colors.milk,
-    padding: 10,
-  },
-  container: {
-    alignContent: "center",
-    justifyContent: "center",
-    flex: 0,
-    backgroundColor: Colors.milk,
-    paddingVertical: 10,
-    borderWidth: 2,
-  },
-  slogan: {
-    flex: 0,
-    alignContent: "center",
-    justifyContent: "center",
-    gap: 10,
-  },
-  line: {
-    padding: 1,
-    height: 0,
-    width: "95%",
-    alignSelf: "center",
-    backgroundColor: Colors.black,
-  },
-});
-
 export const containerStyle = StyleSheet.create({
   top: {
     flex: 0,
-    gap: 20,
+    gap: 10,
     alignItems: "center",
-    backgroundColor: Colors.blue.light,
-    padding: 20,
-    borderBottomRightRadius: 24,
-    borderBottomLeftRadius: 24,
-    marginHorizontal: -20,
   },
   bottom: {
     flex: 0,
@@ -252,14 +175,14 @@ export const containerStyle = StyleSheet.create({
   btn: {
     ...create.btnContainer,
     paddingTop: 0,
-    gap: 20,
+    gap: 10,
   },
   tabs: {
     flex: 0,
     padding: 10,
     alignItems: "stretch",
   },
-  buttontab: {
+  buttonTab: {
     flex: 0,
     justifyContent: "space-between",
     alignSelf: "stretch",
@@ -274,6 +197,7 @@ export const containerStyle = StyleSheet.create({
     gap: 10,
     backgroundColor: Colors.milk,
     borderRadius: 20,
+    borderWidth: 2,
   },
   gallery: {
     flex: 0,
@@ -283,7 +207,8 @@ export const containerStyle = StyleSheet.create({
   },
   image: {
     ...studyTime.rightContainer,
-    borderRadius: 20,
+    borderRadius: 16,
+    borderWidth: 2,
     backgroundColor: Colors.light,
     justifyContent: "center",
     alignItems: "center",
@@ -293,22 +218,31 @@ export const containerStyle = StyleSheet.create({
     maxWidth: 70,
     maxHeight: 70,
   },
+  courseImage: {},
 });
 
 const textStyle = StyleSheet.create({
   title: {
     ...text.title,
+    textAlign: "left",
+    alignSelf: "stretch",
   },
-
-  texttab: {
-    ...text.note,
-    color: Colors.blue.text,
+  subTitle: {
+    ...text.subTitle,
+    textAlign: "left",
+    fontSize: 16,
+    color: Colors.blue.regular,
+  },
+  textTab: {
+    ...text.btnText,
+    color: Colors.milk,
     paddingTop: 6,
-    backgroundColor: Colors.light,
+    backgroundColor: Colors.blue.regular,
     borderRadius: 10,
     flex: 1,
     overflow: "hidden",
     paddingVertical: 5,
+    borderWidth: 2,
   },
   description: {
     ...text.subTitle,
@@ -320,4 +254,18 @@ const textStyle = StyleSheet.create({
     textAlign: "left",
     color: Colors.grey,
   },
+  rating: {
+    ...text.btnText,
+    paddingTop: 6,
+    backgroundColor: Colors.green,
+    borderRadius: 10,
+    flex: 1,
+    overflow: "hidden",
+    paddingVertical: 5,
+    color: Colors.milk,
+    fontStyle: "normal",
+    borderWidth: 2,
+    justifyContent: "center",
+  },
 });
+

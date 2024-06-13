@@ -18,22 +18,6 @@ export default function Button(props: ButtonProps) {
   );
 }
 
-export function StretchButton(props: HrefButtonProps) {
-  const { backgroundColor, title, href } = props;
-  return (
-    <TouchableOpacity
-      style={[buttonStyle.stretchContainer, { backgroundColor }]}
-      onPress={() => {
-        router.back();
-      }}
-    >
-      <Text style={{ ...text.mainContent, color: Colors.blue.text }}>
-        {title}
-      </Text>
-    </TouchableOpacity>
-  );
-}
-
 interface HrefButtonProps {
   backgroundColor: string;
   title: string;
@@ -49,6 +33,22 @@ export function HrefButton(props: HrefButtonProps) {
       style={[buttonStyle.container, { backgroundColor }]}
     >
       <Text style={text.btnText}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
+
+export function StretchButton(props: HrefButtonProps) {
+  const { backgroundColor, title, href } = props;
+  return (
+    <TouchableOpacity
+      style={[buttonStyle.stretchContainer, { backgroundColor }]}
+      onPress={() => {
+        router.back();
+      }}
+    >
+      <Text style={{ ...text.btnText }}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -69,5 +69,6 @@ export const buttonStyle = StyleSheet.create({
     paddingHorizontal: 20,
     minWidth: 115,
     flex: 1,
+    borderWidth: 2,
   },
 });
