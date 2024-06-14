@@ -1,6 +1,4 @@
-import { CourseProps, coursesData } from "@/models/course/model";
 import { create } from "zustand";
-import { showLogoDuration } from "@/screens/index/v-model";
 import UserProps, { ListUser } from "@/models/user/model";
 
 interface LoginState {
@@ -15,10 +13,10 @@ const useLoginStore = create<LoginState>((set) => ({
   setUser: (user: UserProps) => set({ user }),
   logout: () => set({ user: null }),
   checkUserInList: (email: string, password: string) => {
-    const userchecked = ListUser.find(
+    const userChecked = ListUser.find(
       (User) => User.email === email && User.password === password
     );
-    return userchecked;
+    return userChecked;
   },
 }));
 

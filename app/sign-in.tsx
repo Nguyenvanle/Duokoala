@@ -25,7 +25,7 @@ export default function SignInScreen() {
   const [showAlert, setShowAlert] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const signInHanler = () => {
+  const signInHandler = () => {
     router.push("/auth/signUp");
   };
 
@@ -61,7 +61,7 @@ export default function SignInScreen() {
               onChangeText={(inputEmail) => setEmail(inputEmail)}
               value={email}
               secureTextEntry={false}
-            ></TextInput>
+            />
             {/* <BasicInput placeholder="koala@gmail.com" isPassword={false} /> */}
 
             {/* pass container */}
@@ -79,7 +79,7 @@ export default function SignInScreen() {
               onChangeText={(inputPassword) => setPassword(inputPassword)}
               value={password}
               secureTextEntry={true}
-            ></TextInput>
+            />
             {/* <BasicInput placeholder="matkhau123" isPassword={true}></BasicInput> */}
           </View>
 
@@ -142,7 +142,7 @@ export default function SignInScreen() {
           <View style={container.register}>
             <Text style={text.mainContent}> Bạn chưa có tài khoản? </Text>
 
-            <TouchableOpacity onPress={signInHanler}>
+            <TouchableOpacity onPress={signInHandler}>
               <Text style={text.link}>Đăng ký ngay</Text>
             </TouchableOpacity>
           </View>

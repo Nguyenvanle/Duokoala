@@ -1,5 +1,3 @@
-import { View, Text } from "react-native";
-import React, { useEffect, useState } from "react";
 import useLoginStore from "./model";
 import UserProps from "@/models/user/model";
 
