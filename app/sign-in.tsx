@@ -11,6 +11,8 @@ import Colors from "@/constants/Colors";
 import { BasicInput } from "@/components/BasicInput";
 import { index, koalaUri, logo } from "./index";
 import { router } from "expo-router";
+import CustomAlert from "@/components/CustomAlert";
+import { useState } from "react";
 
 const faceUri: string =
   "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
@@ -18,6 +20,7 @@ const faceUri: string =
 const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
 
 export default function SignInScreen() {
+  const [showAlert, setShowAlert] = useState(false);
   const signInHanler = () => {
     router.push("/auth/signUp");
   };
@@ -64,13 +67,24 @@ export default function SignInScreen() {
           <TouchableOpacity
             style={container.button}
             onPress={() => {
-              router.push("/suggest/certificate");
+              setShowAlert(true);
             }}
           >
             <Text style={[text.btnText, { color: Colors.light }]}>
               ĐĂNG NHẬP
             </Text>
           </TouchableOpacity>
+          <CustomAlert
+            title={"Đăng nhập thành công"}
+            message={"Chào mừng bạn đến với DuoKoala"}
+            textButton={"Xác nhận"}
+            icon={"https://cdn-icons-png.flaticon.com/512/190/190411.png"}
+            isShow={showAlert}
+            handlerConfirm={function (): void {
+              setShowAlert(false);
+              router.replace("/suggest/certificate");
+            }}
+          />
 
           {/* line container */}
           <View style={container.center}>

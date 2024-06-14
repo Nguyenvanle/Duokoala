@@ -3,23 +3,15 @@ import {
   Text,
   View,
   Image,
-  ImageSourcePropType,
   TouchableOpacity,
 } from "react-native";
-import { defaultStyles, text } from "@/constants/Styles";
+import {  text } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
 import React, { useEffect, useState } from "react";
 import { studyTime } from "./StudyTime";
 import { FlaticonIcon } from "./FlaticonIcon";
 import { router } from "expo-router";
-
-interface CourseProps {
-  title: string;
-  imageUrl: ImageSourcePropType;
-  instructor: string;
-  level: string;
-  tags: string[];
-}
+import { CourseProps } from "@/models/course/model";
 
 export const levelTemplate = ["Easy", "Medium", "Hard", "Advanced"];
 const routerHref: string = "/tabs/join/join-courses";
@@ -32,6 +24,9 @@ const Course: React.FC<CourseProps> = ({
   tags,
 }) => {
   const [levelColor, setLevelColor] = useState(Colors.green);
+
+  const imageSource =
+    typeof imageUrl === "string" ? { uri: imageUrl } : imageUrl;
 
   useEffect(() => {
     switch (level) {
@@ -69,14 +64,14 @@ const Course: React.FC<CourseProps> = ({
     >
       <View style={course.leftContainer}>
         <Image
-          source={imageUrl}
+          source={imageSource}
           style={{
             width: 100,
             height: 100,
           }}
-          resizeMode="contain"
-          onError={() => {
-            throw new Error("Require Link Incorrect");
+          resizeMode="cover"
+          onError={(error: any) => {
+            throw new Error("Require Link Incorrect" + error.message);
           }}
         />
       </View>

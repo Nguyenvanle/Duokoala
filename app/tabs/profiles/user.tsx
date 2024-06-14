@@ -12,12 +12,14 @@ import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { SelectButton } from "@/components/SelectButton";
 import { index } from "@/app/index";
+import { router } from "expo-router";
 
 export default function userScreen() {
   const user = {
     name: "Nguyễn Hưng Thịnh",
     role: "Học Viên",
-    imgUser: "https://cdn-icons-png.flaticon.com/512/3069/3069172.png",
+    imgUser:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS55av9IkGPlJ4mHAdYajWqaC4FecNhSiOo-Q&s",
   };
   const icon = {
     user: "https://cdn-icons-png.flaticon.com/128/1946/1946429.png",
@@ -35,7 +37,7 @@ export default function userScreen() {
         {/* info container */}
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
-            <FlaticonIcon size={100} uri={user.imgUser}></FlaticonIcon>
+            <FlaticonIcon size={150} uri={user.imgUser}></FlaticonIcon>
           </TouchableOpacity>
           <Text style={text.subTitle}>{user.name}</Text>
           {/* role container */}
@@ -83,6 +85,7 @@ export default function userScreen() {
             title={"Đăng xuất"}
             onPress={() => {
               console.log("log out");
+              router.replace("/sign-in");
             }}
           />
         </View>
@@ -114,6 +117,8 @@ const container = StyleSheet.create({
     borderColor: Colors.blue.text,
     borderWidth: 2,
     borderRadius: 100,
+    overflow: "hidden",
+    padding: 10,
   },
 
   role: {

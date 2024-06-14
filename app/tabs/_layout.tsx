@@ -1,4 +1,3 @@
-import Colors from "@/constants/Colors";
 import { Tabs } from "expo-router";
 import { text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
