@@ -7,17 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { index } from "@/app/index";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { HrefButton } from "@/components/Button";
 import { DefaultOption, SelectedOption } from "@/components/Option";
-import { SuggestionModel } from "./model";
-import { suggestion } from "./model";
+import useSuggestStore, { cerScore } from "./model";
 import { RadioBG } from "@/components/RadioBG";
-
 interface SuggestPage {
   uri: string;
   uriSize: number;
@@ -25,9 +23,19 @@ interface SuggestPage {
   content: string;
   option: string[];
 }
-//260//320
+//260//320 //
+export function getCerName() {
+  return cerData.map((cer) => cer.cerName);
+}
+//1 2 3 4 5
+export function getCerScore(cerName: string): string[] | [] {
+  const cerMap = new Map(cerData.map((cer) => [cer.cerName, cer.score]));
+  return cerMap.get(cerName) || [];
+}
 export function Suggest(props: SuggestPage) {
-  const { uri, uriSize, title, content, option /*direct*/ } = props;
+  // dua qua trang screen khac'
+  const { uri, uriSize, title, content, option } = props;
+  // const { getCer } = useSuggestStore();
   return (
     <ImageBackground
       source={require("@/assets/images/radiant-bg.png")}
@@ -47,9 +55,7 @@ export function Suggest(props: SuggestPage) {
             <Text style={text.mainContent}>{content}</Text>
           </View>
         </View>
-
         <RadioBG Options={option}></RadioBG>
-        {/* - */}
       </View>
     </ImageBackground>
   );
@@ -114,6 +120,11 @@ export const overflowLogo = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+interface CerData {
+  cerName: string;
+  score: string[];
+}
 export const cerData = [
   {
     cerName: "TOEIC",
@@ -132,23 +143,40 @@ export const cerData = [
     score: ["A2", "B1", "B2", "C1 - C2"],
   },
 ];
-
-const cerNames: string[] = cerData.map((cer) => cer.cerName);
-const cerMap = new Map(cerData.map((cer) => [cer.cerName, cer.score]));
-const cerScores = cerMap.get(suggestion.getCerf()) ?? [];
+export const textQuestion = ["Hospital", "Cinema", "School", "Park"];
+export const pictureQuestion = [
+  "They're reading the newspaper",
+  "They're leaving the room",
+  "They're standing near the table",
+  "They're turning on the machine",
+];
 export const suggestData = [
   {
     uri: "https://cdn-icons-png.flaticon.com/512/8303/8303280.png",
     uriSize: 260,
     title: "Bắt đầu thôi nào!",
     content: "Bạn đang theo đuổi chứng chỉ nào?",
-    option: cerNames,
+    option: getCerName(),
   },
   {
     uri: "https://cdn-icons-png.flaticon.com/512/1604/1604895.png",
     uriSize: 260,
     title: "Tiến thêm bước nữa!",
     content: "Bạn đang hướng đến cấp độ nào?",
-    option: cerScores,
+    option: cerData[2].score,
+  },
+  {
+    uri: "https://cdn-icons-png.flaticon.com/512/9888/9888830.png",
+    uriSize: 260,
+    title: "Question 1/20",
+    content: "Where do we go to watch a movie?",
+    option: textQuestion,
+  },
+  {
+    uri: "https://tienganhmoingay.com/media/images/uploads/2015/10/14/new-image.jpg",
+    uriSize: 320,
+    title: "Question 17/20",
+    content: "Choose the best description for the image:",
+    option: pictureQuestion,
   },
 ];

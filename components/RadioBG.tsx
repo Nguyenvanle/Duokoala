@@ -7,18 +7,19 @@ import {
   View,
 } from "react-native";
 import { DefaultOption, SelectedOption } from "./Option";
-import { suggestion } from "@/models/suggestion/model";
-
+import useSuggestStore, { cerScore } from "@/models/suggestion/model";
 interface OptionProps {
   Options: string[];
 }
-
 export function RadioBG(props: OptionProps) {
+  // const { setCer } = useSuggestStore();
   const { Options } = props;
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
   const onClickHandler = (item: any) => {
     setSelectedItem(item);
+    // setCer(item);
   };
+
   return (
     <FlatList
       contentContainerStyle={{ gap: 6 }}

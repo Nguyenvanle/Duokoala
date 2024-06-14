@@ -7,7 +7,7 @@ import Colors from "@/constants/Colors";
 
 export const koalaUri: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
-const routerHref: string = "/suggest/test";
+const routerHref: string = "/suggest/mainSuggest";
 
 export default function IndexScreen() {
   const { fontsLoaded, opacity, onLayoutRootView } =

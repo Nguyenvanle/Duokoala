@@ -1,72 +1,60 @@
-// interface SuggestionProps {
-//   cerf: CerfProps; //page 1
-//   score: number; //page 2
-//   examScore: number; //page 4
-// }
+import { create } from "zustand";
+export class cerScoreList {
+  cerScores: string[];
 
-// interface CerfProps {
-//   id: number;
-//   name: string; //toeic
-//   maxScore: number; //100
-// }
+  constructor(cerScores: string[]) {
+    this.cerScores = cerScores;
+  }
+  public setCerScores(cerScores: string[]) {
+    this.cerScores = cerScores;
+  }
+  public getCerScore() {
+    return this.cerScores;
+  }
+}
 
-// Tạo class model cho SuggestionProps
-export class SuggestionModel {
-  cerf: string;
+export const cerScore = new cerScoreList([]);
+
+interface Suggest {
+  cer: string;
+  aim: string;
   score: number;
-  examScore: number;
-
-  constructor(cerf: string, score: number, examScore: number) {
-    this.cerf = cerf;
-    this.score = score;
-    this.examScore = examScore;
-  }
-  public setCerf(cerf: string) {
-    this.cerf = cerf;
-  }
-  public getCerf() {
-    return this.cerf;
-  }
-  public setScore(cerf: string) {
-    this.cerf = cerf;
-  }
-  public getScore() {
-    return this.cerf;
-  }
-  public setExamScore(cerf: string) {
-    this.cerf = cerf;
-  }
-  public getExamScore() {
-    return this.cerf;
-  }
 }
 
-export class RadioBG {
-  Options: string[];
-  ItemSelected: string | number;
-
-  constructor(Options: string[]) {
-    this.Options = Options;
-    this.ItemSelected = -1;
-  }
-
-  public setItemSelected(Item: string) {
-    this.ItemSelected = Item;
-  }
-
-  public getItemSelected() {
-    return this.ItemSelected;
-  }
+interface SuggestState {
+  suggest: Suggest | null;
+  getSuggest: () => Suggest | null;
+  setSuggest: (suggest: Suggest) => void;
+  getCer: () => string | null;
+  setCer: (cer: string) => void;
+  getAim: () => string | null;
+  setAim: (aim: string) => void;
+  getScore: () => number | null;
+  setScore: (score: number) => void;
 }
-// // Tạo class model cho CerfProps
-// class CerfModel implements CerfProps {
-//   name: string;
-//   maxScore: number;
+const useSuggestStore = create<SuggestState>((set, get) => ({
+  suggest: null,
 
-//   constructor(name: string, maxScore: number) {
-//     this.name = name;
-//     this.maxScore = maxScore;
-//   }
-// }
+  getSuggest: () => get().suggest || null,
+  setSuggest: (suggest: Suggest) => set({ suggest }),
 
-export const suggestion = new SuggestionModel("-1", -1, -1);
+  getCer: () => get().suggest?.cer || null,
+  setCer: (cer: string) =>
+    set((state) => ({
+      suggest: state.suggest ? { ...state.suggest, cer } : null,
+    })),
+
+  getAim: () => get().suggest?.aim || null,
+  setAim: (aim: string) =>
+    set((state) => ({
+      suggest: state.suggest ? { ...state.suggest, aim } : null,
+    })),
+
+  getScore: () => get().suggest?.score || null,
+  setScore: (score: number) =>
+    set((state) => ({
+      suggest: state.suggest ? { ...state.suggest, score } : null,
+    })),
+}));
+
+export default useSuggestStore;

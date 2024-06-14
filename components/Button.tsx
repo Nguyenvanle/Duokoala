@@ -18,6 +18,15 @@ export default function Button(props: ButtonProps) {
   );
 }
 
+export function IButton(props: ButtonProps) {
+  const { backgroundColor, title } = props;
+  return (
+    <View style={[buttonStyle.container, { backgroundColor }]}>
+      <Text style={text.btnText}>{title}</Text>
+    </View>
+  );
+}
+
 interface HrefButtonProps {
   backgroundColor: string;
   title: string;
@@ -46,9 +55,7 @@ export function StretchButton(props: HrefButtonProps) {
         router.back();
       }}
     >
-      <Text style={{ ...text.btnText }}>
-        {title}
-      </Text>
+      <Text style={{ ...text.btnText }}>{title}</Text>
     </TouchableOpacity>
   );
 }
