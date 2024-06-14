@@ -7,7 +7,7 @@ import {
   FlatList,
   ImageSourcePropType,
 } from "react-native";
-import React from "react";
+import React, { isValidElement } from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { text } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
@@ -87,36 +87,50 @@ export const coursesData = [
   },
 ];
 
-export default function AddCourses() {
+export default function CoursesList() {
+  const buttonList = [
+    { title: "Toeic" },
+    { title: "Ielts" },
+    { title: "Giao tiếp" },
+    { title: "B1-B2" },
+    { title: "VStep" },
+  ];
+
   return (
     <View style={containerList.pageContainer}>
       <ImageBackground
         source={require("@/assets/images/radiant-bg.png")}
-        style={home.container}
+        style={[home.container, { paddingBottom: 0 }]}
       >
         <View style={containerList.bottom}>
-          <View style={containerList.buttontab}>
-            <Text style={textList.texttab}>Toeic</Text>
-            <Text style={textList.texttab}>Ielts</Text>
-            <Text style={textList.texttab}>Giao tiếp</Text>
-            <Text style={textList.texttab}>B1-B2</Text>
-            <TouchableOpacity
-              onPress={() => {
-                router.push("/tabs/courses/add-courses");
-              }}
-            >
-              <FlaticonIcon
-                uri="https://cdn-icons-png.flaticon.com/512/992/992651.png"
-                size={33}
-              />
-            </TouchableOpacity>
-          </View>
+          <FlatList
+            contentContainerStyle={{
+              flex: 0,
+              justifyContent: "space-between",
+              alignSelf: "stretch",
+              flexDirection: "row",
+              gap: 10,
+              height: 35,
+            }}
+            data={buttonList}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item) => item.title}
+            renderItem={({ item }) => (
+              <View>
+                <TouchableOpacity>
+                  <Text style={textList.texttab}>{item.title}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          />
         </View>
         <FlatList
           contentContainerStyle={{ gap: 6 }}
           data={coursesData}
           keyExtractor={(item) => item.title}
           scrollEnabled={true}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <Course
               title={item.title}
@@ -150,6 +164,11 @@ export const containerList = StyleSheet.create({
     gap: 10,
     paddingTop: 10,
   },
+  floatingBtn: {
+    position: "absolute",
+    bottom: 20,
+    right: 25,
+  },
 });
 
 export const textList = StyleSheet.create({
@@ -164,7 +183,7 @@ export const textList = StyleSheet.create({
     color: Colors.blue.text,
     backgroundColor: Colors.milk,
     borderRadius: 10,
-    flex: 1,
+    flex: 0,
     overflow: "hidden",
     paddingVertical: 10,
     fontWeight: "bold",
@@ -172,5 +191,6 @@ export const textList = StyleSheet.create({
     alignItems: "center",
     lineHeight: 16,
     borderWidth: 2,
+    width: 80,
   },
 });

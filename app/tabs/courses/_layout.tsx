@@ -12,7 +12,13 @@ export default function CoursesLayout() {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="add-courses" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="add-courses"
+        options={{
+          headerTitle: "Tạo Khóa Học",
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

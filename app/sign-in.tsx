@@ -80,9 +80,8 @@ export default function SignInScreen() {
             textButton={"Xác nhận"}
             icon={"https://cdn-icons-png.flaticon.com/512/190/190411.png"}
             isShow={showAlert}
-            handlerConfirm={function (): void {
-              setShowAlert(false);
-              router.replace("/suggest/certificate");
+            handlerConfirm={() => {
+              router.replace("/tabs/courses/courses-list");
             }}
           />
 
