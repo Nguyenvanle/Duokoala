@@ -2,6 +2,7 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -13,6 +14,7 @@ import { index, koalaUri, logo } from "./index";
 import { router } from "expo-router";
 import CustomAlert from "@/components/CustomAlert";
 import { useState } from "react";
+import LoginViewModel from "@/screens/login/v-model";
 
 const faceUri: string =
   "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
@@ -21,9 +23,13 @@ const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
 
 export default function SignInScreen() {
   const [showAlert, setShowAlert] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const signInHanler = () => {
     router.push("/auth/signUp");
   };
+
+  const viewModel = LoginViewModel();
   return (
     <View style={defaultStyles.pageContainer}>
       {/* root container */}
@@ -48,8 +54,15 @@ export default function SignInScreen() {
           {/* input container */}
           <View style={container.input}>
             <Text style={text.subTitle}>Email</Text>
-
-            <BasicInput placeholder="koala@gmail.com" isPassword={false} />
+            <TextInput
+              style={input.normal}
+              placeholder={"kola@gmail.com"}
+              placeholderTextColor={Colors.mute}
+              onChangeText={(inputEmail) => setEmail(inputEmail)}
+              value={email}
+              secureTextEntry={false}
+            ></TextInput>
+            {/* <BasicInput placeholder="koala@gmail.com" isPassword={false} /> */}
 
             {/* pass container */}
             <View style={signIn.passContainer}>
@@ -59,15 +72,30 @@ export default function SignInScreen() {
                 <Text style={signIn.passLinkText}>Quên mật khẩu?</Text>
               </TouchableOpacity>
             </View>
-
-            <BasicInput placeholder="matkhau123" isPassword={true}></BasicInput>
+            <TextInput
+              style={input.normal}
+              placeholder={"matkhau12"}
+              placeholderTextColor={Colors.mute}
+              onChangeText={(inputPassword) => setPassword(inputPassword)}
+              value={password}
+              secureTextEntry={true}
+            ></TextInput>
+            {/* <BasicInput placeholder="matkhau123" isPassword={true}></BasicInput> */}
           </View>
 
           {/* button container */}
           <TouchableOpacity
             style={container.button}
             onPress={() => {
-              setShowAlert(true);
+              console.log({ email, password });
+              const checkedUser = viewModel.checkUserInList(email, password);
+              if (checkedUser) {
+                setShowAlert(true);
+                console.log("Đăng nhập thành công");
+              } else {
+                console.log(checkedUser);
+                console.log("Đăng nhập thất bại");
+              }
             }}
           >
             <Text style={[text.btnText, { color: Colors.light }]}>
@@ -219,5 +247,18 @@ export const signIn = StyleSheet.create({
     paddingRight: 5,
     flexDirection: "row",
     gap: 4,
+  },
+});
+const input = StyleSheet.create({
+  normal: {
+    ...text.mainContent,
+    textAlign: "left",
+    backgroundColor: Colors.light,
+    borderWidth: 2,
+    borderRadius: 40,
+    borderColor: Colors.blue.text,
+    height: 50,
+    paddingLeft: 20,
+    alignSelf: "stretch",
   },
 });

@@ -1,6 +1,7 @@
 import { CourseProps, coursesData } from "@/models/course/model";
 import { create } from "zustand";
 import { showLogoDuration } from "@/screens/index/v-model";
+import UserProps from "@/models/user/model";
 
 interface HomeState {
   user: UserProps | null;
@@ -28,6 +29,9 @@ export const useHomeModel = create<HomeState>((set) => ({
     await new Promise((resolve) => setTimeout(resolve, showLogoDuration));
     set({
       user: {
+        email: "johndoe@gmail.com",
+        password: "johndoe",
+        isNewUser: true,
         name: "John Doe",
         role: "Student",
         currentTime: 45,
