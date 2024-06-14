@@ -8,6 +8,7 @@ export default function RootLayout() {
       <Stack.Screen name="score" options={{ headerShown: false }} />
       <Stack.Screen name="direct-result" options={{ headerShown: false }} />
       <Stack.Screen name="question" options={{ headerShown: false }} />
+      <Stack.Screen name="test" options={{ headerShown: false }} />
     </Stack>
   );
 }

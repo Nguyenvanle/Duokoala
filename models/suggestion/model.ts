@@ -21,16 +21,43 @@ export class SuggestionModel {
     this.score = score;
     this.examScore = examScore;
   }
-
   public setCerf(cerf: string) {
     this.cerf = cerf;
   }
-
-  public setScore(score: number) {
-    this.score = score;
+  public getCerf() {
+    return this.cerf;
+  }
+  public setScore(cerf: string) {
+    this.cerf = cerf;
+  }
+  public getScore() {
+    return this.cerf;
+  }
+  public setExamScore(cerf: string) {
+    this.cerf = cerf;
+  }
+  public getExamScore() {
+    return this.cerf;
   }
 }
 
+export class RadioBG {
+  Options: string[];
+  ItemSelected: string | number;
+
+  constructor(Options: string[]) {
+    this.Options = Options;
+    this.ItemSelected = -1;
+  }
+
+  public setItemSelected(Item: string) {
+    this.ItemSelected = Item;
+  }
+
+  public getItemSelected() {
+    return this.ItemSelected;
+  }
+}
 // // Tạo class model cho CerfProps
 // class CerfModel implements CerfProps {
 //   name: string;
@@ -42,6 +69,4 @@ export class SuggestionModel {
 //   }
 // }
 
-const suggestion = new SuggestionModel("", -1, -1);
-
-suggestion.setCerf("toeic");
+export const suggestion = new SuggestionModel("-1", -1, -1);

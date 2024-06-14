@@ -1,80 +1,21 @@
-//"https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png"
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import { index } from "@/app/index";
-import { defaultStyles, text } from "@/constants/Styles";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
-import { HrefButton } from "@/components/Button";
+import Suggest from "@/models/suggestion/v-model";
 
 const imageUri: string =
-  "https://www.books2ebooks.eu/sites/default/files/inline-images/content-front-page-open-book.png";
-
+  "https://cdn-icons-png.flaticon.com/512/8303/8303280.png";
 export default function Certificate() {
   return (
-    <ImageBackground
-      source={require("@/assets/images/radiant-bg.png")}
-      style={defaultStyles.pageContainer}
-    >
-      <View style={overflowLogo.container}>
-        <FlaticonIcon uri={imageUri} size={340} />
-      </View>
-      <View style={suggest.container}>
-        <View style={suggest.subFrame}>
-          <View style={suggest.contentFrame}>
-            <Text style={text.title}>Bắt đầu thôi nào!</Text>
-          </View>
-        </View>
-
-        <View style={suggest.subFrame}>
-          <View style={suggest.contentFrame}>
-            <Text style={text.mainContent}>
-              Bạn đang theo đuổi chứng chỉ nào?
-            </Text>
-          </View>
-        </View>
-
-        <View style={suggest.subFrame}>
-          <TouchableOpacity
-            style={[suggest.option, { backgroundColor: Colors.blue.deep }]}
-          >
-            <Text style={[suggest.optionText, { color: Colors.milk }]}>
-              TOEIC
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>IELTS</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>VSTEP</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={suggest.option}>
-            <Text style={suggest.optionText}>CEFR</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={suggest.decideFrame}>
-          <View style={suggest.decide}>
-            <HrefButton
-              backgroundColor={Colors.red}
-              title="Bỏ qua"
-              href="/suggest/score"
-            />
-            <HrefButton
-              backgroundColor={Colors.blue.regular}
-              title="Tiếp tục"
-              href="/suggest/score"
-            />
-          </View>
-        </View>
-      </View>
-    </ImageBackground>
+    <Suggest
+      uri={imageUri}
+      uriSize={260}
+      title={"Bắt đầu thôi nào"}
+      content={"Bạn đang theo đuổi chứng chỉ nào?"}
+      option={["TOEIC", "IELTS", "VSTEP", "CEFR"]}
+      direct={"/suggest/score"}
+    ></Suggest>
   );
 }
 
@@ -117,17 +58,6 @@ export const suggest = StyleSheet.create({
     alignItems: "center",
     alignSelf: "stretch",
   },
-  option: {
-    flex: 0,
-    padding: 15,
-    alignSelf: "stretch",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderRadius: 8, // Border radius
-    borderWidth: 3, // Độ rộng của border
-    borderColor: Colors.black, // Màu sắc của border
-    backgroundColor: Colors.milk,
-  },
   button: {
     display: "flex",
     padding: 10,
@@ -136,10 +66,6 @@ export const suggest = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 3,
     borderColor: Colors.black,
-  },
-  optionText: {
-    ...text.mainContent,
-    fontWeight: "bold",
   },
 });
 
