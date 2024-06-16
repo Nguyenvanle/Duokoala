@@ -20,6 +20,7 @@ interface CustomAlertProps {
   icon: string;
   isShow: boolean;
   handlerConfirm: () => void;
+  color: string;
 }
 
 const CustomAlert = (props: CustomAlertProps) => {
@@ -71,7 +72,10 @@ const CustomAlert = (props: CustomAlertProps) => {
         onConfirmPressed={props.handlerConfirm}
         customView={customAlertView}
         contentContainerStyle={container.alert}
-        confirmButtonStyle={container.button}
+        confirmButtonStyle={[
+          container.button,
+          { backgroundColor: props.color },
+        ]}
       />
     </View>
   );
@@ -84,7 +88,6 @@ const container = StyleSheet.create({
   },
   button: {
     ...text.btnText,
-    backgroundColor: Colors.green,
     padding: 10,
     borderRadius: 5,
     flex: 1,

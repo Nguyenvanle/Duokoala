@@ -1,4 +1,5 @@
-interface UserProps {
+import { create } from "zustand";
+export interface UserProps {
   email: string;
   password: string;
   isNewUser: boolean;
@@ -9,12 +10,23 @@ interface UserProps {
   createdCourses: number;
   targetCourses: number;
 }
+interface UserState {
+  user: UserProps | null;
+  setUser: (user: UserProps) => void;
+  logout: () => void;
+}
+export const useUserStore = create<UserState>((set) => ({
+  user: null,
+  setUser: (user: UserProps) => set({ user }),
+  logout: () => set({ user: null }),
+}));
+
 export default UserProps;
 
 export const ListUser = [
   {
-    email: "user1",
-    password: "password1",
+    email: "a",
+    password: "a",
     isNewUser: true,
     name: "User1",
     role: "Student",

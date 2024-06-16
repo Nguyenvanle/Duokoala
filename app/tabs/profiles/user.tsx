@@ -13,6 +13,7 @@ import Colors from "@/constants/Colors";
 import { SelectButton } from "@/components/SelectButton";
 import { index } from "@/app/index";
 import { router } from "expo-router";
+import Button, { HrefButton, OnPressButton } from "@/components/Button";
 
 export default function userScreen() {
   const user = {
@@ -26,9 +27,10 @@ export default function userScreen() {
     info: "https://cdn-icons-png.flaticon.com/128/471/471662.png",
     upgrade: "https://cdn-icons-png.flaticon.com/128/1286/1286860.png",
     logOut: "https://cdn-icons-png.flaticon.com/128/10561/10561233.png",
+    change: "https://cdn-icons-png.flaticon.com/128/3800/3800840.png",
   };
   return (
-    <View style={defaultStyles.pageContainer}>
+    <ScrollView style={defaultStyles.pageContainer}>
       {/* page container */}
       <ImageBackground
         source={require("@/assets/images/radiant-bg.png")}
@@ -76,21 +78,37 @@ export default function userScreen() {
               console.log("upgrade role");
             }}
           />
+          <SelectButton
+            hrefIcon={icon.change}
+            title={"Thay đổi đề xuất"}
+            onPress={() => {
+              console.log("change suggest");
+              router.replace("/suggest/certificate");
+            }}
+          />
         </View>
         {/* log out container */}
         <View>
           <View style={container.line}></View>
-          <SelectButton
+          {/* <SelectButton
             hrefIcon={icon.logOut}
             title={"Đăng xuất"}
             onPress={() => {
               console.log("log out");
               router.replace("/sign-in");
             }}
-          />
+          /> */}
+          <OnPressButton
+            backgroundColor={Colors.red}
+            title={"Đăng xuất"}
+            onpress={function (): void {
+              console.log("log out");
+              router.replace("/sign-in");
+            }}
+          ></OnPressButton>
         </View>
       </ImageBackground>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -98,14 +116,14 @@ const container = StyleSheet.create({
   page: {
     ...index.container,
     gap: 10,
-    padding: 30,
+    padding: 20,
     flex: 1,
     justifyContent: "center",
   },
   info: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+
     paddingTop: 0,
   },
   icon: {
@@ -133,8 +151,8 @@ const container = StyleSheet.create({
   },
   line: {
     height: 2,
-    width: "100%",
     backgroundColor: Colors.blue.text,
     marginVertical: 15,
+    marginHorizontal: 10,
   },
 });

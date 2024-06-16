@@ -23,7 +23,7 @@ export function SelectButton(props: SelectButtonProps) {
     <View>
       <TouchableOpacity onPress={props.onPress} style={container.default}>
         <View style={container.left}>
-          <FlaticonIcon size={30} uri={props.hrefIcon} />
+          <FlaticonIcon size={28} uri={props.hrefIcon} />
           <Text style={text.subTitle}>{props.title}</Text>
         </View>
         <View>
@@ -45,9 +45,13 @@ const container = StyleSheet.create({
     alignSelf: "stretch",
     marginVertical: 10,
     padding: 2,
+
+    paddingVertical: 3,
   },
   left: {
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 10,
   },
 });
