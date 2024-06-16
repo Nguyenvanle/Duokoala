@@ -5,9 +5,16 @@ import StudyTime, { CourseProgress } from "@/components/StudyTime";
 import KoalaLoading from "@/components/KoalaLoading";
 import useHomeViewModel from "@/screens/home/v-model";
 import { Section } from "@/screens/home/Section";
+import UserViewModel from "@/models/user/v-model";
 
 export default function HomeScreen() {
-  const { user, isLoading, courses, iconUri } = useHomeViewModel();
+  const { isLoading, courses, iconUri } = useHomeViewModel();
+
+  {
+    /* get user from login */
+  }
+  const userViewModel = UserViewModel();
+  const user = userViewModel.user;
 
   if (isLoading) return <KoalaLoading />;
 

@@ -45,7 +45,7 @@ const container = StyleSheet.create({
     alignSelf: "stretch",
     marginVertical: 10,
     padding: 2,
-
+    paddingLeft: 5,
     paddingVertical: 3,
   },
   left: {

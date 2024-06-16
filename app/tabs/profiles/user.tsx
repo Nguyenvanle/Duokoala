@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
@@ -14,11 +14,13 @@ import { SelectButton } from "@/components/SelectButton";
 import { index } from "@/app/index";
 import { router } from "expo-router";
 import Button, { HrefButton, OnPressButton } from "@/components/Button";
+import UserViewModel from "@/models/user/v-model";
 
 export default function userScreen() {
+  const userViewModel = UserViewModel();
   const user = {
-    name: "Nguyễn Hưng Thịnh",
-    role: "Học Viên",
+    name: userViewModel.user?.name,
+    role: userViewModel.user?.role,
     imgUser:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS55av9IkGPlJ4mHAdYajWqaC4FecNhSiOo-Q&s",
   };
@@ -29,6 +31,10 @@ export default function userScreen() {
     logOut: "https://cdn-icons-png.flaticon.com/128/10561/10561233.png",
     change: "https://cdn-icons-png.flaticon.com/128/3800/3800840.png",
   };
+  useEffect(() => {
+    console.log("user được cập nhật lại:");
+    console.log(userViewModel.user);
+  }, [userViewModel.user]);
   return (
     <ScrollView style={defaultStyles.pageContainer}>
       {/* page container */}
@@ -101,8 +107,9 @@ export default function userScreen() {
           <OnPressButton
             backgroundColor={Colors.red}
             title={"Đăng xuất"}
-            onpress={function (): void {
+            onpress={() => {
               console.log("log out");
+              userViewModel.logOut();
               router.replace("/sign-in");
             }}
           ></OnPressButton>

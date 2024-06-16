@@ -59,9 +59,9 @@ export default function SignInScreen() {
   }
   const confirmAlertHandler = () => {
     if (userViewModel.user?.isNewUser) {
-      router.replace("/auth/intro");
-    } else {
       router.replace("/suggest/certificate");
+    } else {
+      router.replace("/tabs");
     }
     setShowTrueAlert(false);
   };
