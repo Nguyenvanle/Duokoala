@@ -1,6 +1,8 @@
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
+import UserViewModel from "@/models/user/v-model";
+import LoginViewModel from "@/screens/login/v-model";
 import { router } from "expo-router";
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
@@ -37,8 +39,9 @@ const slides = [
   },
 ];
 
-export default class Intro extends Component {
-  _renderItem = ({ item }: any) => {
+export default function Intro() {
+  const userViewModel = UserViewModel();
+  const _renderItem = ({ item }: any) => {
     return (
       <ImageBackground
         source={require("@/assets/images/radiant-bg.png")}
@@ -52,17 +55,19 @@ export default class Intro extends Component {
       </ImageBackground>
     );
   };
-  _onDone = () => {
+  const _onDone = () => {
     // User finished the introduction. Navigate to main screen here.
     // Maybe let's redirect him to createStackNavigator...
     console.log("Intro finished");
+    console.log("User được đem theo qua intro");
+    console.log(userViewModel.user);
     router.push("/suggest/certificate");
   };
 
-  _skipHandler = () => {
+  const _skipHandler = () => {
     console.log("(onboarding) x-> (signup)");
   };
-  _renderNextButton = () => {
+  const _renderNextButton = () => {
     return (
       <View>
         <View style={styles.button}>
@@ -75,7 +80,7 @@ export default class Intro extends Component {
     );
   };
 
-  _renderDoneButton = () => {
+  const _renderDoneButton = () => {
     return (
       <View>
         <View style={styles.button}>
@@ -88,7 +93,7 @@ export default class Intro extends Component {
     );
   };
 
-  _renderSkipButton = () => {
+  const _renderSkipButton = () => {
     return (
       <View>
         <View style={styles.button}>
@@ -101,19 +106,17 @@ export default class Intro extends Component {
     );
   };
 
-  render() {
-    return (
-      <AppIntroSlider
-        renderItem={this._renderItem}
-        data={slides}
-        onDone={this._onDone}
-        renderNextButton={this._renderNextButton}
-        renderDoneButton={this._renderDoneButton}
-        renderSkipButton={this._renderSkipButton}
-        showSkipButton={true}
-      />
-    );
-  }
+  return (
+    <AppIntroSlider
+      renderItem={_renderItem}
+      data={slides}
+      onDone={_onDone}
+      renderNextButton={_renderNextButton}
+      renderDoneButton={_renderDoneButton}
+      renderSkipButton={_renderSkipButton}
+      showSkipButton={true}
+    />
+  );
 }
 
 const styles = StyleSheet.create({
@@ -141,38 +144,3 @@ const styles = StyleSheet.create({
     margin: 2,
   },
 });
-//   render() {
-//     const doneHandler = () => {
-//       console.log(`(onboarding) --> (signup)`);
-//       router.push(`/(login)/(signup)`);
-//     };
-
-//     const skipHandler = () => {
-//       console.log("(onboarding) x-> (signup)");
-//       router.push("/(login)/(signup)");
-//     };
-
-//     return (
-//       <SafeAreaView>
-//         <StatusBar />
-//         <AppIntroSlider
-//           keyExtractor={this._keyExtractor}
-//           renderItem={this._renderItem}
-//           data={data}
-//           // dotStyle={styles.dotStyle}
-//           // activeDotStyle={styles.activeDotStyle}
-//           renderDoneButton={this._renderDoneButton}
-//           renderNextButton={this._renderNextButton}
-//           onDone={doneHandler}
-//           showSkipButton={true}
-//           onSkip={skipHandler}
-//           renderSkipButton={this._renderSkipButton}
-//         />
-//       </SafeAreaView>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   slide: {},
-// });
