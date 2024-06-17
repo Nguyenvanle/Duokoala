@@ -10,11 +10,8 @@ import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { index, koalaUri, logo } from "./index";
-import { router } from "expo-router";
 import CustomAlert from "@/components/CustomAlert";
-import { useEffect, useState } from "react";
-import LoginViewModel from "@/screens/login/v-model";
-import UserViewModel from "@/models/user/v-model";
+import useSignInViewModel from "@/screens/sign-in/v-model";
 
 const faceUri: string =
   "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
@@ -22,49 +19,19 @@ const faceUri: string =
 const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
 
 export default function SignInScreen() {
-  const [showTrueAlert, setShowTrueAlert] = useState(false);
-  const [showErrorAlert, setShowErrorAlert] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const userViewModel = UserViewModel();
-  const loginViewModel = LoginViewModel();
+  const {
+    setEmail,
+    email,
+    setPassword,
+    password,
+    signInHandler,
+    showTrueAlert,
+    confirmAlertHandler,
+    showErrorAlert,
+    setShowErrorAlert,
+    signUpHandler,
+  } = useSignInViewModel();
 
-  useEffect(() => {
-    console.log("user được cập nhật lại:");
-    console.log(userViewModel.user);
-  }, [userViewModel.user]);
-
-  const signInHandler = () => {
-    console.log({ email, password });
-    const userInList = loginViewModel.checkUserInList(email, password);
-    console.log("tìm thấy user:");
-    console.log(userInList);
-    {
-      /* find user and print alert*/
-    }
-    if (userInList) {
-      userViewModel.setUser(userInList);
-      setShowTrueAlert(true);
-    } else {
-      console.log("không tìm thấy user");
-      setShowErrorAlert(true);
-    }
-  };
-  const signUpHandler = () => {
-    userViewModel.logOut();
-    router.push("/auth/signUp");
-  };
-  {
-    /*hanler after get user, and set router */
-  }
-  const confirmAlertHandler = () => {
-    if (userViewModel.user?.isNewUser) {
-      router.replace("/suggest/certificate");
-    } else {
-      router.replace("/tabs");
-    }
-    setShowTrueAlert(false);
-  };
   return (
     <View style={defaultStyles.pageContainer}>
       {/* root container */}
@@ -110,7 +77,7 @@ export default function SignInScreen() {
             </View>
             <TextInput
               style={input.normal}
-              placeholder={"matkhau12"}
+              placeholder={"matkhau123"}
               placeholderTextColor={Colors.mute}
               onChangeText={(inputPassword) => setPassword(inputPassword)}
               value={password}
@@ -141,7 +108,7 @@ export default function SignInScreen() {
             textButton={"Xác nhận"}
             icon={"https://cdn-icons-png.flaticon.com/512/190/190406.png"}
             isShow={showErrorAlert}
-            handlerConfirm={function (): void {
+            handlerConfirm={() => {
               setShowErrorAlert(false);
             }}
             color={Colors.red}

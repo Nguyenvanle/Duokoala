@@ -1,5 +1,4 @@
-import { create } from "zustand";
-import useLoginStore, { useUserStore } from "./model";
+import { useUserStore } from "./model";
 import UserProps from "@/models/user/model";
 
 const UserViewModel = () => {

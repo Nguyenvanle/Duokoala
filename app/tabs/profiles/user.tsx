@@ -11,9 +11,8 @@ import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { SelectButton } from "@/components/SelectButton";
-import { index } from "@/app/index";
 import { router } from "expo-router";
-import Button, { HrefButton, OnPressButton } from "@/components/Button";
+import { OnPressButton } from "@/components/Button";
 import UserViewModel from "@/models/user/v-model";
 
 export default function userScreen() {
@@ -36,12 +35,13 @@ export default function userScreen() {
     console.log(userViewModel.user);
   }, [userViewModel.user]);
   return (
-    <ScrollView style={defaultStyles.pageContainer}>
-      {/* page container */}
-      <ImageBackground
-        source={require("@/assets/images/radiant-bg.png")}
-        style={container.page}
-      >
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
+      <ScrollView style={container.page}>
+        {/* page container */}
+
         {/* info container */}
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
@@ -114,18 +114,18 @@ export default function userScreen() {
             }}
           ></OnPressButton>
         </View>
-      </ImageBackground>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 }
 
 const container = StyleSheet.create({
   page: {
-    ...index.container,
     gap: 10,
     padding: 20,
     flex: 1,
-    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   info: {
     justifyContent: "center",
