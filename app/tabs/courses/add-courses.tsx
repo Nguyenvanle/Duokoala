@@ -17,7 +17,7 @@ import { BasicInput, DescriptionInput } from "@/components/BasicInput";
 import Button, { buttonStyle } from "@/components/Button";
 import { home } from "../homes/home";
 import { router } from "expo-router";
-import { suggest } from "@/app/suggest/mainSuggest";
+import { suggest } from "@/screens/suggest/suggestScreen";
 
 const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";

@@ -15,6 +15,8 @@ export function DefaultOption(props: ContentProps) {
   );
 }
 
+//< - - - - - - - - - - - - - - - - - - - - >//
+
 export function SelectedOption(props: ContentProps) {
   const { content } = props;
   return (
@@ -23,6 +25,30 @@ export function SelectedOption(props: ContentProps) {
     </View>
   );
 }
+
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+export function CorrectOption(props: ContentProps) {
+  const { content } = props;
+  return (
+    <View style={backgroundStyle.correct}>
+      <Text style={contentStyle.selected}>{content}</Text>
+    </View>
+  );
+}
+
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+export function WrongOption(props: ContentProps) {
+  const { content } = props;
+  return (
+    <View style={backgroundStyle.wrong}>
+      <Text style={contentStyle.selected}>{content}</Text>
+    </View>
+  );
+}
+
+//< - - - - - - - - - - - - - - - - - - - - >//
 
 const contentStyle = StyleSheet.create({
   default: {
@@ -56,5 +82,13 @@ const backgroundStyle = StyleSheet.create({
   selected: {
     ...background.bg,
     backgroundColor: Colors.blue.deep,
+  },
+  correct: {
+    ...background.bg,
+    backgroundColor: Colors.green,
+  },
+  wrong: {
+    ...background.bg,
+    backgroundColor: Colors.red,
   },
 });
