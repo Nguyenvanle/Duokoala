@@ -41,7 +41,7 @@ export default function useSignInViewModel() {
   }
   const confirmAlertHandler = () => {
     if (userViewModel.user?.isNewUser) {
-      router.replace("/suggest/certificate");
+      router.replace("/suggest");
     } else {
       router.replace("/tabs");
     }

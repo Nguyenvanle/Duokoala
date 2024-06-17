@@ -49,13 +49,13 @@ export function HrefButton(props: HrefButtonProps) {
 interface OnPressButtonProps {
   backgroundColor: string;
   title: string;
-  onpress: () => void;
+  onPress: () => void;
 }
 export function OnPressButton(props: OnPressButtonProps) {
-  const { backgroundColor, title, onpress } = props;
+  const { backgroundColor, title, onPress } = props;
   return (
     <TouchableOpacity
-      onPress={onpress}
+      onPress={onPress}
       style={[buttonStyle.container, { backgroundColor }]}
     >
       <Text style={text.btnText}>{title}</Text>

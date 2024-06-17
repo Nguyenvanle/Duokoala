@@ -39,9 +39,8 @@ export default function userScreen() {
       source={require("@/assets/images/radiant-bg.png")}
       style={defaultStyles.pageContainer}
     >
+      {/* page container */}
       <ScrollView style={container.page}>
-        {/* page container */}
-
         {/* info container */}
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
@@ -67,14 +66,14 @@ export default function userScreen() {
             hrefIcon={icon.user}
             title={"Thông tin người dùng"}
             onPress={() => {
-              console.log("infomation user");
+              console.log("information user");
             }}
           />
           <SelectButton
             hrefIcon={icon.info}
             title={"Thông tin ứng dụng"}
             onPress={() => {
-              console.log("infomation app");
+              console.log("information app");
             }}
           />
           <SelectButton
@@ -89,7 +88,7 @@ export default function userScreen() {
             title={"Thay đổi đề xuất"}
             onPress={() => {
               console.log("change suggest");
-              router.replace("/suggest/certificate");
+              router.replace("/suggest");
             }}
           />
         </View>
@@ -107,7 +106,7 @@ export default function userScreen() {
           <OnPressButton
             backgroundColor={Colors.red}
             title={"Đăng xuất"}
-            onpress={() => {
+            onPress={() => {
               console.log("log out");
               userViewModel.logOut();
               router.replace("/sign-in");
