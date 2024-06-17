@@ -12,6 +12,7 @@ import Colors from "@/constants/Colors";
 import { index, koalaUri, logo } from "./index";
 import CustomAlert from "@/components/CustomAlert";
 import useSignInViewModel from "@/screens/sign-in/v-model";
+import { useAuthViewModel } from "@/services/firebase/v-model";
 
 const faceUri: string =
   "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
@@ -20,17 +21,21 @@ const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
 
 export default function SignInScreen() {
   const {
-    setEmail,
-    email,
-    setPassword,
-    password,
-    signInHandler,
+    // setEmail,
+    // email,
+    // setPassword,
+    // password,
+    // signInHandler,
+    // using firebase user v-model instead
     showTrueAlert,
     confirmAlertHandler,
     showErrorAlert,
     setShowErrorAlert,
     signUpHandler,
   } = useSignInViewModel();
+
+  const { onLoginPress, setEmail, setPassword, email, password } =
+    useAuthViewModel();
 
   return (
     <View style={defaultStyles.pageContainer}>
@@ -88,7 +93,11 @@ export default function SignInScreen() {
           </View>
 
           {/* button container */}
-          <TouchableOpacity style={container.button} onPress={signInHandler}>
+          <TouchableOpacity
+            style={container.button}
+            // onPress={signInHandler}
+            onPress={() => onLoginPress()}
+          >
             <Text style={[text.btnText, { color: Colors.light }]}>
               ĐĂNG NHẬP
             </Text>
