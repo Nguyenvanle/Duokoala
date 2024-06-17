@@ -1,10 +1,4 @@
 import { CerProps, QuestProps } from "@/models/suggestion/model";
-import {
-  getCerAims,
-  getCerNames,
-  useSuggestViewModel,
-} from "@/models/suggestion/v-model";
-import { useEffect } from "react";
 
 //< - Import - >//
 

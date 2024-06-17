@@ -15,8 +15,8 @@ import { AnswerRadioBG } from "@/components/RadioBG";
 import CustomAlert from "@/components/CustomAlert";
 import { router } from "expo-router";
 
-const TextQuestion = getRandomArray(5, questTextProps);
-const PhotoQuestion = getRandomArray(5, questPhotoProps);
+const TextQuestion = getRandomArray(3, questTextProps);
+const PhotoQuestion = getRandomArray(4, questPhotoProps);
 const ArrayQuestion = CombineAndRandom(TextQuestion, PhotoQuestion);
 const length = ArrayQuestion.length;
 

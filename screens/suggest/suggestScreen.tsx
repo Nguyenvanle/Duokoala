@@ -1,10 +1,8 @@
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { index } from "@/app/index";
-import { defaultStyles, text } from "@/constants/Styles";
+import { text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
-import { SuggestRadioBG } from "@/components/RadioBG";
 
 interface SuggestPage {
   uri: string;
@@ -38,7 +36,7 @@ export function SuggestScreen(props: SuggestPage) {
 export const suggest = StyleSheet.create({
   container: {
     ...index.container,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignContent: "flex-start",
     paddingVertical: 20,
   },

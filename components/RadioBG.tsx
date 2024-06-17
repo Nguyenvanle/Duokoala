@@ -110,7 +110,6 @@ export function AnswerRadioBG(props: AnswerProps) {
   const onClickHandler = (item: any) => {
     setSelectedItem(item);
     answer.setAnswer({ answer: item });
-    console.log(answer.answer?.answer);
   };
 
   return (
