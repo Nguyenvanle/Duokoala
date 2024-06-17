@@ -1,29 +1,32 @@
+import { router } from "expo-router";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useUserAuthStore } from "./model";
-import { auth } from "./config";
 import { useEffect, useState } from "react";
-import { router } from "expo-router";
+import { auth } from "./config";
+import { useUserAuthStore } from "./model";
 
 export const useAuthViewModel = () => {
+  const [isLoading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { setUser, user } = useUserAuthStore();
 
   useEffect(() => {
-    observeAuthState();
-    if (user !== null) router.replace("/tabs");
-  }, [user]);
+    if (user) {
+      console.log(user.email + " was verified");
+      router.replace("/tabs");
+    }
+  }, [user, setUser]);
 
   const onLoginPress = () => {
     login(email, password);
   };
 
   const register = async (email: string, password: string) => {
+    setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -37,9 +40,11 @@ export const useAuthViewModel = () => {
     } catch (error: any) {
       alert(error.message);
     }
+    setLoading(false);
   };
 
   const login = async (email: string, password: string) => {
+    setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -53,26 +58,17 @@ export const useAuthViewModel = () => {
     } catch (error: any) {
       alert(error.message);
     }
-  };
-
-  const observeAuthState = () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
+    setLoading(false);
   };
 
   return {
     register,
     login,
-    observeAuthState,
     email,
     setEmail,
     password,
     setPassword,
     onLoginPress,
+    isLoading,
   };
 };
