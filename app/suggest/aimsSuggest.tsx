@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
 import { IButton } from "@/components/Button";
+import { TwoOptionsAlert } from "@/components/CustomAlert";
+import { SuggestRadioBG } from "@/components/RadioBG";
 import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
-import { ImageBackground, TouchableOpacity, View } from "react-native";
-import { router } from "expo-router";
-import { TwoOptionsAlert } from "@/components/CustomAlert";
 import { getCerAims, useSuggestViewModel } from "@/models/suggestion/v-model";
-import { SuggestScreen, suggest } from "@/screens/suggest/suggestScreen";
 import { cerProps } from "@/screens/suggest/data";
-import { SuggestRadioBG } from "@/components/RadioBG";
+import { SuggestContent, decideScreen } from "@/screens/suggest/suggestScreen";
+import { router } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { ImageBackground, TouchableOpacity, View } from "react-native";
 
 export default function MainSuggestion() {
   const [showAlert, setShowAlert] = useState(false);
@@ -36,15 +36,15 @@ export default function MainSuggestion() {
       source={require("@/assets/images/radiant-bg.png")}
       style={defaultStyles.pageContainer}
     >
-      <SuggestScreen
+      <SuggestContent
         uri={"https://cdn-icons-png.flaticon.com/512/1604/1604895.png"}
         uriSize={260}
         title={"Tiến thêm bước nữa!"}
         content={"Bạn đang hướng đến cấp độ nào?"}
       />
 
-      <View style={suggest.decideFrame}>
-        <View style={suggest.decide}>
+      <View style={decideScreen.decideFrame}>
+        <View style={decideScreen.decideValue}>
           <SuggestRadioBG
             For="Purpose"
             Options={arrayOption}
@@ -52,8 +52,8 @@ export default function MainSuggestion() {
           ></SuggestRadioBG>
         </View>
       </View>
-      <View style={suggest.decideFrame}>
-        <View style={suggest.decide}>
+      <View style={decideScreen.decideFrame}>
+        <View style={decideScreen.decideValue}>
           <TouchableOpacity onPress={() => handlePrevious()}>
             <IButton backgroundColor={Colors.blue.regular} title="Trở Lại" />
           </TouchableOpacity>

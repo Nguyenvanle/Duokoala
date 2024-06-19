@@ -1,21 +1,10 @@
-import {
-  ImageBackground,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
 import { index } from "@/app/index";
-import { defaultStyles, text } from "@/constants/Styles";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-import Colors from "@/constants/Colors";
-import {
-  AnswerOpsProps,
-  SuggestOpsProps,
-  SuggestRadioBG,
-} from "@/components/RadioBG";
-import { AnswerRadioBG } from "@/components/RadioBG";
 import { IButton } from "@/components/Button";
+import { FlaticonIcon } from "@/components/FlaticonIcon";
+import { AnswerOpsProps, SuggestOpsProps } from "@/components/RadioBG";
+import Colors from "@/constants/Colors";
+import { text } from "@/constants/Styles";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export interface SuggestContent {
   uri: string;
@@ -65,11 +54,14 @@ interface SuggestPage {
 export default function SuggestPage(props: SuggestPage) {
   const { suggest, bGroup, handler } = props;
 
+  const left = handler.LHandler;
+  const right = handler.RHandler;
+
   const isSuggestOpsProps = (obj: SuggestOpsProps | AnswerOpsProps) => {
     return "For" in obj;
   };
 
-  const setHandler = (HandlerLogic: Handler) => {
+  function SuggestButton(HandlerLogic: Handler) {
     return HandlerLogic.isButton ? (
       <TouchableOpacity onPress={() => HandlerLogic.handle}>
         <IButton
@@ -85,7 +77,7 @@ export default function SuggestPage(props: SuggestPage) {
         />
       </View>
     );
-  };
+  }
 
   return (
     <View style={suggestStyle.container}>
@@ -97,27 +89,18 @@ export default function SuggestPage(props: SuggestPage) {
       />
       <View style={decideScreen.decideFrame}>
         <View style={decideScreen.decideValue}>
-          {isSuggestOpsProps(bGroup) ? (
-            <SuggestRadioBG
-              For={(bGroup as SuggestOpsProps).For}
-              Options={bGroup.Options}
-              Default={(bGroup as SuggestOpsProps).Default}
-            ></SuggestRadioBG>
-          ) : (
-            <AnswerRadioBG
-              Options={bGroup.Options}
-              Correct={(bGroup as AnswerOpsProps).Correct}
-              Status={(bGroup as AnswerOpsProps).Status}
-            ></AnswerRadioBG>
-          )}
-        </View>
-      </View>
-      <View style={decideScreen.decideFrame}>
-        <View style={decideScreen.decideValue}>
-          {setHandler(handler.LHandler)}
-        </View>
-        <View style={decideScreen.decideValue}>
-          {setHandler(handler.RHandler)}
+          <SuggestButton
+            handle={left.handle}
+            color={left.color}
+            name={left.name}
+            isButton={left.isButton}
+          />
+          <SuggestButton
+            handle={right.handle}
+            color={right.color}
+            name={right.name}
+            isButton={right.isButton}
+          />
         </View>
       </View>
     </View>

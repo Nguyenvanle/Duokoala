@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { SuggestScreen } from "@/screens/suggest/suggestScreen";
 
 //< - Import - >//
 interface CerProp {

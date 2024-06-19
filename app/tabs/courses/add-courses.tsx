@@ -1,23 +1,21 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  TextInput,
-  ImageBackground,
-} from "react-native";
-import React from "react";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-import { defaultStyles, text } from "@/constants/Styles";
-import { index, logo } from "@/app/index";
-import Colors from "@/constants/Colors";
+import { logo } from "@/app/index";
 import { container } from "@/app/sign-in";
 import { BasicInput, DescriptionInput } from "@/components/BasicInput";
-import Button, { buttonStyle } from "@/components/Button";
-import { home } from "../homes/home";
+import Button from "@/components/Button";
+import { FlaticonIcon } from "@/components/FlaticonIcon";
+import Colors from "@/constants/Colors";
+import { defaultStyles, text } from "@/constants/Styles";
 import { router } from "expo-router";
-import { suggest } from "@/screens/suggest/suggestScreen";
+import React from "react";
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { home } from "../homes/home";
 
 const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
@@ -123,7 +121,12 @@ export default function AddCourses() {
 
 export const create = StyleSheet.create({
   btnContainer: {
-    ...suggest.decide,
+    flex: 0,
+    flexDirection: "row",
+    alignContent: "flex-end",
+    flexShrink: 0,
+    gap: 10,
+    alignSelf: "stretch",
     justifyContent: "space-evenly",
     alignItems: "center",
     paddingTop: 16,
