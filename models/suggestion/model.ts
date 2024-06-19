@@ -1,47 +1,52 @@
-// interface SuggestionProps {
-//   cerf: CerfProps; //page 1
-//   score: number; //page 2
-//   examScore: number; //page 4
-// }
+import { create } from "zustand";
+import { SuggestScreen } from "@/screens/suggest/suggestScreen";
 
-// interface CerfProps {
-//   id: number;
-//   name: string; //toeic
-//   maxScore: number; //100
-// }
-
-// Tạo class model cho SuggestionProps
-export class SuggestionModel {
-  cerf: string;
-  score: number;
-  examScore: number;
-
-  constructor(cerf: string, score: number, examScore: number) {
-    this.cerf = cerf;
-    this.score = score;
-    this.examScore = examScore;
-  }
-
-  public setCerf(cerf: string) {
-    this.cerf = cerf;
-  }
-
-  public setScore(score: number) {
-    this.score = score;
-  }
+//< - Import - >//
+interface CerProp {
+  cerName: string;
+  aims: string[];
 }
+export type CerProps = CerProp[];
 
-// // Tạo class model cho CerfProps
-// class CerfModel implements CerfProps {
-//   name: string;
-//   maxScore: number;
+//< - - - - - - - - - - - - - - - - - - - - >//
 
-//   constructor(name: string, maxScore: number) {
-//     this.name = name;
-//     this.maxScore = maxScore;
-//   }
-// }
+interface QuestProp {
+  uri: string | null;
+  question: string;
+  answer: string[];
+  correctAnswer: string;
+}
+export type QuestProps = QuestProp[];
 
-const suggestion = new SuggestionModel("", -1, -1);
+//< - - - - - - - - - - - - - - - - - - - - >//
+export interface Suggest {
+  cer: string | null;
+  aim: string | null;
+  score: number | null;
+}
+interface SuggestState {
+  suggest: Suggest | null;
+  setSuggest: (suggest: Suggest) => void;
+}
+export const useSuggestStore = create<SuggestState>((set) => ({
+  suggest: null,
+  setSuggest(suggest: Suggest) {
+    set({ suggest: suggest });
+  },
+}));
 
-suggestion.setCerf("toeic");
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+export interface Answer {
+  answer: string | null;
+}
+interface AnswerState {
+  answer: Answer | null;
+  setAnswer: (answer: Answer) => void;
+}
+export const useAnswerStore = create<AnswerState>((set) => ({
+  answer: null,
+  setAnswer(answer: Answer) {
+    set({ answer: answer });
+  },
+}));

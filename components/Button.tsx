@@ -18,6 +18,15 @@ export default function Button(props: ButtonProps) {
   );
 }
 
+export function IButton(props: ButtonProps) {
+  const { backgroundColor, title } = props;
+  return (
+    <View style={[buttonStyle.container, { backgroundColor }]}>
+      <Text style={text.btnText}>{title}</Text>
+    </View>
+  );
+}
+
 interface HrefButtonProps {
   backgroundColor: string;
   title: string;
@@ -37,6 +46,23 @@ export function HrefButton(props: HrefButtonProps) {
   );
 }
 
+interface OnPressButtonProps {
+  backgroundColor: string;
+  title: string;
+  onPress: () => void;
+}
+export function OnPressButton(props: OnPressButtonProps) {
+  const { backgroundColor, title, onPress } = props;
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={[buttonStyle.container, { backgroundColor }]}
+    >
+      <Text style={text.btnText}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
+
 export function StretchButton(props: HrefButtonProps) {
   const { backgroundColor, title, href } = props;
   return (
@@ -46,9 +72,7 @@ export function StretchButton(props: HrefButtonProps) {
         router.back();
       }}
     >
-      <Text style={{ ...text.btnText }}>
-        {title}
-      </Text>
+      <Text style={{ ...text.btnText }}>{title}</Text>
     </TouchableOpacity>
   );
 }
