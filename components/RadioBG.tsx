@@ -1,3 +1,7 @@
+import {
+  useAnswerViewModel,
+  useSuggestViewModel,
+} from "@/models/suggestion/v-model";
 import { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import {
@@ -8,10 +12,6 @@ import {
   SelectedOption,
   WrongOption,
 } from "./Option";
-import {
-  useAnswerViewModel,
-  useSuggestViewModel,
-} from "@/models/suggestion/v-model";
 interface OptionProps {
   Options: string[];
 }
@@ -164,12 +164,12 @@ export function TabsRadioBG(props: TabProps) {
     Tabs: string[];
     None: string | null;
   }
-  
-  export function CourseRadioBG(props: CourseTabProps) {
+
+  function CourseRadioBG(props: CourseTabProps) {
     const viewModel = useSuggestViewModel();
     const { For, Tabs, None } = props;
     const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  
+
     useEffect(() => {
       if (None) setSelectedTabs(None);
     }, []);
@@ -189,22 +189,23 @@ export function TabsRadioBG(props: TabProps) {
         });
       }
     };
-  
-  return (
-    <FlatList
-      contentContainerStyle={{ gap: 6 }}
-      data={Tabs}
-      keyExtractor={(item) => item}
-      scrollEnabled={false}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => ClickHandler(item)}>
-          {selectedTabs === item ? (
-            <SelectedClick content={item} />
-          ) : (
-            <NoneClick content={item} />
-          )}
-        </TouchableOpacity>
-      )}
-    />
-  );
+
+    return (
+      <FlatList
+        contentContainerStyle={{ gap: 6 }}
+        data={Tabs}
+        keyExtractor={(item) => item}
+        scrollEnabled={false}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => ClickHandler(item)}>
+            {selectedTabs === item ? (
+              <SelectedClick content={item} />
+            ) : (
+              <NoneClick content={item} />
+            )}
+          </TouchableOpacity>
+        )}
+      />
+    );
+  }
 }

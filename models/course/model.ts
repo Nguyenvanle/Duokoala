@@ -1,4 +1,5 @@
-import { ImageSourcePropType, ImageURISource } from "react-native";
+import { ImageSourcePropType } from "react-native";
+import { create } from "zustand";
 const courseImageUrl: ImageSourcePropType = require("@/assets/images/course/toeic-700.jpg");
 export const toeicUrl: string =
   "https://images.unsplash.com/photo-1543109740-4bdb38fda756?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
@@ -11,6 +12,38 @@ export interface CourseProps {
   level: string;
   tags: string[];
 }
+
+export interface CourseState {
+  course: CourseProps;
+  setCourse: (course: CourseProps) => void;
+  setTitle: (state: CourseState, title: string) => void;
+  levelUp: (state: CourseState) => void;
+}
+
+export const useCourseStore = create<CourseState>((set) => ({
+  course: {
+    title: "",
+    imageUrl: null || "",
+    instructor: "",
+    level: "",
+    tags: [""],
+  },
+  setCourse: (course: CourseProps) => set({ course: course }),
+  setTitle: (state: CourseState, title: string) =>
+    set({
+      course: {
+        ...state.course,
+        title: title,
+      },
+    }),
+  levelUp: (state: CourseState) =>
+    set({
+      course: {
+        ...state.course,
+        level: state.course.level,
+      },
+    }),
+}));
 
 export const coursesData: {
   newest: CourseProps[];
