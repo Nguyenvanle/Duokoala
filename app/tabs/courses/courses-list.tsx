@@ -14,6 +14,7 @@ import Colors from "@/constants/Colors";
 import { home } from "../homes/home";
 import Course from "@/components/Course";
 import { router } from "expo-router";
+import { TabsRadioBG } from "@/components/RadioBG";
 
 const AddCoursesHandler = () => {
   router.push("/tabs/courses/add-courses");
@@ -103,7 +104,7 @@ export default function CoursesList() {
         style={[home.container, { paddingBottom: 0 }]}
       >
         <View style={containerList.bottom}>
-          <FlatList
+          {/* <FlatList
             contentContainerStyle={{
               flex: 0,
               justifyContent: "space-between",
@@ -123,7 +124,7 @@ export default function CoursesList() {
                 </TouchableOpacity>
               </View>
             )}
-          />
+          /> */}
         </View>
         <FlatList
           contentContainerStyle={{ gap: 6 }}
