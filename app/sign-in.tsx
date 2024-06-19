@@ -36,11 +36,21 @@ export default function SignInScreen() {
     signUpHandler,
   } = useSignInViewModel();
 
-  const { onLoginPress, setEmail, setPassword, email, password, isLoading } =
-    useAuthViewModel();
+  const {
+    onLoginPress,
+    setEmail,
+    setPassword,
+    email,
+    password,
+    isLoading,
+    onGoogleLoginPress,
+  } = useAuthViewModel();
 
   return (
-    <ImageBackground source={require("@/assets/images/radiant-bg.png")} style={defaultStyles.pageContainer}>
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
       <ScrollView>
         {/* root container */}
         <View style={signIn.container}>
@@ -142,9 +152,12 @@ export default function SignInScreen() {
 
             {/* social sign in container */}
             <View style={container.social}>
-              <View style={container.icon}>
+              <TouchableOpacity
+                style={container.icon}
+                onPress={onGoogleLoginPress}
+              >
                 <FlaticonIcon uri={ggUri} size={40} />
-              </View>
+              </TouchableOpacity>
 
               <View style={container.icon}>
                 <FlaticonIcon uri={faceUri} size={40} />
