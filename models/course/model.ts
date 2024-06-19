@@ -16,11 +16,11 @@ export interface CourseProps {
 export interface CourseState {
   course: CourseProps;
   setCourse: (course: CourseProps) => void;
-  setTitle: (state: CourseState, title: string) => void;
-  levelUp: (state: CourseState) => void;
+  setTitle: (title: string) => void;
+  levelUp: () => void;
 }
 
-export const useCourseStore = create<CourseState>((set) => ({
+export const useCourseStore = create<CourseState>((set, get) => ({
   course: {
     title: "",
     imageUrl: null || "",
@@ -28,19 +28,22 @@ export const useCourseStore = create<CourseState>((set) => ({
     level: "",
     tags: [""],
   },
+  
   setCourse: (course: CourseProps) => set({ course: course }),
-  setTitle: (state: CourseState, title: string) =>
+
+  setTitle: (title: string) =>
     set({
       course: {
-        ...state.course,
+        ...get().course,
         title: title,
       },
     }),
-  levelUp: (state: CourseState) =>
+
+  levelUp: () =>
     set({
       course: {
-        ...state.course,
-        level: state.course.level,
+        ...get().course,
+        level: get().course.level,
       },
     }),
 }));
