@@ -1,10 +1,4 @@
-import {
-  Answer,
-  CerProps,
-  Suggest,
-  useAnswerStore,
-  useSuggestStore,
-} from "@/models/suggestion/model";
+import { CerProps, Suggest, useSuggestStore } from "@/models/suggestion/model";
 
 //< - Import - >//
 
@@ -26,16 +20,6 @@ export const useSuggestViewModel = () => {
   return {
     suggest: store.suggest,
     setSuggest: (suggest: Suggest) => store.setSuggest(suggest),
-  };
-};
-
-//< - - - - - - - - - - - - - - - - - - - - >//
-
-export const useAnswerViewModel = () => {
-  const store = useAnswerStore();
-  return {
-    answer: store.answer,
-    setAnswer: (answer: Answer) => store.setAnswer(answer),
   };
 };
 

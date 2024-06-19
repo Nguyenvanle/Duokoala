@@ -22,7 +22,7 @@ export type QuestProps = QuestProp[];
 export interface Suggest {
   cer: string | null;
   aim: string | null;
-  score: number | null;
+  score: number | string | null;
 }
 interface SuggestState {
   suggest: Suggest | null;
@@ -36,17 +36,3 @@ export const useSuggestStore = create<SuggestState>((set) => ({
 }));
 
 //< - - - - - - - - - - - - - - - - - - - - >//
-
-export interface Answer {
-  answer: string | null;
-}
-interface AnswerState {
-  answer: Answer | null;
-  setAnswer: (answer: Answer) => void;
-}
-export const useAnswerStore = create<AnswerState>((set) => ({
-  answer: null,
-  setAnswer(answer: Answer) {
-    set({ answer: answer });
-  },
-}));

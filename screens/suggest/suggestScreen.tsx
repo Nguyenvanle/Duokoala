@@ -1,30 +1,43 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { index } from "@/app/index";
-import { text } from "@/constants/Styles";
+import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
+import {
+  AnswerOpsProps,
+  SuggestOpsProps,
+  SuggestRadioBG,
+} from "@/components/RadioBG";
+import { AnswerRadioBG } from "@/components/RadioBG";
+import { IButton } from "@/components/Button";
 
-interface SuggestPage {
+export interface SuggestContent {
   uri: string;
   uriSize: number;
   title: string;
   content: string;
 }
-export function SuggestScreen(props: SuggestPage) {
+export function SuggestContent(props: SuggestContent) {
   const { uri, uriSize, title, content } = props;
 
   return (
-    <View style={suggest.container}>
+    <View style={suggestStyle.container}>
       <View style={overflowLogo.container}>
         <FlaticonIcon uri={uri} size={uriSize} />
       </View>
-      <View style={suggest.subFrame}>
-        <View style={suggest.contentFrame}>
+      <View style={suggestStyle.subFrame}>
+        <View style={suggestStyle.contentFrame}>
           <Text style={text.title}>{title}</Text>
         </View>
       </View>
-      <View style={suggest.subFrame}>
-        <View style={suggest.contentFrame}>
+      <View style={suggestStyle.subFrame}>
+        <View style={suggestStyle.contentFrame}>
           <Text style={text.mainContent}>{content}</Text>
         </View>
       </View>
@@ -33,7 +46,88 @@ export function SuggestScreen(props: SuggestPage) {
 }
 //< - - - - - - - - - - - - - - - - - - - - >//
 
-export const suggest = StyleSheet.create({
+interface Handler {
+  color: string;
+  name: string;
+  isButton: boolean;
+  handle: () => void;
+}
+
+interface SuggestPage {
+  suggest: SuggestContent;
+  bGroup: SuggestOpsProps | AnswerOpsProps;
+  handler: {
+    LHandler: Handler;
+    RHandler: Handler;
+  };
+}
+
+export default function SuggestPage(props: SuggestPage) {
+  const { suggest, bGroup, handler } = props;
+
+  const isSuggestOpsProps = (obj: SuggestOpsProps | AnswerOpsProps) => {
+    return "For" in obj;
+  };
+
+  const setHandler = (HandlerLogic: Handler) => {
+    return HandlerLogic.isButton ? (
+      <TouchableOpacity onPress={() => HandlerLogic.handle}>
+        <IButton
+          backgroundColor={HandlerLogic.color}
+          title={HandlerLogic.name}
+        />
+      </TouchableOpacity>
+    ) : (
+      <View>
+        <IButton
+          backgroundColor={HandlerLogic.color}
+          title={HandlerLogic.name}
+        />
+      </View>
+    );
+  };
+
+  return (
+    <View style={suggestStyle.container}>
+      <SuggestContent
+        uri={suggest.uri}
+        uriSize={suggest.uriSize}
+        title={suggest.title}
+        content={suggest.content}
+      />
+      <View style={decideScreen.decideFrame}>
+        <View style={decideScreen.decideValue}>
+          {isSuggestOpsProps(bGroup) ? (
+            <SuggestRadioBG
+              For={(bGroup as SuggestOpsProps).For}
+              Options={bGroup.Options}
+              Default={(bGroup as SuggestOpsProps).Default}
+            ></SuggestRadioBG>
+          ) : (
+            <AnswerRadioBG
+              Options={bGroup.Options}
+              Correct={(bGroup as AnswerOpsProps).Correct}
+              Status={(bGroup as AnswerOpsProps).Status}
+            ></AnswerRadioBG>
+          )}
+        </View>
+      </View>
+      <View style={decideScreen.decideFrame}>
+        <View style={decideScreen.decideValue}>
+          {setHandler(handler.LHandler)}
+        </View>
+        <View style={decideScreen.decideValue}>
+          {setHandler(handler.RHandler)}
+        </View>
+      </View>
+    </View>
+  );
+}
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+export const suggestStyle = StyleSheet.create({
   container: {
     ...index.container,
     justifyContent: "center",
@@ -46,25 +140,6 @@ export const suggest = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     gap: 10,
-  },
-  decideFrame: {
-    flex: 0,
-    paddingTop: 5,
-    paddingRight: 15,
-    paddingBottom: 10,
-    paddingLeft: 15,
-    justifyContent: "flex-end",
-    alignItems: "flex-start",
-  },
-  decide: {
-    flex: 0,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    alignContent: "flex-end",
-    flexShrink: 0,
-    gap: 10,
-    alignSelf: "stretch",
   },
   contentFrame: {
     flex: 0,
@@ -84,6 +159,28 @@ export const suggest = StyleSheet.create({
 });
 
 //< - - - - - - - - - - - - - - - - - - - - >//
+
+export const decideScreen = StyleSheet.create({
+  decideFrame: {
+    flex: 0,
+    paddingTop: 5,
+    paddingRight: 15,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
+  },
+  decideValue: {
+    flex: 0,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    alignContent: "flex-end",
+    flexShrink: 0,
+    gap: 10,
+    alignSelf: "stretch",
+  },
+});
 
 export const overflowLogo = StyleSheet.create({
   container: {

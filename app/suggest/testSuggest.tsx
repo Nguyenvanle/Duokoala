@@ -6,14 +6,13 @@ import { ImageBackground, TouchableOpacity, View } from "react-native";
 import {
   CombineAndRandom,
   getRandomArray,
-  useAnswerViewModel,
   useSuggestViewModel,
 } from "@/models/suggestion/v-model";
-import { SuggestScreen, suggest } from "@/screens/suggest/suggestScreen";
 import { questPhotoProps, questTextProps } from "@/screens/suggest/data";
 import { AnswerRadioBG } from "@/components/RadioBG";
 import CustomAlert from "@/components/CustomAlert";
 import { router } from "expo-router";
+import { suggestStyle } from "@/screens/suggest/suggestScreen";
 
 const TextQuestion = getRandomArray(3, questTextProps);
 const PhotoQuestion = getRandomArray(4, questPhotoProps);
@@ -25,7 +24,6 @@ export default function MainSuggestion() {
   const [Correct, setCorrect] = useState(0);
   const [StatusButton, setStatusButton] = useState(true);
   const [cautionAlert, setCautionAlert] = useState(false);
-  const answer = useAnswerViewModel();
   const viewModel = useSuggestViewModel();
 
   const getUriSize = () => {
@@ -35,24 +33,27 @@ export default function MainSuggestion() {
   const handleNext = () => {
     setCurrentPage((prevIndex) => prevIndex + 1);
     setStatusButton(true);
-    answer.setAnswer({ answer: null });
-  };
-  const handleComplete = () => {
-    const scoreTest = Correct / IPage;
     viewModel.setSuggest({
       cer: viewModel.suggest?.cer ?? null,
       aim: viewModel.suggest?.aim ?? null,
-      score: scoreTest,
+      score: null,
+    });
+  };
+  const handleComplete = () => {
+    viewModel.setSuggest({
+      cer: viewModel.suggest?.cer ?? null,
+      aim: viewModel.suggest?.aim ?? null,
+      score: Correct / IPage,
     });
     router.replace(`/tabs/homes`);
   };
   const handleConfirm = () => {
-    if (!answer.answer?.answer) {
+    if (!viewModel.suggest?.score) {
       setCautionAlert(true);
       return;
     }
     setStatusButton(false);
-    if (answer.answer?.answer === ArrayQuestion[IPage].correctAnswer)
+    if (viewModel.suggest?.score === ArrayQuestion[IPage].correctAnswer)
       setCorrect(Correct + 1);
   };
   return (
@@ -60,7 +61,7 @@ export default function MainSuggestion() {
       source={require("@/assets/images/radiant-bg.png")}
       style={defaultStyles.pageContainer}
     >
-      <SuggestScreen
+      {/* <SuggestScreen
         uri={
           ArrayQuestion[IPage].uri ??
           "https://cdn-icons-png.flaticon.com/512/671/671829.png"
@@ -69,8 +70,8 @@ export default function MainSuggestion() {
         title={"Question " + (IPage + 1) + "/" + length}
         content={ArrayQuestion[IPage].question}
       />
-      <View style={suggest.decideFrame}>
-        <View style={suggest.decide}>
+      <View style={suggestStyle.decideFrame}>
+        <View style={suggestStyle.decide}>
           <AnswerRadioBG
             Options={ArrayQuestion[IPage].answer}
             Correct={ArrayQuestion[IPage].correctAnswer}
@@ -97,19 +98,19 @@ export default function MainSuggestion() {
               <IButton backgroundColor={Colors.red} title="Hoàn Thành" />
             </TouchableOpacity>
           )}
-        </View>
+        </View> */}
 
-        <CustomAlert
-          title={"Thông báo"}
-          message={"Vui lòng chọn phương án!"}
-          textButton={"Xác nhận"}
-          icon={"https://cdn-icons-png.flaticon.com/512/9142/9142096.png"}
-          isShow={cautionAlert}
-          handlerConfirm={function (): void {
-            setCautionAlert(false);
-          }}
-        />
-      </View>
+      <CustomAlert
+        title={"Thông báo"}
+        message={"Vui lòng chọn phương án!"}
+        textButton={"Xác nhận"}
+        icon={"https://cdn-icons-png.flaticon.com/512/9142/9142096.png"}
+        isShow={cautionAlert}
+        handlerConfirm={function (): void {
+          setCautionAlert(false);
+        }}
+      />
+      {/* </View> */}
     </ImageBackground>
   );
 }
