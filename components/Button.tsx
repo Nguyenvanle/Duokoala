@@ -46,6 +46,23 @@ export function HrefButton(props: HrefButtonProps) {
   );
 }
 
+interface OnPressButtonProps {
+  backgroundColor: string;
+  title: string;
+  onPress: () => void;
+}
+export function OnPressButton(props: OnPressButtonProps) {
+  const { backgroundColor, title, onPress } = props;
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={[buttonStyle.container, { backgroundColor }]}
+    >
+      <Text style={text.btnText}>{title}</Text>
+    </TouchableOpacity>
+  );
+}
+
 export function StretchButton(props: HrefButtonProps) {
   const { backgroundColor, title, href } = props;
   return (

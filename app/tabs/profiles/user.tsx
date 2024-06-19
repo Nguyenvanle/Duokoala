@@ -6,18 +6,20 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { SelectButton } from "@/components/SelectButton";
-import { index } from "@/app/index";
 import { router } from "expo-router";
+import { OnPressButton } from "@/components/Button";
+import UserViewModel from "@/models/user/v-model";
 
 export default function userScreen() {
+  const userViewModel = UserViewModel();
   const user = {
-    name: "Nguyễn Hưng Thịnh",
-    role: "Học Viên",
+    name: userViewModel.user?.name,
+    role: userViewModel.user?.role,
     imgUser:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS55av9IkGPlJ4mHAdYajWqaC4FecNhSiOo-Q&s",
   };
@@ -26,14 +28,19 @@ export default function userScreen() {
     info: "https://cdn-icons-png.flaticon.com/128/471/471662.png",
     upgrade: "https://cdn-icons-png.flaticon.com/128/1286/1286860.png",
     logOut: "https://cdn-icons-png.flaticon.com/128/10561/10561233.png",
+    change: "https://cdn-icons-png.flaticon.com/128/3800/3800840.png",
   };
+  useEffect(() => {
+    console.log("user được cập nhật lại:");
+    console.log(userViewModel.user);
+  }, [userViewModel.user]);
   return (
-    <View style={defaultStyles.pageContainer}>
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
       {/* page container */}
-      <ImageBackground
-        source={require("@/assets/images/radiant-bg.png")}
-        style={container.page}
-      >
+      <ScrollView style={container.page}>
         {/* info container */}
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
@@ -59,14 +66,14 @@ export default function userScreen() {
             hrefIcon={icon.user}
             title={"Thông tin người dùng"}
             onPress={() => {
-              console.log("infomation user");
+              console.log("information user");
             }}
           />
           <SelectButton
             hrefIcon={icon.info}
             title={"Thông tin ứng dụng"}
             onPress={() => {
-              console.log("infomation app");
+              console.log("information app");
             }}
           />
           <SelectButton
@@ -76,36 +83,53 @@ export default function userScreen() {
               console.log("upgrade role");
             }}
           />
+          <SelectButton
+            hrefIcon={icon.change}
+            title={"Thay đổi đề xuất"}
+            onPress={() => {
+              console.log("change suggest");
+              router.replace("/suggest");
+            }}
+          />
         </View>
         {/* log out container */}
         <View>
           <View style={container.line}></View>
-          <SelectButton
+          {/* <SelectButton
             hrefIcon={icon.logOut}
             title={"Đăng xuất"}
             onPress={() => {
               console.log("log out");
               router.replace("/sign-in");
             }}
-          />
+          /> */}
+          <OnPressButton
+            backgroundColor={Colors.red}
+            title={"Đăng xuất"}
+            onPress={() => {
+              console.log("log out");
+              userViewModel.logOut();
+              router.replace("/sign-in");
+            }}
+          ></OnPressButton>
         </View>
-      </ImageBackground>
-    </View>
+      </ScrollView>
+    </ImageBackground>
   );
 }
 
 const container = StyleSheet.create({
   page: {
-    ...index.container,
     gap: 10,
-    padding: 30,
+    padding: 20,
     flex: 1,
-    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   info: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+
     paddingTop: 0,
   },
   icon: {
@@ -133,8 +157,8 @@ const container = StyleSheet.create({
   },
   line: {
     height: 2,
-    width: "100%",
     backgroundColor: Colors.blue.text,
     marginVertical: 15,
+    marginHorizontal: 10,
   },
 });
