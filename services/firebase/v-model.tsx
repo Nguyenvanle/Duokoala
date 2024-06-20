@@ -9,8 +9,6 @@ import { useUserAuthStore } from "./model";
 
 export const useAuthViewModel = () => {
   const [isLoading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const { setUser, user } = useUserAuthStore();
 
@@ -21,7 +19,7 @@ export const useAuthViewModel = () => {
     }
   }, [user, setUser]);
 
-  const onLoginPress = () => {
+  const onLoginPress = (email: string, password: string) => {
     login(email, password);
   };
 
@@ -64,10 +62,7 @@ export const useAuthViewModel = () => {
   return {
     register,
     login,
-    email,
-    setEmail,
-    password,
-    setPassword,
+
     onLoginPress,
     isLoading,
   };

@@ -5,7 +5,7 @@ import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
 import { useUserAuthStore } from "@/services/firebase/model";
 import { router } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -55,22 +55,15 @@ export default function userScreen() {
             <FlaticonIcon size={150} uri={userInfo.imgUser}></FlaticonIcon>
           </TouchableOpacity>
           <Text style={text.subTitle}>{userInfo.name}</Text>
-          <Text style={text.subTitle}>{userInfo.email}</Text>
+          <Text style={textStyle.email}>{userInfo.email}</Text>
           {/* role container */}
           <View style={container.role}>
-            <Text
-              style={[
-                text.btnText,
-                { fontSize: 16, color: Colors.blue.regular },
-              ]}
-            >
-              Học viên
-            </Text>
+            <Text style={textStyle.role}>Học viên</Text>
           </View>
         </View>
         {/* setting container */}
-        <View>
-          <View style={container.line}></View>
+        <Text style={[text.title, { textAlign: "left" }]}>Cài đặt</Text>
+        <View style={container.profile}>
           <SelectButton
             hrefIcon={icon.user}
             title={"Thông tin người dùng"}
@@ -104,15 +97,6 @@ export default function userScreen() {
         </View>
         {/* log out container */}
         <View>
-          <View style={container.line}></View>
-          {/* <SelectButton
-            hrefIcon={icon.logOut}
-            title={"Đăng xuất"}
-            onPress={() => {
-              console.log("log out");
-              router.replace("/sign-in");
-            }}
-          /> */}
           <OnPressButton
             backgroundColor={Colors.red}
             title={"Đăng xuất"}
@@ -129,15 +113,13 @@ export default function userScreen() {
 const container = StyleSheet.create({
   page: {
     gap: 10,
-    padding: 20,
     flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingHorizontal: 10,
   },
   info: {
     justifyContent: "center",
     alignItems: "center",
-
+    marginTop: 20,
     paddingTop: 0,
   },
   icon: {
@@ -168,5 +150,22 @@ const container = StyleSheet.create({
     backgroundColor: Colors.blue.text,
     marginVertical: 15,
     marginHorizontal: 10,
+  },
+  profile: {
+    marginVertical: 10,
+
+    padding: 10,
+  },
+});
+const textStyle = StyleSheet.create({
+  email: {
+    ...text.subTitle,
+    fontWeight: "400",
+    fontSize: 16,
+  },
+  role: {
+    ...text.subTitle,
+    fontWeight: "400",
+    fontSize: 16,
   },
 });

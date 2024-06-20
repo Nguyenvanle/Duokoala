@@ -1,8 +1,32 @@
 import UserViewModel from "@/models/user/v-model";
 import { useEffect, useState } from "react";
-import LoginViewModel from "../login/v-model";
-import { router } from "expo-router";
+import * as Yup from "yup";
 
+import { router } from "expo-router";
+import useLoginStore from "../sign-in/model";
+// use Login View model example
+export const LoginViewModel = () => {
+  const store = useLoginStore();
+
+  return {
+    checkUserInList: (email: string, password: string) =>
+      store.checkUserInList(email, password),
+  };
+};
+
+// validation sign in page
+export const loginScherma = Yup.object().shape({
+  email: Yup.string()
+    .required("Không được bỏ trống email")
+    .email("vui lòng nhập email đăng nhập")
+    .max(50, "email tối đa 50 ký tự"),
+  password: Yup.string()
+    .min(6, "mật khẩu phải có độ dài 6-32 ký tự")
+    .required("vui lòng nhập mật khẩu")
+    .max(30, "mật khẩu phải có độ dài 6-32 kí tự"),
+});
+
+// call hook in login page
 export default function useSignInViewModel() {
   const [showTrueAlert, setShowTrueAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);

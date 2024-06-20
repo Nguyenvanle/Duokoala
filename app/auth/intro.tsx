@@ -2,7 +2,7 @@ import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
 import UserViewModel from "@/models/user/v-model";
-import LoginViewModel from "@/screens/login/v-model";
+
 import { router } from "expo-router";
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
@@ -61,7 +61,7 @@ export default function Intro() {
     console.log("Intro finished");
     console.log("User được đem theo qua intro");
     console.log(userViewModel.user);
-    router.push("/suggest/certificate");
+    router.push("/suggest/cerSuggest");
   };
 
   const _skipHandler = () => {
