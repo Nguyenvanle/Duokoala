@@ -7,7 +7,7 @@ import Animated, { useAnimatedStyle } from "react-native-reanimated";
 
 export const koalaUri: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
-const routerHref: string = "/tabs";
+const routerHref: string = "/tabs/courses";
 
 export default function IndexScreen() {
   const { fontsLoaded, opacity, onLayoutRootView } =

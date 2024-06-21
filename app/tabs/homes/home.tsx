@@ -2,21 +2,18 @@ import KoalaLoading from "@/components/KoalaLoading";
 import StudyTime, { CourseProgress } from "@/components/StudyTime";
 import UserGreeting from "@/components/UserGreeting";
 import { defaultStyles } from "@/constants/Styles";
-import useCourseViewModel from "@/models/course/v-model";
 import UserViewModel from "@/models/user/v-model";
 import { Section } from "@/screens/home/Section";
 import useHomeViewModel from "@/screens/home/v-model";
 import {
-  Button,
   ImageBackground,
   ScrollView,
   StyleSheet,
-  View,
+  View
 } from "react-native";
 
 export default function HomeScreen() {
   const { isLoading, courses, iconUri } = useHomeViewModel();
-  const { course, setTitle } = useCourseViewModel();
 
   const userViewModel = UserViewModel();
   const user = userViewModel.user;
@@ -30,7 +27,6 @@ export default function HomeScreen() {
     >
       <ScrollView style={home.container}>
         {/* Greeting */}
-        <Button title="click me" onPress={() => setTitle("hello1")} />
         <UserGreeting user={user} />
 
         {user?.role === "Student" ? (
