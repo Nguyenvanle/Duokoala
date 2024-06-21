@@ -1,19 +1,13 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import {  text } from "@/constants/Styles";
 import Colors from "@/constants/Colors";
-import React, { useEffect, useState } from "react";
-import { studyTime } from "./StudyTime";
-import { FlaticonIcon } from "./FlaticonIcon";
-import { router } from "expo-router";
+import { text } from "@/constants/Styles";
+import { data } from "@/models/course/data";
 import { CourseProps } from "@/models/course/model";
+import { router } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlaticonIcon } from "./FlaticonIcon";
+import { studyTime } from "./StudyTime";
 
-export const levelTemplate = ["Easy", "Medium", "Hard", "Advanced"];
 const routerHref: string = "/tabs/join/join-courses";
 
 const Course: React.FC<CourseProps> = ({
@@ -30,13 +24,13 @@ const Course: React.FC<CourseProps> = ({
 
   useEffect(() => {
     switch (level) {
-      case levelTemplate[1]:
+      case data.levelsList[1]:
         setLevelColor(Colors.teal);
         break;
-      case levelTemplate[2]:
+      case data.levelsList[2]:
         setLevelColor(Colors.purple);
         break;
-      case levelTemplate[3]:
+      case data.levelsList[3]:
         setLevelColor(Colors.red);
         break;
       default:
