@@ -1,24 +1,22 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  ScrollView,
-  ImageBackground,
-  ActivityIndicator,
-  TextInput,
-} from "react-native";
-import React, { useState } from "react";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-import { BasicInput } from "@/components/BasicInput";
-import { index, koalaUri, logo } from "../index";
-import { signIn } from "../sign-in";
-import { router } from "expo-router";
-import { Formik, FormikHelpers, FormikValues } from "formik";
 import { SignUpSchema, useSignupViewModel } from "@/screens/sign-up/v-model";
+import { router } from "expo-router";
+import { Formik } from "formik";
+import React from "react";
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { logo } from "../index";
+import { signIn } from "../sign-in";
 
 export default function signUp() {
   const signUpImage = "@/assets/images/Frame10.png";
@@ -197,7 +195,7 @@ export default function signUp() {
                 <TouchableOpacity
                   style={container.button}
                   //onPress={() => onLoginPress()}
-                  onPress={handleSubmit as any}
+                  onPress={() => handleSubmit}
                   disabled={isSubmitting}
                 >
                   {loading ? (
