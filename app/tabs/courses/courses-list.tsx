@@ -1,7 +1,7 @@
 import Course from "@/components/Course";
 import Colors from "@/constants/Colors";
 import { data } from "@/models/course/data";
-import { TagView } from "@/models/course/tag/Tag";
+import SegmentButtons from "@/screens/home/components/SegmentButtons";
 import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 import { home } from "../homes/home";
 
@@ -12,18 +12,7 @@ export default function CoursesList() {
         source={require("@/assets/images/radiant-bg.png")}
         style={[home.container, { paddingBottom: 0 }]}
       >
-        <View style={container.bottom}>
-          <FlatList
-            contentContainerStyle={container.flatList}
-            data={data.tagsList}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.title}
-            renderItem={({ item }) => (
-              <TagView aim={item.aim} title={item.title} level={item.level} />
-            )}
-          />
-        </View>
+        <SegmentButtons />
         <FlatList
           contentContainerStyle={{ gap: 6 }}
           data={data.coursesList}

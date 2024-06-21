@@ -20,8 +20,14 @@ const SegmentButtons = () => {
         buttons={data.segmentTabs}
         style={container.segmentButtons}
         theme={{
-          colors: { secondaryContainer: Colors.blue.regular },
+          colors: { secondaryContainer: Colors.beige, text: Colors.light },
           roundness: 10,
+          fonts: {
+            button: {
+              fontWeight: "normal",
+              fontSize: 9, // Set the global font size
+            },
+          },
         }}
       />
     </SafeAreaView>
@@ -32,9 +38,10 @@ const container = StyleSheet.create({
   container: {
     flex: 0,
     alignItems: "center",
-    padding: 10,
-    backgroundColor: Colors.mute,
+    padding: 5,
+    backgroundColor: Colors.milk,
     borderRadius: 50,
+    borderWidth: 2,
   },
   segmentButtons: {
     flex: 0,
