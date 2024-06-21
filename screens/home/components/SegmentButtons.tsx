@@ -20,13 +20,10 @@ const SegmentButtons = () => {
         buttons={data.segmentTabs}
         style={container.segmentButtons}
         theme={{
-          colors: { secondaryContainer: Colors.beige, text: Colors.light },
-          roundness: 10,
-          fonts: {
-            button: {
-              fontWeight: "normal",
-              fontSize: 9, // Set the global font size
-            },
+          colors: {
+            secondaryContainer: Colors.green,
+            primary: Colors.black,
+            onSecondaryContainer: "red",
           },
         }}
       />

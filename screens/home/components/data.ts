@@ -1,3 +1,4 @@
+import Colors from "@/constants/Colors";
 import { defaultContainer } from "@/constants/Styles";
 import { StyleSheet } from "react-native";
 
@@ -17,6 +18,7 @@ const container = StyleSheet.create({
 const text = StyleSheet.create({
   label: {
     fontSize: 12, // Adjust the font size as needed
+    color: Colors.dark,
   },
 });
 
