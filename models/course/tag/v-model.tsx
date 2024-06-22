@@ -12,10 +12,6 @@ export default function useTagViewModel(item: Tag) {
 
   const { tag, setTag, toString } = useTagStore();
 
-  useEffect(() => {
-    console.log(toString());
-  }, [tag]);
-
   const onClick = () => {
     if (color === bg.active) setColor(bg.default);
     else setColor(bg.active);

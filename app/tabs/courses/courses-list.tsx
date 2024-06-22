@@ -1,24 +1,16 @@
 import Colors from "@/constants/Colors";
-import { data } from "@/models/course/data";
 import useCourseViewModel from "@/models/course/v-model";
 import SegmentButtons from "@/screens/home/segment-button/SegmentButtons";
-import { useEffect, useState } from "react";
-import {
-  FlatList,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 import Course from "@/components/Course";
 import { home } from "@/app/tabs/homes/home";
+import StudyTime from "@/components/StudyTime";
+import useHomeViewModel from "@/screens/home/v-model";
 
 export default function CoursesList() {
-  const {
-    categorizedCourses,
-    handleSegmentChange,
-    selectedCategory,
-  } = useCourseViewModel();
+  const { categorizedCourses, handleSegmentChange, selectedCategory } =
+    useCourseViewModel();
+  const { iconUri, user } = useHomeViewModel();
 
   return (
     <View style={container.pageContainer}>
@@ -27,6 +19,9 @@ export default function CoursesList() {
         style={[home.container, { paddingBottom: 0 }]}
       >
         <SegmentButtons onSegmentChange={handleSegmentChange} />
+
+        <StudyTime clockUri={iconUri.clock} user={user} />
+
         <FlatList
           contentContainerStyle={{ gap: 6 }}
           data={categorizedCourses[selectedCategory] || []}

@@ -2,16 +2,12 @@ import KoalaLoading from "@/components/KoalaLoading";
 import StudyTime, { CourseProgress } from "@/components/StudyTime";
 import UserGreeting from "@/components/UserGreeting";
 import { defaultStyles } from "@/constants/Styles";
-import UserViewModel from "@/models/user/v-model";
 import { Section } from "@/screens/home/Section";
 import useHomeViewModel from "@/screens/home/v-model";
 import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 
 export default function HomeScreen() {
-  const { isLoading, courses, iconUri } = useHomeViewModel();
-
-  const userViewModel = UserViewModel();
-  const user = userViewModel.user;
+  const { isLoading, courses, iconUri, user } = useHomeViewModel();
 
   if (isLoading) return <KoalaLoading />;
 
@@ -25,7 +21,7 @@ export default function HomeScreen() {
         <UserGreeting user={user} />
 
         {user?.role === "Student" ? (
-          <View style={{ gap: 5 }}>
+          <View style={{ gap: 5, paddingTop: 10 }}>
             {/* Study Time */}
             <StudyTime clockUri={iconUri.clock} user={user} />
 
@@ -34,7 +30,7 @@ export default function HomeScreen() {
             <Section title="Đã đăng ký" courses={courses?.subscribed} />
           </View>
         ) : (
-          <View style={{ gap: 5 }}>
+          <View style={{ gap: 5, paddingTop: 10 }}>
             <CourseProgress courseUri={iconUri.course} user={user} />
             <Section title="Khóa học đã tạo" courses={courses?.created} />
             <Section title="Khóa học mới nhất" courses={courses?.newest} />
