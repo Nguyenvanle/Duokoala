@@ -15,9 +15,11 @@ export interface CourseProps {
 
 export interface CourseState {
   course: CourseProps;
+  categorizedCourses: Record<string, CourseProps[]>;
   setCourse: (course: CourseProps) => void;
   setTitle: (title: string) => void;
   levelUp: () => void;
+  categorizeCourses: (courses: CourseProps[]) => void;
 }
 
 export const useCourseStore = create<CourseState>((set, get) => ({
@@ -28,7 +30,8 @@ export const useCourseStore = create<CourseState>((set, get) => ({
     level: "",
     tags: [""],
   },
-  
+  categorizedCourses: {},
+
   setCourse: (course: CourseProps) => set({ course: course }),
 
   setTitle: (title: string) =>
@@ -46,6 +49,26 @@ export const useCourseStore = create<CourseState>((set, get) => ({
         level: get().course.level,
       },
     }),
+
+  categorizeCourses: (courses: CourseProps[]) => {
+    const categories: Record<string, CourseProps[]> = {
+      toeic: [],
+      ielts: [],
+      vstep: [],
+      community: [],
+    };
+
+    courses.forEach((course) => {
+      course.tags.forEach((tag) => {
+        const normalizedTag = tag.toLowerCase();
+        if (categories[normalizedTag]) {
+          categories[normalizedTag].push(course);
+        }
+      });
+    });
+
+    set({ categorizedCourses: categories });
+  },
 }));
 
 export const coursesData: {

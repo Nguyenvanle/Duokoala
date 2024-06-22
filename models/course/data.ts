@@ -67,6 +67,13 @@ const coursesList = [
     level: "Easy",
     tags: ["community", "B1", "easy"],
   },
+  {
+    title: "Khóa học tiếng Anh Vstep B1",
+    imageUrl: courseImageUrl,
+    instructor: "Văn Lẹ",
+    level: "Easy",
+    tags: ["vstep", "B1", "easy"],
+  },
 ];
 
 const levelsList = ["Easy", "Medium", "Hard", "Advanced"];

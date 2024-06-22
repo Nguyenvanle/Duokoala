@@ -4,11 +4,12 @@ import { SafeAreaView, StyleSheet } from "react-native";
 import { SegmentedButtons } from "react-native-paper";
 import { data } from "./data";
 
-const SegmentButtons = () => {
-  const [value, setValue] = useState("");
+const SegmentButtons = ({ onSegmentChange }: any) => {
+  const [value, setValue] = useState(data.segmentTabs[0].value);
 
   const onClick = (item: string) => {
     setValue(item);
+    onSegmentChange(item);
     console.log(item);
   };
 

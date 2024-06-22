@@ -24,26 +24,26 @@ const text = StyleSheet.create({
 
 const segmentTabs = [
   {
-    value: "walk",
-    label: "Walking",
+    value: "toeic",
+    label: "TOEIC",
     style: container.leftButton,
     labelStyle: text.label,
   },
   {
-    value: "train",
-    label: "Transit",
+    value: "ielts",
+    label: "IELTS",
     style: defaultContainer.buttonNoBorder,
     labelStyle: text.label,
   },
   {
-    value: "abc",
-    label: "Abc",
+    value: "vstep",
+    label: "VSTEP",
     style: defaultContainer.buttonNoBorder,
     labelStyle: text.label,
   },
   {
-    value: "drive",
-    label: "Driving",
+    value: "community",
+    label: "COMM",
     style: container.rightButton,
     labelStyle: text.label,
   },

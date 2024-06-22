@@ -1,21 +1,35 @@
-import Course from "@/components/Course";
 import Colors from "@/constants/Colors";
 import { data } from "@/models/course/data";
-import SegmentButtons from "@/screens/home/components/SegmentButtons";
-import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
-import { home } from "../homes/home";
+import useCourseViewModel from "@/models/course/v-model";
+import SegmentButtons from "@/screens/home/segment-button/SegmentButtons";
+import { useEffect, useState } from "react";
+import {
+  FlatList,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import Course from "@/components/Course";
+import { home } from "@/app/tabs/homes/home";
 
 export default function CoursesList() {
+  const {
+    categorizedCourses,
+    handleSegmentChange,
+    selectedCategory,
+  } = useCourseViewModel();
+
   return (
     <View style={container.pageContainer}>
       <ImageBackground
         source={require("@/assets/images/radiant-bg.png")}
         style={[home.container, { paddingBottom: 0 }]}
       >
-        <SegmentButtons />
+        <SegmentButtons onSegmentChange={handleSegmentChange} />
         <FlatList
           contentContainerStyle={{ gap: 6 }}
-          data={data.coursesList}
+          data={categorizedCourses[selectedCategory] || []}
           keyExtractor={(item) => item.title}
           scrollEnabled={true}
           showsVerticalScrollIndicator={false}
@@ -56,5 +70,13 @@ export const container = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     right: 25,
+  },
+});
+
+const styles = StyleSheet.create({
+  categoryTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginVertical: 10,
   },
 });
