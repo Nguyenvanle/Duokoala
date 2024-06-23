@@ -62,7 +62,6 @@ export default function userScreen() {
           </View>
         </View>
         {/* setting container */}
-        <Text style={[text.title, { textAlign: "left" }]}>Cài đặt</Text>
         <View style={container.profile}>
           <SelectButton
             hrefIcon={icon.user}

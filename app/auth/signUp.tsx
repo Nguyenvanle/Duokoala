@@ -15,10 +15,11 @@ import { defaultStyles, text } from "@/constants/Styles";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { BasicInput } from "@/components/BasicInput";
 import { index, koalaUri, logo } from "../index";
-import { signIn } from "../sign-in";
+
 import { router } from "expo-router";
 import { Formik, FormikHelpers, FormikValues } from "formik";
 import { SignUpSchema, useSignupViewModel } from "@/screens/sign-up/v-model";
+import { signIn } from "@/components/FormSignIn";
 
 export default function signUp() {
   const signUpImage = "@/assets/images/Frame10.png";
@@ -88,9 +89,7 @@ export default function signUp() {
                   }}
                   placeholder={"kola@gmail.com"}
                   placeholderTextColor={Colors.mute}
-                  //onChangeText={(inputEmail) => setEmail(inputEmail)}
                   onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
                   value={values.email}
                   secureTextEntry={false}
                   autoCapitalize="none"
@@ -116,7 +115,6 @@ export default function signUp() {
                   placeholder={"Koalaaaa"}
                   placeholderTextColor={Colors.mute}
                   onChangeText={handleChange("name")}
-                  onBlur={handleBlur("name")}
                   value={values.name}
                   secureTextEntry={false}
                   autoCapitalize="none"
@@ -142,7 +140,6 @@ export default function signUp() {
                   placeholder={"matkhau123"}
                   placeholderTextColor={Colors.mute}
                   onChangeText={handleChange("password")}
-                  onBlur={handleBlur("password")}
                   value={values.password}
                   secureTextEntry={true}
                   autoCapitalize="none"
@@ -167,7 +164,6 @@ export default function signUp() {
                   placeholder={"matkhau123"}
                   placeholderTextColor={Colors.mute}
                   onChangeText={handleChange("confirmPassword")}
-                  onBlur={handleBlur("confirmPassword")}
                   value={values.confirmPassword}
                   secureTextEntry={true}
                   autoCapitalize="none"
