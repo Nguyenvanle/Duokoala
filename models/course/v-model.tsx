@@ -1,8 +1,7 @@
 // viewModel.ts
 import { useEffect } from "react";
-import { CourseProps, useCourseStore } from "./model";
+import { CourseProps, coursesData, useCourseStore } from "./model";
 import { useState } from "react";
-import { data } from "./data";
 
 export default function useCourseViewModel() {
   const store = useCourseStore();
@@ -10,12 +9,8 @@ export default function useCourseViewModel() {
   const [selectedCategory, setSelectedCategory] = useState<string>("toeic");
 
   useEffect(() => {
-    store.categorizeCourses(data.coursesList);
+    store.categorizeCourses(coursesData.newest);
   }, []);
-
-  useEffect(() => {
-    console.log(store.course);
-  }, [store]);
 
   return {
     course: store.course,
