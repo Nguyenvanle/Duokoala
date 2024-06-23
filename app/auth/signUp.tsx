@@ -1,25 +1,21 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  ScrollView,
-  ImageBackground,
-  ActivityIndicator,
-  TextInput,
-} from "react-native";
-import React, { useState } from "react";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-import { BasicInput } from "@/components/BasicInput";
-import { index, koalaUri, logo } from "../index";
-
-import { router } from "expo-router";
-import { Formik, FormikHelpers, FormikValues } from "formik";
 import { SignUpSchema, useSignupViewModel } from "@/screens/sign-up/v-model";
-import { signIn } from "@/components/FormSignIn";
+import { router } from "expo-router";
+import { Formik } from "formik";
+import React from "react";
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { logo } from "../index";
 
 export default function signUp() {
   const signUpImage = "@/assets/images/Frame10.png";
@@ -193,7 +189,7 @@ export default function signUp() {
                 <TouchableOpacity
                   style={container.button}
                   //onPress={() => onLoginPress()}
-                  onPress={handleSubmit as any}
+                  onPress={() => handleSubmit}
                   disabled={isSubmitting}
                 >
                   {loading ? (
@@ -292,5 +288,38 @@ const input = StyleSheet.create({
     height: 50,
     paddingLeft: 20,
     alignSelf: "stretch",
+  },
+});
+export const signIn = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignContent: "center",
+
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    margin: -1,
+  },
+  passContainer: {
+    flex: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignSelf: "stretch",
+    alignItems: "flex-end",
+  },
+  errorText: {
+    ...text.note,
+    color: Colors.red,
+
+    marginLeft: 1,
+  },
+  passLinkText: {
+    ...text.link,
+    height: "100%",
+    textAlignVertical: "center",
+  },
+  forgotContainer: {
+    flex: 0,
+    alignSelf: "stretch",
+    flexDirection: "row",
   },
 });
