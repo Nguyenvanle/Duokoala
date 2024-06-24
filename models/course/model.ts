@@ -1,3 +1,4 @@
+import { Identifiable } from "@/services/repositories";
 import { ImageSourcePropType } from "react-native";
 import { create } from "zustand";
 
@@ -9,7 +10,7 @@ export const toeicUrl: string =
 const ieltsUrl: string =
   "https://img.freepik.com/free-photo/dictionary-definition-word_93675-128626.jpg?w=996&t=st=1718206024~exp=1718206624~hmac=c76824de6cab1502be74808fac002f276790d43e84b54c4de1e7e641867032ea";
 
-export interface CourseProps {
+export interface CourseProps extends Identifiable {
   id: string;
   title: string;
   imageUrl: ImageSourcePropType | string;
