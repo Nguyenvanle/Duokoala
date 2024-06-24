@@ -64,7 +64,7 @@ export default function HomeScreen() {
               <Button
                 title="Change Title"
                 onPress={() =>
-                  updateCourse(item.id, { ...item, title: "Changed" })
+                  updateCourse(item.id, { ...item, instructor: "Changed" })
                 }
               />
             </View>

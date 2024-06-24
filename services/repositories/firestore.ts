@@ -66,9 +66,7 @@ export class FirestoreRepository<T extends Identifiable>
         if (docSnap.exists()) {
           // Chuyển đổi dữ liệu tài liệu thành đối tượng T
           const item = docSnap.data() as T;
-
-          // Trả về đối tượng với ID
-          return { ...item, id: docSnap.id };
+          return { ...item, id: docSnap.id }
         } else {
           // Trả về null nếu tài liệu không tồn tại
           return null;
@@ -95,7 +93,7 @@ export class FirestoreRepository<T extends Identifiable>
     const docRef = doc(db, this.collectionName, id);
 
     // Cập nhật tài liệu trong Firestore
-    return await updateDoc(docRef, { ...item })
+    return await updateDoc(docRef, item)
       .then(() => {
         // In ra ID của tài liệu đã cập nhật
         console.log("Document updated with ID: ", id);

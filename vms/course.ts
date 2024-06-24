@@ -38,8 +38,7 @@ export function useCourseViewModel() {
 
   const addCourse = async () => {
     setLoading(true);
-    const newCourse: CourseProps = {
-      id: "2",
+    const newCourse = {
       title: "Khóa học IELTS 7.0+",
       imageUrl: toeicUrl,
       instructor: "Văn Lẹ",
