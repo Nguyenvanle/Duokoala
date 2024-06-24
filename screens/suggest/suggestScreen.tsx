@@ -1,112 +1,98 @@
 import { index } from "@/app/index";
 import { IButton } from "@/components/Button";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
-import { AnswerOpsProps, SuggestOpsProps } from "@/components/RadioBG";
 import Colors from "@/constants/Colors";
 import { text } from "@/constants/Styles";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SuggestScreenProps } from "./model";
+import {
+  AnswerOpsProps,
+  AnswerRadioBG,
+  RadioBG,
+  SuggestOpsProps,
+} from "./../../components/RadioBG";
+import { SuggestRadioBG } from "@/components/RadioBG";
 
-export interface SuggestContent {
-  uri: string;
-  uriSize: number;
-  title: string;
-  content: string;
-}
-export function SuggestContent(props: SuggestContent) {
-  const { uri, uriSize, title, content } = props;
-
+function SuggestButton(props: SuggestScreenProps) {
+  const { buttons } = props;
   return (
-    <View style={suggestStyle.container}>
-      <View style={overflowLogo.container}>
-        <FlaticonIcon uri={uri} size={uriSize} />
-      </View>
-      <View style={suggestStyle.subFrame}>
-        <View style={suggestStyle.contentFrame}>
-          <Text style={text.title}>{title}</Text>
-        </View>
-      </View>
-      <View style={suggestStyle.subFrame}>
-        <View style={suggestStyle.contentFrame}>
-          <Text style={text.mainContent}>{content}</Text>
-        </View>
-      </View>
-    </View>
+    <>
+      {buttons.map((button, index) =>
+        button.isButton ? (
+          <TouchableOpacity key={index} onPress={button.handle}>
+            <IButton backgroundColor={button.color} title={button.name} />
+          </TouchableOpacity>
+        ) : (
+          <View key={index}>
+            <IButton backgroundColor={button.color} title={button.name} />
+          </View>
+        )
+      )}
+    </>
   );
 }
+
 //< - - - - - - - - - - - - - - - - - - - - >//
 
-interface Handler {
-  color: string;
-  name: string;
-  isButton: boolean;
-  handle: () => void;
+function RenderOptions(props: SuggestScreenProps) {
+  const { radioBG } = props;
+  const isSuggestProps = () => {
+    return "For" in radioBG;
+  };
+  return isSuggestProps() ? (
+    <SuggestRadioBG
+      For={(radioBG as SuggestOpsProps).For}
+      Options={radioBG.Options}
+      Default={(radioBG as SuggestOpsProps).Default}
+    ></SuggestRadioBG>
+  ) : (
+    <AnswerRadioBG
+      Options={radioBG.Options}
+      Correct={(radioBG as AnswerOpsProps).Correct}
+      Status={(radioBG as AnswerOpsProps).Status}
+    ></AnswerRadioBG>
+  );
 }
 
-interface SuggestPage {
-  suggest: SuggestContent;
-  bGroup: SuggestOpsProps | AnswerOpsProps;
-  handler: {
-    LHandler: Handler;
-    RHandler: Handler;
-  };
-}
-
-export default function SuggestPage(props: SuggestPage) {
-  const { suggest, bGroup, handler } = props;
-
-  const left = handler.LHandler;
-  const right = handler.RHandler;
-
-  const isSuggestOpsProps = (obj: SuggestOpsProps | AnswerOpsProps) => {
-    return "For" in obj;
-  };
-
-  function SuggestButton(HandlerLogic: Handler) {
-    return HandlerLogic.isButton ? (
-      <TouchableOpacity onPress={() => HandlerLogic.handle}>
-        <IButton
-          backgroundColor={HandlerLogic.color}
-          title={HandlerLogic.name}
-        />
-      </TouchableOpacity>
-    ) : (
-      <View>
-        <IButton
-          backgroundColor={HandlerLogic.color}
-          title={HandlerLogic.name}
-        />
-      </View>
-    );
-  }
+export default function SuggestPage(props: SuggestScreenProps) {
+  const { suggest, radioBG, buttons } = props;
 
   return (
     <View style={suggestStyle.container}>
-      <SuggestContent
-        uri={suggest.uri}
-        uriSize={suggest.uriSize}
-        title={suggest.title}
-        content={suggest.content}
-      />
-      <View style={decideScreen.decideFrame}>
+      <View style={suggestStyle.container}>
+        <View style={overflowLogo.container}>
+          <FlaticonIcon uri={suggest.uri} size={suggest.uriSize} />
+        </View>
+        <View style={suggestStyle.subFrame}>
+          <View style={suggestStyle.contentFrame}>
+            <Text style={text.title}>{suggest.title}</Text>
+          </View>
+        </View>
+        <View style={suggestStyle.subFrame}>
+          <View style={suggestStyle.contentFrame}>
+            <Text style={text.mainContent}>{suggest.content}</Text>
+          </View>
+        </View>
+      </View>
+      <View style={suggestStyle.subFrame}>
         <View style={decideScreen.decideValue}>
-          <SuggestButton
-            handle={left.handle}
-            color={left.color}
-            name={left.name}
-            isButton={left.isButton}
-          />
-          <SuggestButton
-            handle={right.handle}
-            color={right.color}
-            name={right.name}
-            isButton={right.isButton}
-          />
+          <RenderOptions
+            suggest={suggest}
+            radioBG={radioBG}
+            buttons={buttons}
+          ></RenderOptions>
         </View>
+      </View>
+      <View style={decideScreen.decideValue}>
+        <SuggestButton
+          suggest={suggest}
+          radioBG={radioBG}
+          buttons={buttons}
+        ></SuggestButton>
       </View>
     </View>
   );
 }
-//< - - - - - - - - - - - - - - - - - - - - >//
 
 //< - - - - - - - - - - - - - - - - - - - - >//
 

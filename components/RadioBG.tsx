@@ -6,11 +6,17 @@ import {
   SelectedOption,
   WrongOption,
 } from "./Option";
-import { useSuggestViewModel } from "@/models/suggestion/v-model";
+import {
+  useHandlerButtonViewModel,
+  useSuggestViewModel,
+  useTestViewModel,
+} from "@/models/suggestion/v-model";
+import UserViewModel from "@/models/user/v-model";
 interface OptionProps {
   Options: string[];
 }
 
+//< - - - - - - - - - - - - - - - - - - - - >//
 export function RadioBG(props: OptionProps) {
   const viewModel = useSuggestViewModel();
   const { Options } = props;
@@ -49,25 +55,38 @@ export interface SuggestOpsProps {
 
 export function SuggestRadioBG(props: SuggestOpsProps) {
   const viewModel = useSuggestViewModel();
+  const { setStateCall } = useHandlerButtonViewModel();
   const { For, Options, Default } = props;
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   useEffect(() => {
     if (Default) setSelectedItem(Default);
   }, []);
+
   const onClickHandler = (item: any) => {
     setSelectedItem(item);
     if (For === "certificated") {
       viewModel.setSuggest({
         cer: item,
         aim: viewModel.suggest?.aim ?? null,
-        score: viewModel.suggest?.score ?? null,
+        time: null,
+        score: null,
+      });
+      setStateCall(true);
+    } else if (For === "aim") {
+      viewModel.setSuggest({
+        ...viewModel.suggest,
+        cer: viewModel.suggest?.cer ?? null,
+        aim: item,
+        time: null,
+        score: null,
       });
     } else {
       viewModel.setSuggest({
         cer: viewModel.suggest?.cer ?? null,
-        aim: item,
-        score: viewModel.suggest?.score ?? null,
+        aim: viewModel.suggest?.cer ?? null,
+        time: item,
+        score: null,
       });
     }
   };
@@ -101,16 +120,13 @@ export interface AnswerOpsProps {
 
 export function AnswerRadioBG(props: AnswerOpsProps) {
   const viewModel = useSuggestViewModel();
+
   const { Options, Correct, Status } = props;
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   const onClickHandler = (item: any) => {
     setSelectedItem(item);
-    viewModel.setSuggest({
-      cer: viewModel.suggest?.cer ?? null,
-      aim: viewModel.suggest?.aim ?? null,
-      score: item,
-    });
+    viewModel.setScore(item);
   };
 
   return (

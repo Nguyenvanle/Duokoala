@@ -23,6 +23,15 @@ export const cerProps: CerProps = [
 
 //< - - - - - - - - - - - - - - - - - - - - >//
 
+export const timeProps: string[] = [
+  "30 phút/ngày",
+  "60 phút/ngày",
+  "120 phút/ngày",
+  "180 phút/ngày",
+];
+
+//< - - - - - - - - - - - - - - - - - - - - >//
+
 export const questTextProps: QuestProps = [
   {
     uri: null,
