@@ -1,13 +1,15 @@
 import { FlaticonIcon } from "@/components/FlaticonIcon";
-import { defaultStyles, text } from "@/constants/Styles";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import useIndexScreenViewModel from "@/screens/index/v-model";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Colors from "@/constants/Colors";
+import { defaultStyles, text } from "@/constants/Styles";
+import useIndexScreenViewModel from "@/screens/index/v-model";
+import { ImageBackground, LogBox, StyleSheet, Text, View } from "react-native";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
+
+LogBox.ignoreLogs(["@firebase/auth: Auth (10.12.2): "]);
 
 export const koalaUri: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
-const routerHref: string = "/suggest/cerSuggest";
+const routerHref: string = "/tabs";
 
 export default function IndexScreen() {
   const { fontsLoaded, opacity, onLayoutRootView } =

@@ -50,6 +50,28 @@ export function WrongOption(props: ContentProps) {
 
 //< - - - - - - - - - - - - - - - - - - - - >//
 
+export function NoneClick(props: ContentProps) {
+  const { content } = props;
+  return (
+    <View style={backgroundStyle.buttontab}>
+      <Text style={contentStyle.texttab}>{content}</Text>
+    </View>
+  );
+}
+
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+export function SelectedClick(props: ContentProps) {
+  const { content } = props;
+  return (
+    <View style={backgroundStyle.buttontab}>
+      <Text style={contentStyle.selectedtab}>{content}</Text>
+    </View>
+  );
+}
+
+//< - - - - - - - - - - - - - - - - - - - - >//
+
 const contentStyle = StyleSheet.create({
   default: {
     ...text.mainContent,
@@ -59,6 +81,36 @@ const contentStyle = StyleSheet.create({
     ...text.mainContent,
     fontWeight: "bold",
     color: Colors.milk,
+  },
+  texttab: {
+    ...text.note,
+    color: Colors.blue.text,
+    backgroundColor: Colors.milk,
+    borderRadius: 10,
+    flex: 0,
+    overflow: "hidden",
+    paddingVertical: 10,
+    fontWeight: "bold",
+    justifyContent: "center",
+    alignItems: "center",
+    lineHeight: 16,
+    borderWidth: 2,
+    width: 80,
+  },
+  selectedtab: {
+    ...text.note,
+    color: Colors.blue.text,
+    backgroundColor: Colors.red,
+    borderRadius: 10,
+    flex: 0,
+    overflow: "hidden",
+    paddingVertical: 10,
+    fontWeight: "bold",
+    justifyContent: "center",
+    alignItems: "center",
+    lineHeight: 16,
+    borderWidth: 2,
+    width: 80,
   },
 });
 
@@ -90,5 +142,13 @@ const backgroundStyle = StyleSheet.create({
   wrong: {
     ...background.bg,
     backgroundColor: Colors.red,
+  },
+  buttontab: {
+    flex: 0,
+    justifyContent: "space-between",
+    alignSelf: "stretch",
+    flexDirection: "row",
+    gap: 10,
+    height: 35,
   },
 });

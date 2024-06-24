@@ -1,17 +1,17 @@
 // screens/IndexScreen/IndexScreenViewModel.ts
+import IndexScreenModel from "@/screens/index/model";
 import {
-  useFonts,
   Roboto_400Regular,
   Roboto_700Bold,
+  useFonts,
 } from "@expo-google-fonts/roboto";
+import { router } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect } from "react";
 import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
-import { router } from "expo-router";
-import IndexScreenModel from "@/screens/index/model";
 
-export const showLogoDuration = 1500;
-export const redirectDuration = 500;
+export const showLogoDuration = 0;
+export const redirectDuration = 0;
 
 const useIndexScreenViewModel = (routerHref: string): IndexScreenModel => {
   // Disable Auto Hide Loading Screen

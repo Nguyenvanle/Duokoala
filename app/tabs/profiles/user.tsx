@@ -1,28 +1,33 @@
+import { OnPressButton } from "@/components/Button";
+import { FlaticonIcon } from "@/components/FlaticonIcon";
+import { SelectButton } from "@/components/SelectButton";
+import Colors from "@/constants/Colors";
+import { defaultStyles, text } from "@/constants/Styles";
+import { useUserAuthStore } from "@/services/firebase/model";
+import { router } from "expo-router";
+import React, { useState } from "react";
 import {
+  ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  ImageBackground,
+  View,
 } from "react-native";
-import React, { useEffect } from "react";
-import { defaultStyles, text } from "@/constants/Styles";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-import Colors from "@/constants/Colors";
-import { SelectButton } from "@/components/SelectButton";
-import { router } from "expo-router";
-import { OnPressButton } from "@/components/Button";
-import UserViewModel from "@/models/user/v-model";
 
 export default function userScreen() {
-  const userViewModel = UserViewModel();
-  const user = {
-    name: userViewModel.user?.name,
-    role: userViewModel.user?.role,
+  // const userViewModel = UserViewModel();
+
+  const { logout, user } = useUserAuthStore();
+
+  const userInfo = {
+    name: user?.displayName || "undefined",
+    email: user?.email || "undefined",
+    role: "Student",
     imgUser:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS55av9IkGPlJ4mHAdYajWqaC4FecNhSiOo-Q&s",
   };
+
   const icon = {
     user: "https://cdn-icons-png.flaticon.com/128/1946/1946429.png",
     info: "https://cdn-icons-png.flaticon.com/128/471/471662.png",
@@ -30,10 +35,13 @@ export default function userScreen() {
     logOut: "https://cdn-icons-png.flaticon.com/128/10561/10561233.png",
     change: "https://cdn-icons-png.flaticon.com/128/3800/3800840.png",
   };
-  useEffect(() => {
-    console.log("user được cập nhật lại:");
-    console.log(userViewModel.user);
-  }, [userViewModel.user]);
+
+  const logoutHandler = () => {
+    logout();
+    console.log("log out");
+    router.replace("/sign-in");
+  };
+
   return (
     <ImageBackground
       source={require("@/assets/images/radiant-bg.png")}
@@ -44,24 +52,18 @@ export default function userScreen() {
         {/* info container */}
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
-            <FlaticonIcon size={150} uri={user.imgUser}></FlaticonIcon>
+            <FlaticonIcon size={150} uri={userInfo.imgUser}></FlaticonIcon>
           </TouchableOpacity>
-          <Text style={text.subTitle}>{user.name}</Text>
+          <Text style={text.subTitle}>{userInfo.name}</Text>
+          <Text style={textStyle.email}>{userInfo.email}</Text>
           {/* role container */}
           <View style={container.role}>
-            <Text
-              style={[
-                text.btnText,
-                { fontSize: 16, color: Colors.blue.regular },
-              ]}
-            >
-              Học viên
-            </Text>
+            <Text style={textStyle.role}>Học viên</Text>
           </View>
         </View>
         {/* setting container */}
-        <View>
-          <View style={container.line}></View>
+        <Text style={[text.title, { textAlign: "left" }]}>Cài đặt</Text>
+        <View style={container.profile}>
           <SelectButton
             hrefIcon={icon.user}
             title={"Thông tin người dùng"}
@@ -87,6 +89,7 @@ export default function userScreen() {
             hrefIcon={icon.change}
             title={"Thay đổi đề xuất"}
             onPress={() => {
+              logout;
               console.log("change suggest");
               router.replace("/suggest");
             }}
@@ -94,22 +97,11 @@ export default function userScreen() {
         </View>
         {/* log out container */}
         <View>
-          <View style={container.line}></View>
-          {/* <SelectButton
-            hrefIcon={icon.logOut}
-            title={"Đăng xuất"}
-            onPress={() => {
-              console.log("log out");
-              router.replace("/sign-in");
-            }}
-          /> */}
           <OnPressButton
             backgroundColor={Colors.red}
             title={"Đăng xuất"}
             onPress={() => {
-              console.log("log out");
-              userViewModel.logOut();
-              router.replace("/sign-in");
+              logoutHandler();
             }}
           ></OnPressButton>
         </View>
@@ -121,15 +113,13 @@ export default function userScreen() {
 const container = StyleSheet.create({
   page: {
     gap: 10,
-    padding: 20,
     flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingHorizontal: 10,
   },
   info: {
     justifyContent: "center",
     alignItems: "center",
-
+    marginTop: 20,
     paddingTop: 0,
   },
   icon: {
@@ -160,5 +150,22 @@ const container = StyleSheet.create({
     backgroundColor: Colors.blue.text,
     marginVertical: 15,
     marginHorizontal: 10,
+  },
+  profile: {
+    marginVertical: 10,
+
+    padding: 10,
+  },
+});
+const textStyle = StyleSheet.create({
+  email: {
+    ...text.subTitle,
+    fontWeight: "400",
+    fontSize: 16,
+  },
+  role: {
+    ...text.subTitle,
+    fontWeight: "400",
+    fontSize: 16,
   },
 });

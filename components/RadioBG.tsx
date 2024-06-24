@@ -1,17 +1,17 @@
+import {
+  useHandlerButtonViewModel,
+  useSuggestViewModel,
+} from "@/models/suggestion/v-model";
 import { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import {
   CorrectOption,
   DefaultOption,
+  NoneClick,
+  SelectedClick,
   SelectedOption,
   WrongOption,
 } from "./Option";
-import {
-  useHandlerButtonViewModel,
-  useSuggestViewModel,
-  useTestViewModel,
-} from "@/models/suggestion/v-model";
-import UserViewModel from "@/models/user/v-model";
 interface OptionProps {
   Options: string[];
 }
@@ -160,4 +160,67 @@ export function AnswerRadioBG(props: AnswerOpsProps) {
       }
     />
   );
+}
+
+interface TabProps {
+  Tabs: string[];
+}
+
+export function TabsRadioBG(props: TabProps) {
+  const { Tabs } = props;
+
+  const [selectedTabs, setSelectedTabs] = useState<string | null>(null);
+  const ClickHandler = (item: any) => {
+    setSelectedTabs(item);
+  };
+
+  interface CourseTabProps {
+    For: string | null;
+    Tabs: string[];
+    None: string | null;
+  }
+
+  function CourseRadioBG(props: CourseTabProps) {
+    const viewModel = useSuggestViewModel();
+    const { For, Tabs, None } = props;
+    const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+    useEffect(() => {
+      if (None) setSelectedTabs(None);
+    }, []);
+    const ClickHandler = (item: any) => {
+      setSelectedTabs(item);
+      if (For === "certificated") {
+        viewModel.setSuggest({
+          cer: item,
+          aim: viewModel.suggest?.aim ?? null,
+          score: viewModel.suggest?.score ?? null,
+        });
+      } else {
+        viewModel.setSuggest({
+          cer: viewModel.suggest?.cer ?? null,
+          aim: item,
+          score: viewModel.suggest?.score ?? null,
+        });
+      }
+    };
+
+    return (
+      <FlatList
+        contentContainerStyle={{ gap: 6 }}
+        data={Tabs}
+        keyExtractor={(item) => item}
+        scrollEnabled={false}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => ClickHandler(item)}>
+            {selectedTabs === item ? (
+              <SelectedClick content={item} />
+            ) : (
+              <NoneClick content={item} />
+            )}
+          </TouchableOpacity>
+        )}
+      />
+    );
+  }
 }

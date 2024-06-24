@@ -1,17 +1,22 @@
+import CustomAlert from "@/components/CustomAlert";
+import { FlaticonIcon } from "@/components/FlaticonIcon";
+import Colors from "@/constants/Colors";
+import { defaultStyles, text } from "@/constants/Styles";
+import useSignInViewModel, { loginScherma } from "@/screens/sign-in/v-model";
+import { useAuthViewModel } from "@/services/firebase/v-model";
 import {
+  ActivityIndicator,
   ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import { defaultStyles, text } from "@/constants/Styles";
-import { FlaticonIcon } from "@/components/FlaticonIcon";
-import Colors from "@/constants/Colors";
 import { index, koalaUri, logo } from "./index";
-import CustomAlert from "@/components/CustomAlert";
-import useSignInViewModel from "@/screens/sign-in/v-model";
+import React from "react";
+import { Formik, FormikHelpers, FormikValues } from "formik";
 
 const faceUri: string =
   "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
@@ -20,11 +25,12 @@ const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
 
 export default function SignInScreen() {
   const {
-    setEmail,
-    email,
-    setPassword,
-    password,
-    signInHandler,
+    // setEmail,
+    // email,
+    // setPassword,
+    // password,
+    // signInHandler,
+    // using firebase user v-model instead
     showTrueAlert,
     confirmAlertHandler,
     showErrorAlert,
@@ -32,123 +38,181 @@ export default function SignInScreen() {
     signUpHandler,
   } = useSignInViewModel();
 
+  const { onLoginPress, isLoading } = useAuthViewModel();
+
   return (
-    <View style={defaultStyles.pageContainer}>
-      {/* root container */}
-      <ImageBackground
-        source={require("@/assets/images/radiant-bg.png")}
-        style={signIn.container}
-      >
-        {/* logo container */}
-        <View style={logo.container}>
-          <FlaticonIcon size={160} uri={koalaUri} />
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
+      <ScrollView>
+        {/* root container */}
+        <View style={signIn.container}>
+          {/* logo container */}
+          <View style={logo.container}>
+            <FlaticonIcon size={160} uri={koalaUri} />
 
-          <Text style={logo.text}>DUOKOALA</Text>
-        </View>
+            <Text style={logo.text}>DUOKOALA</Text>
+          </View>
 
-        {/* form container */}
-        <ImageBackground
-          source={require("@/assets/images/radiant-bg.png")}
-          style={container.form}
-        >
-          <Text style={text.title}>Đăng nhập</Text>
+          {/* form container */}
+          <ImageBackground
+            source={require("@/assets/images/radiant-bg.png")}
+            style={container.form}
+          >
+            <Text style={text.title}>Đăng nhập</Text>
 
-          {/* input container */}
-          <View style={container.input}>
-            <Text style={text.subTitle}>Email</Text>
-            <TextInput
-              style={input.normal}
-              placeholder={"kola@gmail.com"}
-              placeholderTextColor={Colors.mute}
-              onChangeText={(inputEmail) => setEmail(inputEmail)}
-              value={email}
-              secureTextEntry={false}
-              autoCapitalize="none"
+            {/* input container */}
+            <Formik
+              initialValues={{ email: "", password: "" }}
+              validationSchema={loginScherma}
+              onSubmit={(value) => {
+                onLoginPress(value.email, value.password);
+              }}
+            >
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => (
+                <View style={container.input}>
+                  <Text style={text.subTitle}>Email</Text>
+                  <TextInput
+                    style={{
+                      ...input.normal,
+                      borderColor:
+                        errors.email && touched.email
+                          ? Colors.red
+                          : Colors.blue.text,
+                      color:
+                        errors.email && touched.email
+                          ? Colors.red
+                          : Colors.blue.text,
+                    }}
+                    placeholder={"kola@gmail.com"}
+                    placeholderTextColor={Colors.mute}
+                    //onChangeText={(inputEmail) => setEmail(inputEmail)}
+                    onChangeText={handleChange("email")}
+                    onBlur={handleBlur("email")}
+                    value={values.email}
+                    secureTextEntry={false}
+                    autoCapitalize="none"
+                  />
+
+                  {errors.email && touched.email && (
+                    <Text style={signIn.errorText}>{errors.email}</Text>
+                  )}
+
+                  {/* pass container */}
+                  <View style={signIn.passContainer}>
+                    <Text style={text.subTitle}>Mật khẩu</Text>
+
+                    <TouchableOpacity style={signIn.forgotContainer}>
+                      <Text style={signIn.passLinkText}>Quên mật khẩu?</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <TextInput
+                    style={{
+                      ...input.normal,
+                      borderColor:
+                        errors.password && touched.password
+                          ? Colors.red
+                          : Colors.blue.text,
+                      color:
+                        errors.password && touched.password
+                          ? Colors.red
+                          : Colors.blue.text,
+                    }}
+                    placeholder={"matkhau123"}
+                    placeholderTextColor={Colors.mute}
+                    onChangeText={handleChange("password")}
+                    onBlur={handleBlur("password")}
+                    value={values.password}
+                    secureTextEntry={true}
+                    autoCapitalize="none"
+                  />
+                  {errors.password && touched.password && (
+                    <Text style={signIn.errorText}>{errors.password}</Text>
+                  )}
+                  <TouchableOpacity
+                    style={container.button}
+                    //onPress={() => onLoginPress()}
+                    onPress={handleSubmit as any}
+                  >
+                    {isLoading ? (
+                      <ActivityIndicator size={"large"} color={"white"} />
+                    ) : (
+                      <Text style={[text.btnText, { color: Colors.light }]}>
+                        ĐĂNG NHẬP
+                      </Text>
+                    )}
+                  </TouchableOpacity>
+                </View>
+              )}
+            </Formik>
+
+            {/* button container */}
+
+            <CustomAlert
+              title={"Đăng nhập thành công"}
+              message={"Chào mừng bạn đến với DuoKoala"}
+              textButton={"Xác nhận"}
+              icon={"https://cdn-icons-png.flaticon.com/512/190/190411.png"}
+              isShow={showTrueAlert}
+              handlerConfirm={confirmAlertHandler}
+              color={Colors.green}
             />
-            {/* <BasicInput placeholder="koala@gmail.com" isPassword={false} /> */}
+            <CustomAlert
+              title={"Đăng nhập thất bại"}
+              message={"Vui lòng nhập lại email và mật khẩu"}
+              textButton={"Xác nhận"}
+              icon={"https://cdn-icons-png.flaticon.com/512/190/190406.png"}
+              isShow={showErrorAlert}
+              handlerConfirm={() => {
+                setShowErrorAlert(false);
+              }}
+              color={Colors.red}
+            />
 
-            {/* pass container */}
-            <View style={signIn.passContainer}>
-              <Text style={text.subTitle}>Mật khẩu</Text>
+            {/* line container */}
+            <View style={container.center}>
+              {/* sign in with */}
+              <View style={signIn.signInWithContainer}>
+                <View style={container.line} />
+                <Text style={[text.btnText, { color: Colors.blue.text }]}>
+                  Hoặc đăng nhập bằng
+                </Text>
 
-              <TouchableOpacity style={signIn.forgotContainer}>
-                <Text style={signIn.passLinkText}>Quên mật khẩu?</Text>
+                <View style={container.line} />
+              </View>
+            </View>
+
+            {/* social sign in container */}
+            <View style={container.social}>
+              <View style={container.icon}>
+                <FlaticonIcon uri={ggUri} size={40} />
+              </View>
+
+              <View style={container.icon}>
+                <FlaticonIcon uri={faceUri} size={40} />
+              </View>
+            </View>
+
+            {/* sign up link container*/}
+            <View style={container.register}>
+              <Text style={text.mainContent}> Bạn chưa có tài khoản? </Text>
+
+              <TouchableOpacity onPress={signUpHandler}>
+                <Text style={text.link}>Đăng ký ngay</Text>
               </TouchableOpacity>
             </View>
-            <TextInput
-              style={input.normal}
-              placeholder={"matkhau123"}
-              placeholderTextColor={Colors.mute}
-              onChangeText={(inputPassword) => setPassword(inputPassword)}
-              value={password}
-              secureTextEntry={true}
-              autoCapitalize="none"
-            />
-            {/* <BasicInput placeholder="matkhau123" isPassword={true}></BasicInput> */}
-          </View>
-
-          {/* button container */}
-          <TouchableOpacity style={container.button} onPress={signInHandler}>
-            <Text style={[text.btnText, { color: Colors.light }]}>
-              ĐĂNG NHẬP
-            </Text>
-          </TouchableOpacity>
-          <CustomAlert
-            title={"Đăng nhập thành công"}
-            message={"Chào mừng bạn đến với DuoKoala"}
-            textButton={"Xác nhận"}
-            icon={"https://cdn-icons-png.flaticon.com/512/190/190411.png"}
-            isShow={showTrueAlert}
-            handlerConfirm={confirmAlertHandler}
-            color={Colors.green}
-          />
-          <CustomAlert
-            title={"Đăng nhập thất bại"}
-            message={"Vui lòng nhập lại email và mật khẩu"}
-            textButton={"Xác nhận"}
-            icon={"https://cdn-icons-png.flaticon.com/512/190/190406.png"}
-            isShow={showErrorAlert}
-            handlerConfirm={() => {
-              setShowErrorAlert(false);
-            }}
-            color={Colors.red}
-          />
-
-          {/* line container */}
-          <View style={container.center}>
-            {/* sign in with */}
-            <View style={signIn.signInWithContainer}>
-              <View style={container.line} />
-              <Text style={[text.btnText, { color: Colors.blue.text }]}>
-                Hoặc đăng nhập bằng
-              </Text>
-
-              <View style={container.line} />
-            </View>
-          </View>
-
-          {/* social sign in container */}
-          <View style={container.social}>
-            <View style={container.icon}>
-              <FlaticonIcon uri={ggUri} size={40} />
-            </View>
-
-            <View style={container.icon}>
-              <FlaticonIcon uri={faceUri} size={40} />
-            </View>
-          </View>
-
-          {/* sign up link container*/}
-          <View style={container.register}>
-            <Text style={text.mainContent}> Bạn chưa có tài khoản? </Text>
-
-            <TouchableOpacity onPress={signUpHandler}>
-              <Text style={text.link}>Đăng ký ngay</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
-      </ImageBackground>
-    </View>
+          </ImageBackground>
+        </View>
+      </ScrollView>
+    </ImageBackground>
   );
 }
 
@@ -191,6 +255,9 @@ export const container = StyleSheet.create({
     fontWeight: "700",
     justifyContent: "center",
     alignItems: "center",
+    flex: 1,
+    alignSelf: "stretch",
+    marginTop: 10,
   },
   line: {
     height: 2,
@@ -221,8 +288,12 @@ export const container = StyleSheet.create({
 
 export const signIn = StyleSheet.create({
   container: {
-    ...index.container,
-    justifyContent: "flex-start",
+    flex: 1,
+    alignContent: "center",
+
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    margin: -1,
   },
   passContainer: {
     flex: 0,
@@ -247,6 +318,12 @@ export const signIn = StyleSheet.create({
     paddingRight: 5,
     flexDirection: "row",
     gap: 4,
+  },
+  errorText: {
+    ...text.note,
+    color: Colors.red,
+
+    marginLeft: 1,
   },
 });
 const input = StyleSheet.create({

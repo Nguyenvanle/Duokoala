@@ -22,15 +22,19 @@ export function SelectButton(props: SelectButtonProps) {
   return (
     <View>
       <TouchableOpacity onPress={props.onPress} style={container.default}>
-        <View style={container.left}>
+        <View
+          style={{
+            backgroundColor: Colors.milk,
+            padding: 5,
+            borderRadius: 20,
+          }}
+        >
           <FlaticonIcon size={28} uri={props.hrefIcon} />
-          <Text style={text.subTitle}>{props.title}</Text>
         </View>
-        <View>
-          <FlaticonIcon
-            size={35}
-            uri={"https://cdn-icons-png.flaticon.com/128/2989/2989988.png"}
-          />
+        <View style={container.left}>
+          <Text style={[text.subTitle, { color: Colors.brown }]}>
+            {props.title}
+          </Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -41,12 +45,15 @@ const container = StyleSheet.create({
   default: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+
     alignSelf: "stretch",
     marginVertical: 10,
-    padding: 2,
+    padding: 5,
     paddingLeft: 5,
-    paddingVertical: 3,
+    gap: 10,
+    borderRadius: 10,
+    backgroundColor: Colors.milk,
+    borderWidth: 1,
   },
   left: {
     flexDirection: "row",

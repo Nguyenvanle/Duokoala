@@ -12,13 +12,13 @@ import {
 import React, { useEffect, useState } from "react";
 import Colors from "@/constants/Colors";
 import { Link, useGlobalSearchParams } from "expo-router";
-import { levelTemplate } from "@/components/Course";
 import { home } from "@/app/tabs/homes/home";
 import { defaultStyles, text } from "@/constants/Styles";
 import { create } from "@/app/tabs/courses/add-courses";
 import { StretchButton } from "@/components/Button";
 import { studyTime } from "@/components/StudyTime";
 import HeaderImage from "@/screens/course/join/HeaderImage";
+import { data } from "@/models/course/data";
 
 const info_course = {
   description:
@@ -66,13 +66,13 @@ export default function JoinCourses() {
 
   useEffect(() => {
     switch (level) {
-      case levelTemplate[1]:
+      case data.levelsList[1]:
         setLevelColor(Colors.teal);
         break;
-      case levelTemplate[2]:
+      case data.levelsList[2]:
         setLevelColor(Colors.purple);
         break;
-      case levelTemplate[3]:
+      case data.levelsList[3]:
         setLevelColor(Colors.red);
         break;
       default:
