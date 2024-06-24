@@ -1,20 +1,29 @@
-import { StyleSheet, ScrollView, ImageBackground, View } from "react-native";
-import { defaultStyles } from "@/constants/Styles";
-import UserGreeting from "@/components/UserGreeting";
-import StudyTime, { CourseProgress } from "@/components/StudyTime";
 import KoalaLoading from "@/components/KoalaLoading";
-import useHomeViewModel from "@/screens/home/v-model";
-import { Section } from "@/screens/home/Section";
+import StudyTime, { CourseProgress } from "@/components/StudyTime";
+import UserGreeting from "@/components/UserGreeting";
+import { defaultStyles } from "@/constants/Styles";
 import UserViewModel from "@/models/user/v-model";
+import { Section } from "@/screens/home/Section";
+import useHomeViewModel from "@/screens/home/v-model";
+import { useEffect } from "react";
+import {
+  Button,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 
 export default function HomeScreen() {
-  const { isLoading, courses, iconUri } = useHomeViewModel();
+  const { isLoading, courses, iconUri, onClick } = useHomeViewModel();
 
-  {
-    /* get user from login */
-  }
   const userViewModel = UserViewModel();
   const user = userViewModel.user;
+
+  useEffect(() => {
+    console.log("Home");
+    console.log(user?.createdCourses);
+  }, [user]);
 
   if (isLoading) return <KoalaLoading />;
 
@@ -25,6 +34,7 @@ export default function HomeScreen() {
     >
       <ScrollView style={home.container}>
         {/* Greeting */}
+        <Button title="click mee" onPress={onClick}></Button>
         <UserGreeting user={user} />
 
         {user?.role === "Student" ? (
