@@ -6,14 +6,13 @@ import {
   useSuggestViewModel,
 } from "@/models/suggestion/v-model";
 import { timeProps } from "@/screens/suggest/data";
-
 import SuggestPage from "@/screens/suggest/suggestScreen";
 import { router } from "expo-router";
 
 import React from "react";
 import { ImageBackground } from "react-native";
 
-const SkipRouter = "/suggest/testSuggest";
+const NextRouter = "/suggest/testSuggest";
 
 export default function MainSuggestion() {
   const viewModel = useSuggestViewModel();
@@ -22,8 +21,7 @@ export default function MainSuggestion() {
     cautionNotConfirm,
     setCautionNotConfirm,
     CautionSkipHandler,
-    SetTimeNull,
-    TimeNextHandler,
+    NextHandler,
     setCautionSkip,
     SkipHandler,
     cautionSkip,
@@ -53,7 +51,7 @@ export default function MainSuggestion() {
       color: Colors.green,
       name: "Tiếp tục",
       isButton: true,
-      handle: () => TimeNextHandler(SkipRouter),
+      handle: () => NextHandler(viewModel.suggest.time, NextRouter),
     },
   ];
 
@@ -89,7 +87,7 @@ export default function MainSuggestion() {
         isShow={cautionSkip}
         handlerConfirm={() => {
           setCautionSkip(false);
-          SetTimeNull();
+          viewModel.setTime("");
           setStatusTestAlert(true);
         }}
         handlerCancel={() => {
@@ -107,7 +105,7 @@ export default function MainSuggestion() {
         isShow={statusTestAlert}
         handlerConfirm={function (): void {
           setStatusTestAlert(false);
-          SkipHandler(SkipRouter);
+          SkipHandler(NextRouter);
         }}
         handlerCancel={function (): void {
           setStatusTestAlert(false);

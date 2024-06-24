@@ -1,3 +1,4 @@
+import Colors from "@/constants/Colors";
 import { CerProps, QuestProps } from "@/models/suggestion/model";
 
 //< - Import - >//
@@ -134,3 +135,16 @@ export const questPhotoProps: QuestProps = [
 ];
 
 //< - - - - - - - - - - - - - - - - - - - - >//
+
+export const Confirm = {
+  title: "Xác nhận chọn",
+  colors: Colors.teal,
+};
+export const Next = {
+  title: "Câu tiếp theo",
+  colors: Colors.green,
+};
+export const Finish = {
+  title: "Hoàn thành",
+  colors: Colors.red,
+};

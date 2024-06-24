@@ -1,6 +1,8 @@
-import Colors from "@/constants/Colors";
 import { CerProps, Suggest, useSuggestStore } from "@/models/suggestion/model";
 import {
+  Confirm,
+  Finish,
+  Next,
   cerProps,
   questPhotoProps,
   questTextProps,
@@ -28,24 +30,14 @@ export const useSuggestViewModel = () => {
   return {
     suggest: store.suggest,
     setSuggest: (suggest: Suggest) => store.setSuggest(suggest),
+    setCer: (cer: string) => store.setCer(cer),
+    setAim: (aim: string) => store.setAim(aim),
+    setTime: (time: string) => store.setTime(time),
     setScore: (score: string | number) => store.setScore(score),
   };
 };
 
 //< - - - - - - - - - - - - - - - - - - - - >//
-
-const Confirm = {
-  title: "Xác nhận chọn",
-  colors: Colors.teal,
-};
-const Next = {
-  title: "Câu tiếp theo",
-  colors: Colors.green,
-};
-const Finish = {
-  title: "Hoàn thành",
-  colors: Colors.red,
-};
 
 const TextQuestion = getRandomArray(5, questTextProps); // so cau hoi Chu
 const PhotoQuestion = getRandomArray(5, questPhotoProps); // so cau hoi Hinh
@@ -103,12 +95,7 @@ export const useTestViewModel = () => {
   };
 
   const handleFinish = (routerName: string) => {
-    viewModel.setSuggest({
-      cer: viewModel.suggest?.cer ?? null,
-      aim: viewModel.suggest?.aim ?? null,
-      time: viewModel.suggest?.time ?? null,
-      score: (stateAnswer / ArrayLength) * 10,
-    });
+    viewModel.setScore((stateAnswer / ArrayLength) * 10);
     router.replace(routerName);
   };
 
@@ -140,34 +127,15 @@ export const useHandlerButtonViewModel = () => {
   const [cautionSkip, setCautionSkip] = useState(false);
   const [statusTestAlert, setStatusTestAlert] = useState(false);
   const [arrayOpsAims, setArrayOpsAims] = useState<string[]>([]);
-  const [stateCall, setStateCall] = useState(false);
 
   useEffect(() => {
     setArrayOpsAims(getCerAims(cerProps, viewModel.suggest?.cer));
-    if (stateCall === false) return;
-    viewModel.setSuggest({
-      cer: viewModel.suggest?.cer ?? null,
-      aim: null,
-      score: null,
-      time: null,
-    });
   }, [viewModel.suggest.cer]);
 
-  const CerNextHandler = (address: string) => {
-    if (viewModel.suggest?.cer) router.replace(address);
+  const NextHandler = (isData: string, address: string) => {
+    if (isData) router.replace(address);
     else setCautionNotConfirm(true);
   };
-
-  const AimsNextHandler = (address: string) => {
-    if (viewModel.suggest?.aim) router.replace(address);
-    else setCautionNotConfirm(true);
-  };
-
-  const TimeNextHandler = (address: string) => {
-    if (viewModel.suggest?.time) setStatusTestAlert(true);
-    else setCautionNotConfirm(true);
-  };
-
   const AimsBackHandler = (address: string) => {
     router.replace(address);
   };
@@ -182,19 +150,11 @@ export const useHandlerButtonViewModel = () => {
 
   const SetNullSuggest = () => {
     viewModel.setSuggest({
-      cer: null,
-      aim: null,
-      time: null,
-      score: null,
-    });
-  };
-
-  const SetTimeNull = () => {
-    viewModel.setSuggest({
-      cer: viewModel.suggest?.cer ?? null,
-      aim: viewModel.suggest?.aim ?? null,
-      time: null,
-      score: null,
+      id: "",
+      cer: "",
+      aim: "",
+      time: "",
+      score: "",
     });
   };
 
@@ -203,18 +163,14 @@ export const useHandlerButtonViewModel = () => {
     setCautionNotConfirm,
     cautionSkip,
     setCautionSkip,
-    CerNextHandler,
     CautionSkipHandler,
     SkipHandler,
     SetNullSuggest,
     arrayOpsAims,
     AimsBackHandler,
-    AimsNextHandler,
-    SetTimeNull,
-    TimeNextHandler,
-    setStateCall,
     statusTestAlert,
     setStatusTestAlert,
+    NextHandler,
   };
 };
 

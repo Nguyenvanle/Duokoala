@@ -21,10 +21,10 @@ export default function MainSuggestion() {
     setCautionNotConfirm,
     cautionSkip,
     setCautionSkip,
-    CerNextHandler,
     CautionSkipHandler,
     SkipHandler,
     SetNullSuggest,
+    NextHandler,
   } = useHandlerButtonViewModel();
 
   // const [statusTestAlert, setStatusTestAlert] = useState(false);
@@ -51,7 +51,7 @@ export default function MainSuggestion() {
       color: Colors.green,
       name: "Tiếp tục",
       isButton: true,
-      handle: () => CerNextHandler(NextRouter),
+      handle: () => NextHandler(viewModel.suggest.cer, NextRouter),
     },
   ];
 

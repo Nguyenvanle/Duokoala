@@ -27,7 +27,7 @@ export default function MainSuggestion() {
   const {
     cautionNotConfirm,
     setCautionNotConfirm,
-    AimsNextHandler,
+    NextHandler,
     AimsBackHandler,
     arrayOpsAims,
   } = useHandlerButtonViewModel();
@@ -48,7 +48,7 @@ export default function MainSuggestion() {
       color: Colors.green,
       name: "Tiếp tục",
       isButton: true,
-      handle: () => AimsNextHandler(NextRouter),
+      handle: () => NextHandler(viewModel.suggest.aim, NextRouter),
     },
   ];
 

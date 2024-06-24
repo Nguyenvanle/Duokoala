@@ -8,7 +8,6 @@ import { SuggestScreenProps } from "./model";
 import {
   AnswerOpsProps,
   AnswerRadioBG,
-  RadioBG,
   SuggestOpsProps,
 } from "./../../components/RadioBG";
 import { SuggestRadioBG } from "@/components/RadioBG";

@@ -9,7 +9,11 @@ import {
   useSuggestViewModel,
   useTestViewModel,
 } from "@/models/suggestion/v-model";
-import { questPhotoProps, questTextProps } from "@/screens/suggest/data";
+import {
+  Confirm,
+  questPhotoProps,
+  questTextProps,
+} from "@/screens/suggest/data";
 import { AnswerRadioBG } from "@/components/RadioBG";
 import CustomAlert from "@/components/CustomAlert";
 import { router } from "expo-router";
@@ -42,12 +46,12 @@ export default function MainSuggestion() {
   const radioBG = {
     Options: ArrayQuestion[IPage].answer,
     Correct: ArrayQuestion[IPage].correctAnswer,
-    Status: stateTitle == "Xác nhận chọn",
+    Status: stateTitle == Confirm.title,
   };
   const buttons = [
     {
       color: Colors.blue.regular,
-      name: "Số câu làm đúng: " + stateAnswer + "/" + (IPage + 1),
+      name: "Số câu đúng: " + stateAnswer + "/" + (IPage + 1),
       isButton: false,
       handle: () => {},
     },

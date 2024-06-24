@@ -55,7 +55,6 @@ export interface SuggestOpsProps {
 
 export function SuggestRadioBG(props: SuggestOpsProps) {
   const viewModel = useSuggestViewModel();
-  const { setStateCall } = useHandlerButtonViewModel();
   const { For, Options, Default } = props;
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
@@ -66,29 +65,10 @@ export function SuggestRadioBG(props: SuggestOpsProps) {
   const onClickHandler = (item: any) => {
     setSelectedItem(item);
     if (For === "certificated") {
-      viewModel.setSuggest({
-        cer: item,
-        aim: viewModel.suggest?.aim ?? null,
-        time: null,
-        score: null,
-      });
-      setStateCall(true);
-    } else if (For === "aim") {
-      viewModel.setSuggest({
-        ...viewModel.suggest,
-        cer: viewModel.suggest?.cer ?? null,
-        aim: item,
-        time: null,
-        score: null,
-      });
-    } else {
-      viewModel.setSuggest({
-        cer: viewModel.suggest?.cer ?? null,
-        aim: viewModel.suggest?.cer ?? null,
-        time: item,
-        score: null,
-      });
-    }
+      viewModel.setCer(item);
+      viewModel.setAim("");
+    } else if (For === "aim") viewModel.setAim(item);
+    else viewModel.setTime(item);
   };
 
   return (
@@ -180,47 +160,21 @@ export function TabsRadioBG(props: TabProps) {
     None: string | null;
   }
 
-  function CourseRadioBG(props: CourseTabProps) {
-    const viewModel = useSuggestViewModel();
-    const { For, Tabs, None } = props;
-    const [selectedItem, setSelectedItem] = useState<string | null>(null);
-
-    useEffect(() => {
-      if (None) setSelectedTabs(None);
-    }, []);
-    const ClickHandler = (item: any) => {
-      setSelectedTabs(item);
-      if (For === "certificated") {
-        viewModel.setSuggest({
-          cer: item,
-          aim: viewModel.suggest?.aim ?? null,
-          score: viewModel.suggest?.score ?? null,
-        });
-      } else {
-        viewModel.setSuggest({
-          cer: viewModel.suggest?.cer ?? null,
-          aim: item,
-          score: viewModel.suggest?.score ?? null,
-        });
-      }
-    };
-
-    return (
-      <FlatList
-        contentContainerStyle={{ gap: 6 }}
-        data={Tabs}
-        keyExtractor={(item) => item}
-        scrollEnabled={false}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => ClickHandler(item)}>
-            {selectedTabs === item ? (
-              <SelectedClick content={item} />
-            ) : (
-              <NoneClick content={item} />
-            )}
-          </TouchableOpacity>
-        )}
-      />
-    );
-  }
+  return (
+    <FlatList
+      contentContainerStyle={{ gap: 6 }}
+      data={Tabs}
+      keyExtractor={(item) => item}
+      scrollEnabled={false}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => ClickHandler(item)}>
+          {selectedTabs === item ? (
+            <SelectedClick content={item} />
+          ) : (
+            <NoneClick content={item} />
+          )}
+        </TouchableOpacity>
+      )}
+    />
+  );
 }
