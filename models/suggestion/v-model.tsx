@@ -1,4 +1,9 @@
-import { CerProps, Suggest, useSuggestStore } from "@/models/suggestion/model";
+import {
+  CerProps,
+  QuestProps,
+  Suggest,
+  useSuggestStore,
+} from "@/models/suggestion/model";
 import {
   Confirm,
   Finish,
@@ -204,9 +209,21 @@ export function getRandomArray<T>(quantity: number, array: T[]): T[] {
 }
 
 //< - - - - - - - - - - - - - - - - - - - - >//
+export function RandomAnswerProps(array: QuestProps): QuestProps {
+  return array.map((item) => {
+    return {
+      ...item,
+      answer: getRandomArray(item.answer.length, item.answer),
+    };
+  });
+}
 
-export function CombineAndRandom<T>(array1: T[], array2: T[]): T[] {
-  const ArrayQuest = array1.concat(array2);
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+export function CombineAndRandom(array1: QuestProps, array2: QuestProps) {
+  const R1 = RandomAnswerProps(array1);
+  const R2 = RandomAnswerProps(array2);
+  const ArrayQuest = R1.concat(R2);
   return shuffleArray(ArrayQuest);
 }
 

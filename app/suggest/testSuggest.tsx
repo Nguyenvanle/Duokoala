@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { IButton } from "@/components/Button";
+import React from "react";
 import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
-import { ImageBackground, TouchableOpacity, View } from "react-native";
-import {
-  CombineAndRandom,
-  getRandomArray,
-  useSuggestViewModel,
-  useTestViewModel,
-} from "@/models/suggestion/v-model";
-import {
-  Confirm,
-  questPhotoProps,
-  questTextProps,
-} from "@/screens/suggest/data";
-import { AnswerRadioBG } from "@/components/RadioBG";
+import { ImageBackground } from "react-native";
+import { useTestViewModel } from "@/models/suggestion/v-model";
+import { Confirm } from "@/screens/suggest/data";
 import CustomAlert from "@/components/CustomAlert";
-import { router } from "expo-router";
-import SuggestPage, { suggestStyle } from "@/screens/suggest/suggestScreen";
+import SuggestPage from "@/screens/suggest/suggestScreen";
 
 export default function MainSuggestion() {
   const {

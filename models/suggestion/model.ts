@@ -9,7 +9,7 @@ export type CerProps = CerProp[];
 
 //< - - - - - - - - - - - - - - - - - - - - >//
 
-interface QuestProp {
+export interface QuestProp {
   uri: string | null;
   question: string;
   answer: string[];
