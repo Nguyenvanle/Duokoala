@@ -27,8 +27,6 @@ export default function HomeScreen() {
     findCourse,
   } = useCourseViewModel();
 
-  if (isLoading) return <KoalaLoading />;
-
   return (
     <View>
       <View

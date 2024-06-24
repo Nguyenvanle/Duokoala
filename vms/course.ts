@@ -12,20 +12,32 @@ export class CourseViewModel extends ViewModel<CourseProps> {
 export function useCourseViewModel() {
   const [courses, setCourses] = useState<CourseProps[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [count, increase] = useState<number>(0);
   const courseViewModel = new CourseViewModel();
 
   useEffect(() => {
-    setLoading(true);
+    const controller = new AbortController();
+
     const fetchCourses = async () => {
-      const allCourses = await courseViewModel.getAllItems();
-      setCourses(allCourses);
+      await courseViewModel
+        .getAllItems()
+        .catch((e) => {
+          throw new Error("courseViewModel.getAllItems() fail", e);
+        })
+        .then((allCourses) => setCourses(allCourses));
     };
 
     fetchCourses();
-    setLoading(false);
-  }, [courses]);
+    console.log("fetch times: " + count);
+    increase(count + 1);
+
+    return () => {
+      controller.abort();
+    };
+  }, [isLoading]);
 
   const addCourse = async () => {
+    setLoading(true);
     const newCourse: CourseProps = {
       id: "2",
       title: "Khóa học IELTS 7.0+",
@@ -51,29 +63,68 @@ export function useCourseViewModel() {
     };
     await courseViewModel
       .addItem(newCourse)
-      .then(() => console.log("Add success"))
-      .catch((error) => console.error(error));
+      .then(() => {
+        console.log("Add success");
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   };
 
   const deleteCourse = async (id: string) => {
+    // setLoading(true);
     await courseViewModel
       .deleteItem(id)
-      .then(() => console.log("Delete success"))
+      .then(() => {
+        setCourses((prevCourses) =>
+          prevCourses.filter((course) => course.id !== id)
+        );
+        console.log("Delete success");
+      })
       .catch((error) => console.error(error));
+    // .finally(() => setLoading(false));
   };
 
   const findCourse = async (id: string) => {
+    // setLoading(true);
     await courseViewModel
       .getItemById(id)
-      .then((course) => console.log(course))
+      .then((course) => {
+        if (course) {
+          setCourses((prevCourses) => {
+            const index = prevCourses.findIndex((c) => c.id === id);
+            if (index !== -1) {
+              const updatedCourses = [...prevCourses];
+              updatedCourses[index] = course;
+              return updatedCourses;
+            } else {
+              return [...prevCourses, course];
+            }
+          });
+        }
+        console.log(course);
+      })
       .catch((error) => console.error(error));
+    // .finally(() => setLoading(false));
   };
 
   const updateCourse = async (id: string, course: CourseProps) => {
+    // setLoading(true);
     await courseViewModel
       .updateItem(id, course)
-      .then(() => console.log("Update Success"))
+      .then(() => {
+        setCourses((prevCourses) => {
+          const index = prevCourses.findIndex((c) => c.id === id);
+          if (index !== -1) {
+            const updatedCourses = [...prevCourses];
+            updatedCourses[index] = { ...updatedCourses[index], ...course };
+            return updatedCourses;
+          }
+          return prevCourses;
+        });
+        console.log("Update Success");
+      })
       .catch((error) => console.error(error));
+    // .finally(() => setLoading(false));
   };
 
   return {
