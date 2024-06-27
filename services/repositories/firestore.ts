@@ -8,9 +8,9 @@ import {
   query,
   updateDoc,
 } from "firebase/firestore";
-import { Identifiable, Repository } from "./repository";
 import { db } from "@/services/firebase";
 import { handleFirestoreError } from "@/utils";
+import { Identifiable, Repository } from "@/services/repositories/repository";
 
 /**
  * Lớp FirestoreRepository

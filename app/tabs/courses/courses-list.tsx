@@ -35,6 +35,22 @@ export default function CoursesList() {
               instructor={item.instructor}
               level={item.level}
               tags={item.tags}
+              id={""}
+              description={""}
+              duration={0}
+              price={0}
+              rating={0}
+              reviewsCount={0}
+              lessonsCount={0}
+              language={""}
+              createdAt={new Date()}
+              updatedAt={new Date()}
+              isFeatured={false}
+              isFree={false}
+              prerequisites={[]}
+              category={""}
+              videoUrl={""}
+              enrolledUsers={[]}
             />
           )}
         />
