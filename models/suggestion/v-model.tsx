@@ -1,7 +1,7 @@
 import {
   CerProps,
   QuestProps,
-  Suggest,
+  SuggestProp,
   useSuggestStore,
 } from "@/models/suggestion/model";
 import {
@@ -12,10 +12,15 @@ import {
   questPhotoProps,
   questTextProps,
 } from "@/screens/suggest/data";
+import { useCourseViewModel } from "@/vms";
+import { useSuggestViewModel } from "@/vms/suggest";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { CourseProps } from "../course/model";
 
 //< - Import - >//
+
+//< - - - - - - - - - - - - - - - - - - - - >//
 
 export function getCerNames(props: CerProps): string[] {
   return props.map((prop) => prop.cerName) || [];
@@ -29,16 +34,16 @@ export function getCerAims(props: CerProps, cerName: any): string[] {
 }
 
 //< - - - - - - - - - - - - - - - - - - - - >//
-
-export const useSuggestViewModel = () => {
+export const useSynSuggest = () => {
   const store = useSuggestStore();
   return {
     suggest: store.suggest,
-    setSuggest: (suggest: Suggest) => store.setSuggest(suggest),
+    setSuggest: (suggest: SuggestProp) => store.setSuggest(suggest),
     setCer: (cer: string) => store.setCer(cer),
     setAim: (aim: string) => store.setAim(aim),
     setTime: (time: string) => store.setTime(time),
     setScore: (score: string | number) => store.setScore(score),
+    setNull: () => store.setNull(),
   };
 };
 
@@ -50,7 +55,7 @@ const ArrayQuestion = CombineAndRandom(TextQuestion, PhotoQuestion); // dua vao 
 const ArrayLength = ArrayQuestion.length;
 
 export const useTestViewModel = () => {
-  const viewModel = useSuggestViewModel();
+  const viewModel = useSynSuggest();
   const [IPage, setIPage] = useState(0);
 
   const [stateColor, setStateColor] = useState(Confirm.colors);
@@ -101,6 +106,8 @@ export const useTestViewModel = () => {
 
   const handleFinish = (routerName: string) => {
     viewModel.setScore((stateAnswer / ArrayLength) * 10);
+    // console.log("ok!");
+    // updateSuggest();
     router.replace(routerName);
   };
 
@@ -127,7 +134,7 @@ export const useTestViewModel = () => {
 //< - - - - - - - - - - - - - - - - - - - - >//
 
 export const useHandlerButtonViewModel = () => {
-  const viewModel = useSuggestViewModel();
+  const viewModel = useSynSuggest();
   const [cautionNotConfirm, setCautionNotConfirm] = useState(false);
   const [cautionSkip, setCautionSkip] = useState(false);
   const [statusTestAlert, setStatusTestAlert] = useState(false);
@@ -153,16 +160,6 @@ export const useHandlerButtonViewModel = () => {
     router.replace(address);
   };
 
-  const SetNullSuggest = () => {
-    viewModel.setSuggest({
-      id: "",
-      cer: "",
-      aim: "",
-      time: "",
-      score: "",
-    });
-  };
-
   return {
     cautionNotConfirm,
     setCautionNotConfirm,
@@ -170,7 +167,6 @@ export const useHandlerButtonViewModel = () => {
     setCautionSkip,
     CautionSkipHandler,
     SkipHandler,
-    SetNullSuggest,
     arrayOpsAims,
     AimsBackHandler,
     statusTestAlert,
@@ -209,6 +205,7 @@ export function getRandomArray<T>(quantity: number, array: T[]): T[] {
 }
 
 //< - - - - - - - - - - - - - - - - - - - - >//
+
 export function RandomAnswerProps(array: QuestProps): QuestProps {
   return array.map((item) => {
     return {
@@ -226,5 +223,3 @@ export function CombineAndRandom(array1: QuestProps, array2: QuestProps) {
   const ArrayQuest = R1.concat(R2);
   return shuffleArray(ArrayQuest);
 }
-
-//< - - - - - - - - - - - - - - - - - - - - >//

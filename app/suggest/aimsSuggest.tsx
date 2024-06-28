@@ -3,11 +3,9 @@ import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
 import {
   useHandlerButtonViewModel,
-  useSuggestViewModel,
+  useSynSuggest,
 } from "@/models/suggestion/v-model";
-
 import SuggestPage from "@/screens/suggest/suggestScreen";
-
 import React from "react";
 import { ImageBackground } from "react-native";
 
@@ -22,7 +20,7 @@ const BackRouter = "/suggest/cerSuggest";
 const NextRouter = "/suggest/timeSuggest";
 
 export default function MainSuggestion() {
-  const viewModel = useSuggestViewModel();
+  const viewModel = useSynSuggest();
 
   const {
     cautionNotConfirm,

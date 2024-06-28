@@ -1,3 +1,4 @@
+import { Identifiable } from "@/services/repositories";
 import { create } from "zustand";
 
 //< - Import - >//
@@ -18,8 +19,9 @@ export interface QuestProp {
 export type QuestProps = QuestProp[];
 
 //< - - - - - - - - - - - - - - - - - - - - >//
-export interface Suggest {
+export interface SuggestProp extends Identifiable {
   id: string;
+  uid: string;
   cer: string;
   aim: string;
   time: string;
@@ -28,8 +30,9 @@ export interface Suggest {
 
 // Định nghĩa interface SuggestState với các hàm setter cho mỗi thuộc tính
 interface SuggestState {
-  suggest: Suggest;
-  setSuggest: (suggest: Suggest) => void;
+  suggest: SuggestProp;
+  setSuggest: (suggest: SuggestProp) => void;
+  setNull: () => void;
   setCer: (cer: string) => void;
   setAim: (aim: string) => void;
   setTime: (time: string) => void;
@@ -37,49 +40,58 @@ interface SuggestState {
 }
 
 // Tạo store với các hàm setter riêng cho từng thuộc tính
-export const useSuggestStore = create<SuggestState>((set) => ({
+export const useSuggestStore = create<SuggestState>((set, get) => ({
   suggest: {
     id: "",
+    uid: "",
     cer: "",
     aim: "",
     time: "",
     score: "",
   },
-  setSuggest(suggest: Suggest) {
+  setSuggest(suggest: SuggestProp) {
     set({ suggest: suggest });
   },
-  setCer(cer: string) {
-    set((state) => ({
+  setNull() {
+    set({
       suggest: {
-        ...state.suggest,
+        id: "",
+        uid: "",
+        cer: "",
+        aim: "",
+        time: "",
+        score: "",
+      },
+    });
+  },
+  setCer: (cer: string) =>
+    set({
+      suggest: {
+        ...get().suggest,
         cer: cer,
       },
-    }));
-  },
-  setAim(aim: string) {
-    set((state) => ({
+    }),
+  setAim: (aim: string) =>
+    set({
       suggest: {
-        ...state.suggest,
+        ...get().suggest,
         aim: aim,
       },
-    }));
-  },
-  setTime(time: string) {
-    set((state) => ({
+    }),
+  setTime: (time: string) =>
+    set({
       suggest: {
-        ...state.suggest,
+        ...get().suggest,
         time: time,
       },
-    }));
-  },
-  setScore(score: number | string) {
-    set((state) => ({
+    }),
+  setScore: (score: number | string) =>
+    set({
       suggest: {
-        ...state.suggest,
+        ...get().suggest,
         score: score,
       },
-    }));
-  },
+    }),
 }));
 
 //< - - - - - - - - - - - - - - - - - - - - >//

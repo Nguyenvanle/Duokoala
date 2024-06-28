@@ -4,9 +4,8 @@ import UserGreeting from "@/components/UserGreeting";
 import { defaultStyles } from "@/constants/Styles";
 import { CourseProps, toeicUrl } from "@/models/course/model";
 import { Section } from "@/screens/home/Section";
-import useHomeViewModel from "@/screens/home/v-model";
 import { CourseViewModel, useCourseViewModel } from "@/vms";
-import { useEffect, useState } from "react";
+import { useSuggestViewModel } from "@/vms/suggest";
 import {
   Button,
   FlatList,
@@ -26,6 +25,9 @@ export default function HomeScreen() {
     updateCourse,
     findCourse,
   } = useCourseViewModel();
+
+  const { isSuggestLoading, setSuggestLoading, findSuggest, currentCourses } =
+    useSuggestViewModel();
 
   return (
     <View>
@@ -56,7 +58,7 @@ export default function HomeScreen() {
               <Text style={{ color: "black" }}>{item.title}</Text>
               <Text style={{ color: "black" }}>{item.description}</Text>
               <Text style={{ color: "black" }}>{item.instructor}</Text>
-              <Text style={{ color: "black" }}>{item.duration} hours</Text>
+              {/* <Text style={{ color: "black" }}>{item.duration} hours</Text> */}
             </View>
             <View style={{ flex: 0, padding: 10, gap: 10 }}>
               <Button title="Delete" onPress={() => deleteCourse(item.id)} />
@@ -67,6 +69,28 @@ export default function HomeScreen() {
                   updateCourse(item.id, { ...item, instructor: "Changed" })
                 }
               />
+            </View>
+          </View>
+        )}
+      />
+      <Text>Suggest Course List</Text>
+      <FlatList
+        data={currentCourses}
+        keyExtractor={(course) => course.id}
+        scrollEnabled
+        renderItem={({ item }) => (
+          <View
+            style={{
+              flexDirection: "row",
+              padding: 10,
+            }}
+          >
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: "black" }}>{item.id}</Text>
+              <Text style={{ color: "black" }}>{item.title}</Text>
+              <Text style={{ color: "black" }}>{item.description}</Text>
+              <Text style={{ color: "black" }}>{item.instructor}</Text>
+              {/* <Text style={{ color: "black" }}>{item.duration} hours</Text> */}
             </View>
           </View>
         )}
