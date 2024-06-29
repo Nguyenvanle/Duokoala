@@ -1,19 +1,22 @@
+import {
+  useHandlerButtonViewModel,
+  useSuggestViewModel,
+} from "@/models/suggestion/v-model";
 import { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import {
   CorrectOption,
   DefaultOption,
+  NoneClick,
+  SelectedClick,
   SelectedOption,
   WrongOption,
 } from "./Option";
-import {
-  useAnswerViewModel,
-  useSuggestViewModel,
-} from "@/models/suggestion/v-model";
 interface OptionProps {
   Options: string[];
 }
 
+//< - - - - - - - - - - - - - - - - - - - - >//
 export function RadioBG(props: OptionProps) {
   const viewModel = useSuggestViewModel();
   const { Options } = props;
@@ -44,13 +47,13 @@ export function RadioBG(props: OptionProps) {
 
 //< - - - - - - - - - - - - - - - - - - - - >//
 
-interface SuggestOptionsProps {
+export interface SuggestOpsProps {
   For: string | null;
   Options: string[];
   Default: string | null;
 }
 
-export function SuggestRadioBG(props: SuggestOptionsProps) {
+export function SuggestRadioBG(props: SuggestOpsProps) {
   const viewModel = useSuggestViewModel();
   const { For, Options, Default } = props;
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -58,21 +61,14 @@ export function SuggestRadioBG(props: SuggestOptionsProps) {
   useEffect(() => {
     if (Default) setSelectedItem(Default);
   }, []);
+
   const onClickHandler = (item: any) => {
     setSelectedItem(item);
     if (For === "certificated") {
-      viewModel.setSuggest({
-        cer: item,
-        aim: viewModel.suggest?.aim ?? null,
-        score: viewModel.suggest?.score ?? null,
-      });
-    } else {
-      viewModel.setSuggest({
-        cer: viewModel.suggest?.cer ?? null,
-        aim: item,
-        score: viewModel.suggest?.score ?? null,
-      });
-    }
+      viewModel.setCer(item);
+      viewModel.setAim("");
+    } else if (For === "aim") viewModel.setAim(item);
+    else viewModel.setTime(item);
   };
 
   return (
@@ -96,20 +92,21 @@ export function SuggestRadioBG(props: SuggestOptionsProps) {
 
 //< - - - - - - - - - - - - - - - - - - - - >//
 
-interface AnswerProps {
+export interface AnswerOpsProps {
   Options: string[];
   Correct: string;
   Status: boolean;
 }
 
-export function AnswerRadioBG(props: AnswerProps) {
-  const answer = useAnswerViewModel();
+export function AnswerRadioBG(props: AnswerOpsProps) {
+  const viewModel = useSuggestViewModel();
+
   const { Options, Correct, Status } = props;
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   const onClickHandler = (item: any) => {
     setSelectedItem(item);
-    answer.setAnswer({ answer: item });
+    viewModel.setScore(item);
   };
 
   return (
@@ -141,6 +138,43 @@ export function AnswerRadioBG(props: AnswerProps) {
           </View>
         )
       }
+    />
+  );
+}
+
+interface TabProps {
+  Tabs: string[];
+}
+
+export function TabsRadioBG(props: TabProps) {
+  const { Tabs } = props;
+
+  const [selectedTabs, setSelectedTabs] = useState<string | null>(null);
+  const ClickHandler = (item: any) => {
+    setSelectedTabs(item);
+  };
+
+  interface CourseTabProps {
+    For: string | null;
+    Tabs: string[];
+    None: string | null;
+  }
+
+  return (
+    <FlatList
+      contentContainerStyle={{ gap: 6 }}
+      data={Tabs}
+      keyExtractor={(item) => item}
+      scrollEnabled={false}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => ClickHandler(item)}>
+          {selectedTabs === item ? (
+            <SelectedClick content={item} />
+          ) : (
+            <NoneClick content={item} />
+          )}
+        </TouchableOpacity>
+      )}
     />
   );
 }

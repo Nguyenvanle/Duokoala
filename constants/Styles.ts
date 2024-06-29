@@ -68,3 +68,10 @@ export const text = StyleSheet.create({
     color: Colors.blue.deep,
   },
 });
+
+export const defaultContainer = StyleSheet.create({
+  buttonNoBorder: {
+    borderWidth: 0,
+    borderRadius: 50,
+  },
+});

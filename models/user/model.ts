@@ -14,11 +14,24 @@ interface UserState {
   user: UserProps | null;
   setUser: (user: UserProps) => void;
   logout: () => void;
+  addCourse: () => void;
 }
 export const useUserStore = create<UserState>((set) => ({
   user: null,
   setUser: (user: UserProps) => set({ user }),
   logout: () => set({ user: null }),
+  addCourse: () =>
+    set((state) => {
+      if (state.user) {
+        return {
+          user: {
+            ...state.user,
+            createdCourses: state.user.createdCourses + 1,
+          },
+        };
+      }
+      return state;
+    }),
 }));
 
 export default UserProps;

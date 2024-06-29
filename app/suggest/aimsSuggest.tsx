@@ -1,84 +1,76 @@
-import React, { useEffect, useState } from "react";
-import { IButton } from "@/components/Button";
+import CustomAlert from "@/components/CustomAlert";
 import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
-import { ImageBackground, TouchableOpacity, View } from "react-native";
-import { router } from "expo-router";
-import { TwoOptionsAlert } from "@/components/CustomAlert";
-import { getCerAims, useSuggestViewModel } from "@/models/suggestion/v-model";
-import { SuggestScreen, suggest } from "@/screens/suggest/suggestScreen";
-import { cerProps } from "@/screens/suggest/data";
-import { SuggestRadioBG } from "@/components/RadioBG";
+import {
+  useHandlerButtonViewModel,
+  useSuggestViewModel,
+} from "@/models/suggestion/v-model";
+
+import SuggestPage from "@/screens/suggest/suggestScreen";
+
+import React from "react";
+import { ImageBackground } from "react-native";
+
+const suggestContent = {
+  uri: "https://cdn-icons-png.flaticon.com/512/1604/1604895.png",
+  uriSize: 260,
+  title: "Tiến thêm bước nữa!",
+  content: "Bạn đang hướng đến cấp độ nào?",
+};
+
+const BackRouter = "/suggest/cerSuggest";
+const NextRouter = "/suggest/timeSuggest";
 
 export default function MainSuggestion() {
-  const [showAlert, setShowAlert] = useState(false);
-  const [arrayOption, setArrayOptions] = useState<string[]>([]);
   const viewModel = useSuggestViewModel();
 
-  useEffect(() => {
-    setArrayOptions(getCerAims(cerProps, viewModel.suggest?.cer));
+  const {
+    cautionNotConfirm,
+    setCautionNotConfirm,
+    NextHandler,
+    AimsBackHandler,
+    arrayOpsAims,
+  } = useHandlerButtonViewModel();
 
-    viewModel.setSuggest({
-      cer: viewModel.suggest?.cer ?? null,
-      aim: null,
-      score: null,
-    });
-  }, [viewModel.suggest?.cer]);
+  const radioBG = {
+    For: "aim",
+    Options: arrayOpsAims ?? [],
+    Default: viewModel.suggest?.aim ?? null,
+  };
+  const buttons = [
+    {
+      color: Colors.blue.regular,
+      name: "Trở lại",
+      isButton: true,
+      handle: () => AimsBackHandler(BackRouter),
+    },
+    {
+      color: Colors.green,
+      name: "Tiếp tục",
+      isButton: true,
+      handle: () => NextHandler(viewModel.suggest.aim, NextRouter),
+    },
+  ];
 
-  const handleNext = () => {
-    setShowAlert(true);
-  };
-  const handlePrevious = () => {
-    router.replace(`/suggest/cerSuggest`);
-  };
   return (
     <ImageBackground
       source={require("@/assets/images/radiant-bg.png")}
       style={defaultStyles.pageContainer}
     >
-      <SuggestScreen
-        uri={"https://cdn-icons-png.flaticon.com/512/1604/1604895.png"}
-        uriSize={260}
-        title={"Tiến thêm bước nữa!"}
-        content={"Bạn đang hướng đến cấp độ nào?"}
+      <SuggestPage
+        suggest={suggestContent}
+        radioBG={radioBG}
+        buttons={buttons}
       />
-
-      <View style={suggest.decideFrame}>
-        <View style={suggest.decide}>
-          <SuggestRadioBG
-            For="Purpose"
-            Options={arrayOption}
-            Default={viewModel.suggest?.aim ?? null}
-          ></SuggestRadioBG>
-        </View>
-      </View>
-      <View style={suggest.decideFrame}>
-        <View style={suggest.decide}>
-          <TouchableOpacity onPress={() => handlePrevious()}>
-            <IButton backgroundColor={Colors.blue.regular} title="Trở Lại" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleNext()}>
-            <IButton backgroundColor={Colors.green} title="Xác nhận" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <TwoOptionsAlert
-        title={"Kiểm tra năng lực!"}
-        message={
-          "Bạn có muốn thực hiện một bài kiểm tra nhỏ để xác định năng lực không?"
-        }
-        textButton={"Chấp nhận"}
-        textCancel={"Từ chối"}
-        icon={"https://cdn-icons-png.flaticon.com/512/10517/10517234.png"}
-        isShow={showAlert}
-        handlerConfirm={function (): void {
-          setShowAlert(false);
-          router.replace(`/suggest/testSuggest`);
-        }}
-        handlerCancel={function (): void {
-          setShowAlert(false);
-          router.replace("/tabs/homes");
+      <CustomAlert
+        title={"Thông báo"}
+        message={"Bạn chưa chọn phương án nào cả!"}
+        textButton={"Xác nhận"}
+        icon={"https://cdn-icons-png.flaticon.com/512/9142/9142096.png"}
+        isShow={cautionNotConfirm}
+        color={"red"}
+        handlerConfirm={() => {
+          setCautionNotConfirm(false);
         }}
       />
     </ImageBackground>

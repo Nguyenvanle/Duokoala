@@ -1,5 +1,5 @@
-import { useUserStore } from "./model";
 import UserProps from "@/models/user/model";
+import { useUserStore } from "./model";
 
 const UserViewModel = () => {
   const store = useUserStore();
@@ -8,6 +8,7 @@ const UserViewModel = () => {
     user: store.user,
     setUser: (user: UserProps) => store.setUser(user),
     logOut: store.logout,
+    addCourse: store.addCourse,
   };
 };
 export default UserViewModel;

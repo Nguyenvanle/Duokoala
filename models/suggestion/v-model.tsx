@@ -1,10 +1,19 @@
 import {
-  Answer,
   CerProps,
+  QuestProps,
   Suggest,
-  useAnswerStore,
   useSuggestStore,
 } from "@/models/suggestion/model";
+import {
+  Confirm,
+  Finish,
+  Next,
+  cerProps,
+  questPhotoProps,
+  questTextProps,
+} from "@/screens/suggest/data";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
 
 //< - Import - >//
 
@@ -26,16 +35,147 @@ export const useSuggestViewModel = () => {
   return {
     suggest: store.suggest,
     setSuggest: (suggest: Suggest) => store.setSuggest(suggest),
+    setCer: (cer: string) => store.setCer(cer),
+    setAim: (aim: string) => store.setAim(aim),
+    setTime: (time: string) => store.setTime(time),
+    setScore: (score: string | number) => store.setScore(score),
   };
 };
 
 //< - - - - - - - - - - - - - - - - - - - - >//
 
-export const useAnswerViewModel = () => {
-  const store = useAnswerStore();
+const TextQuestion = getRandomArray(5, questTextProps); // so cau hoi Chu
+const PhotoQuestion = getRandomArray(5, questPhotoProps); // so cau hoi Hinh
+const ArrayQuestion = CombineAndRandom(TextQuestion, PhotoQuestion); // dua vao 1 mang va xao tron no
+const ArrayLength = ArrayQuestion.length;
+
+export const useTestViewModel = () => {
+  const viewModel = useSuggestViewModel();
+  const [IPage, setIPage] = useState(0);
+
+  const [stateColor, setStateColor] = useState(Confirm.colors);
+  const [stateTitle, setStateTitle] = useState(Confirm.title);
+
+  const [stateAnswer, setStateAnswer] = useState(0);
+  const { cautionNotConfirm, setCautionNotConfirm } =
+    useHandlerButtonViewModel();
+
+  const updateStateButton = () => {
+    switch (stateTitle) {
+      case Confirm.title: {
+        if (IPage == ArrayLength - 1) {
+          setStateTitle(Finish.title);
+          setStateColor(Finish.colors);
+        } else {
+          setStateTitle(Next.title);
+          setStateColor(Next.colors);
+        }
+        break;
+      }
+      case Next.title: {
+        setStateTitle(Confirm.title);
+        setStateColor(Confirm.colors);
+      }
+    }
+  };
+
+  const handleConfirm = () => {
+    if (viewModel.suggest.score == "") {
+      setCautionNotConfirm(true);
+      return;
+    }
+    updateStateButton();
+    if (viewModel.suggest.score === ArrayQuestion[IPage].correctAnswer)
+      setStateAnswer(stateAnswer + 1);
+    viewModel.setScore("");
+  };
+
+  const handleNext = () => {
+    if (stateTitle == Confirm.title) {
+      handleConfirm();
+    } else if (stateTitle == Next.title) {
+      setIPage(IPage + 1);
+      updateStateButton();
+    } else handleFinish("/tabs/homes");
+  };
+
+  const handleFinish = (routerName: string) => {
+    viewModel.setScore((stateAnswer / ArrayLength) * 10);
+    router.replace(routerName);
+  };
+
+  const getUriSize = (): number => {
+    if (ArrayQuestion[IPage].uri) return 320;
+    return 260;
+  };
+
   return {
-    answer: store.answer,
-    setAnswer: (answer: Answer) => store.setAnswer(answer),
+    IPage,
+    stateAnswer,
+    ArrayQuestion,
+    cautionNotConfirm,
+    stateTitle,
+    stateColor,
+    ArrayLength,
+    getUriSize,
+    handleConfirm,
+    handleNext,
+    setCautionNotConfirm,
+  };
+};
+
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+export const useHandlerButtonViewModel = () => {
+  const viewModel = useSuggestViewModel();
+  const [cautionNotConfirm, setCautionNotConfirm] = useState(false);
+  const [cautionSkip, setCautionSkip] = useState(false);
+  const [statusTestAlert, setStatusTestAlert] = useState(false);
+  const [arrayOpsAims, setArrayOpsAims] = useState<string[]>([]);
+
+  useEffect(() => {
+    setArrayOpsAims(getCerAims(cerProps, viewModel.suggest?.cer));
+  }, [viewModel.suggest.cer]);
+
+  const NextHandler = (isData: string, address: string) => {
+    if (isData) router.replace(address);
+    else setCautionNotConfirm(true);
+  };
+  const AimsBackHandler = (address: string) => {
+    router.replace(address);
+  };
+
+  const CautionSkipHandler = () => {
+    setCautionSkip(true);
+  };
+
+  const SkipHandler = (address: string) => {
+    router.replace(address);
+  };
+
+  const SetNullSuggest = () => {
+    viewModel.setSuggest({
+      id: "",
+      cer: "",
+      aim: "",
+      time: "",
+      score: "",
+    });
+  };
+
+  return {
+    cautionNotConfirm,
+    setCautionNotConfirm,
+    cautionSkip,
+    setCautionSkip,
+    CautionSkipHandler,
+    SkipHandler,
+    SetNullSuggest,
+    arrayOpsAims,
+    AimsBackHandler,
+    statusTestAlert,
+    setStatusTestAlert,
+    NextHandler,
   };
 };
 
@@ -69,8 +209,22 @@ export function getRandomArray<T>(quantity: number, array: T[]): T[] {
 }
 
 //< - - - - - - - - - - - - - - - - - - - - >//
+export function RandomAnswerProps(array: QuestProps): QuestProps {
+  return array.map((item) => {
+    return {
+      ...item,
+      answer: getRandomArray(item.answer.length, item.answer),
+    };
+  });
+}
 
-export function CombineAndRandom<T>(array1: T[], array2: T[]): T[] {
-  const ArrayQuest = array1.concat(array2);
+//< - - - - - - - - - - - - - - - - - - - - >//
+
+export function CombineAndRandom(array1: QuestProps, array2: QuestProps) {
+  const R1 = RandomAnswerProps(array1);
+  const R2 = RandomAnswerProps(array2);
+  const ArrayQuest = R1.concat(R2);
   return shuffleArray(ArrayQuest);
 }
+
+//< - - - - - - - - - - - - - - - - - - - - >//

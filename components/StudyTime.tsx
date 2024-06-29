@@ -5,6 +5,7 @@ import * as Progress from "react-native-progress";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import React from "react";
 import { text } from "@/constants/Styles";
+import UserProps from "@/models/user/model";
 
 const fontSize: number = 34;
 

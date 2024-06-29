@@ -1,11 +1,10 @@
 import {
+  ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  ScrollView,
   TouchableOpacity,
-  TextInput,
-  ImageBackground,
+  View,
 } from "react-native";
 import React from "react";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
@@ -17,7 +16,6 @@ import { BasicInput, DescriptionInput } from "@/components/BasicInput";
 import Button, { buttonStyle } from "@/components/Button";
 import { home } from "../homes/home";
 import { router } from "expo-router";
-import { suggest } from "@/screens/suggest/suggestScreen";
 
 const imageURI: string =
   "https://cdn-icons-png.flaticon.com/512/15748/15748424.png";
@@ -25,7 +23,6 @@ const imageURI: string =
 const pHolder = {
   name: "Nhập tên khóa học",
   description: "Nhập mô tả về khóa học",
-  level: "Nhập độ khó cho khóa học",
 };
 
 export default function AddCourses() {
@@ -60,45 +57,7 @@ export default function AddCourses() {
               />
             </View>
 
-            <Text style={text.subTitle}>ĐỘ KHÓ</Text>
-
-            <BasicInput placeholder={pHolder.level} isPassword={false} />
-
-            <Text style={text.subTitle}>BÀI GIẢNG</Text>
-
-            <TouchableOpacity style={create.normal}>
-              <Text style={create.tHolder}>Bài giảng</Text>
-              <View style={create.tHolder}>
-                <FlaticonIcon
-                  uri={"https://cdn-icons-png.flaticon.com/512/81/81081.png"}
-                  size={20}
-                />
-              </View>
-            </TouchableOpacity>
-
-            <Text style={text.subTitle}>TÀI LIỆU THAM KHẢO</Text>
-
-            <TouchableOpacity style={create.normal}>
-              <Text style={create.tHolder}>Tài liệu hỗ trợ cho khóa học</Text>
-              <View style={create.tHolder}>
-                <FlaticonIcon
-                  uri={"https://cdn-icons-png.flaticon.com/512/81/81081.png"}
-                  size={20}
-                />
-              </View>
-            </TouchableOpacity>
-
-            <Text style={text.subTitle}>BÀI TẬP</Text>
-
-            <TouchableOpacity style={create.normal}>
-              <Text style={create.tHolder}>Bài tập của khóa học</Text>
-              <View style={create.tHolder}>
-                <FlaticonIcon
-                  uri={"https://cdn-icons-png.flaticon.com/512/81/81081.png"}
-                  size={20}
-                />
-              </View>
-            </TouchableOpacity>
+            <Text style={text.subTitle}>CHỦ ĐỀ KHÓA HỌC</Text>
 
             <View style={create.btnContainer}>
               <TouchableOpacity
@@ -112,7 +71,6 @@ export default function AddCourses() {
                 <Text style={text.btnText}>HỦY</Text>
                 {/* <Button backgroundColor={Colors.red} title="HỦY" /> */}
               </TouchableOpacity>
-              <Button backgroundColor={Colors.blue.regular} title="TIẾP TỤC" />
             </View>
           </View>
         </ImageBackground>
@@ -123,7 +81,12 @@ export default function AddCourses() {
 
 export const create = StyleSheet.create({
   btnContainer: {
-    ...suggest.decide,
+    flex: 0,
+    flexDirection: "row",
+    alignContent: "flex-end",
+    flexShrink: 0,
+    gap: 10,
+    alignSelf: "stretch",
     justifyContent: "space-evenly",
     alignItems: "center",
     paddingTop: 16,
@@ -136,6 +99,20 @@ export const create = StyleSheet.create({
     borderRadius: 40,
     borderColor: Colors.blue.text,
     height: 50,
+    paddingLeft: 20,
+    alignSelf: "stretch",
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  option: {
+    ...text.mainContent,
+    textAlign: "left",
+    backgroundColor: Colors.light,
+    borderWidth: 2,
+    borderRadius: 40,
+    borderColor: Colors.blue.text,
+    height: 50,
+    width: 100,
     paddingLeft: 20,
     alignSelf: "stretch",
     justifyContent: "space-between",

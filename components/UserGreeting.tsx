@@ -1,6 +1,7 @@
 import { Text, View } from "react-native";
 import { text } from "@/constants/Styles";
 import React from "react";
+import UserProps from "@/models/user/model";
 
 interface UserGreetingProps {
   user: UserProps | null;
