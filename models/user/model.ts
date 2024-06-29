@@ -1,5 +1,6 @@
 import { create } from "zustand";
 export interface UserProps {
+  id: string;
   email: string;
   password: string;
   isNewUser: boolean;

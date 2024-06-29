@@ -11,8 +11,10 @@ export class CourseViewModel extends ViewModel<CourseProps> {
 
 export function useCourseViewModel() {
   const [courses, setCourses] = useState<CourseProps[]>([]);
+  const [subCourses, setSubCourses] = useState<CourseProps[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [count, increase] = useState<number>(0);
+  const [count, increase] = useState<number>(1);
+
   const courseViewModel = new CourseViewModel();
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export function useCourseViewModel() {
     };
 
     fetchCourses();
+
     console.log("fetch times: " + count);
     increase(count + 1);
 
@@ -58,7 +61,7 @@ export function useCourseViewModel() {
       prerequisites: ["Intermediate English"],
       category: "Language",
       videoUrl: "https://example.com/video/ielts-7.0",
-      enrolledUsers: ["user3", "user4"],
+      enrolledUsers: ["u5fVZpOTWscvwdoSKoK87tqtxiH3", "user4"],
     };
     await courseViewModel
       .addItem(newCourse)
@@ -126,9 +129,20 @@ export function useCourseViewModel() {
     // .finally(() => setLoading(false));
   };
 
+  const getAllCourses = async () => {
+    await courseViewModel
+      .getAllItems()
+      .catch((e) => {
+        throw new Error("courseViewModel.getAllItems() fail", e);
+      })
+      .then((allCourses) => setCourses(allCourses));
+  };
+
   return {
     isLoading,
     courses,
+    subCourses,
+    setLoading,
     addCourse,
     deleteCourse,
     updateCourse,

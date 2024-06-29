@@ -5,8 +5,8 @@ import UserGreeting from "@/components/UserGreeting";
 import { defaultStyles } from "@/constants/Styles";
 import { CourseProps, toeicUrl } from "@/models/course/model";
 import { Section } from "@/screens/home/Section";
-import useHomeViewModel from "@/screens/home/v-model";
 import { CourseViewModel, useCourseViewModel } from "@/vms";
+import { useHomeViewModel } from "@/vms/home";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -19,16 +19,9 @@ import {
 } from "react-native";
 
 export default function HomeScreen() {
-  const {
-    isLoading,
-    courses,
-    addCourse,
-    deleteCourse,
-    updateCourse,
-    findCourse,
-  } = useCourseViewModel();
+  const { user, courses } = useHomeViewModel();
 
-  const {} = use;
+  if (courses.length === 0) return <KoalaLoading />;
 
   return (
     <ImageBackground
@@ -42,17 +35,17 @@ export default function HomeScreen() {
         {user?.role === "Student" ? (
           <View style={{ gap: 5, paddingTop: 10 }}>
             {/* Study Time */}
-            <StudyTime clockUri={iconUri.clock} user={user} />
+            {/* <StudyTime clockUri={iconUri.clock} user={user} /> */}
 
-            <Section title="Khóa học mới nhất" courses={courses?.newest} />
-            <Section title="Dành cho bạn" courses={courses?.suggested} />
-            <Section title="Đã đăng ký" courses={courses?.subscribed} />
+            <Section title="Khóa học mới nhất" courses={courses} />
+            {/* <Section title="Dành cho bạn" courses={courses?.suggested} /> */}
+            {/* <Section title="Đã đăng ký" courses={subCourses} /> */}
           </View>
         ) : (
           <View style={{ gap: 5, paddingTop: 10 }}>
-            <CourseProgress courseUri={iconUri.course} user={user} />
-            <Section title="Khóa học đã tạo" courses={courses?.created} />
-            <Section title="Khóa học mới nhất" courses={courses?.newest} />
+            {/* <CourseProgress courseUri={iconUri.course} user={user} /> */}
+            {/* <Section title="Khóa học đã tạo" courses={courses?.created} /> */}
+            {/* <Section title="Khóa học mới nhất" courses={courses?.newest} /> */}
           </View>
         )}
       </ScrollView>
