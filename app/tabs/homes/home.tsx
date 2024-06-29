@@ -1,3 +1,4 @@
+import { CRUDList, renderCourseItem } from "@/components/CRUDList";
 import KoalaLoading from "@/components/KoalaLoading";
 import StudyTime, { CourseProgress } from "@/components/StudyTime";
 import UserGreeting from "@/components/UserGreeting";
@@ -27,81 +28,36 @@ export default function HomeScreen() {
     findCourse,
   } = useCourseViewModel();
 
-  return (
-    <View>
-      <View
-        style={{
-          flex: 0,
-          padding: 10,
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <Button title="Add Course" onPress={addCourse} />
-      </View>
-      <Text>Course List</Text>
-      <FlatList
-        data={courses}
-        keyExtractor={(item) => item.id}
-        scrollEnabled
-        renderItem={({ item }) => (
-          <View
-            style={{
-              flexDirection: "row",
-              padding: 10,
-            }}
-          >
-            <View style={{ flex: 1 }}>
-              <Text style={{ color: "black" }}>{item.id}</Text>
-              <Text style={{ color: "black" }}>{item.title}</Text>
-              <Text style={{ color: "black" }}>{item.description}</Text>
-              <Text style={{ color: "black" }}>{item.instructor}</Text>
-              <Text style={{ color: "black" }}>{item.duration} hours</Text>
-            </View>
-            <View style={{ flex: 0, padding: 10, gap: 10 }}>
-              <Button title="Delete" onPress={() => deleteCourse(item.id)} />
+  const {} = use;
 
-              <Button
-                title="Change Title"
-                onPress={() =>
-                  updateCourse(item.id, { ...item, instructor: "Changed" })
-                }
-              />
-            </View>
+  return (
+    <ImageBackground
+      source={require("@/assets/images/radiant-bg.png")}
+      style={defaultStyles.pageContainer}
+    >
+      <ScrollView style={home.container}>
+        {/* Greeting */}
+        <UserGreeting user={user} />
+
+        {user?.role === "Student" ? (
+          <View style={{ gap: 5, paddingTop: 10 }}>
+            {/* Study Time */}
+            <StudyTime clockUri={iconUri.clock} user={user} />
+
+            <Section title="Khóa học mới nhất" courses={courses?.newest} />
+            <Section title="Dành cho bạn" courses={courses?.suggested} />
+            <Section title="Đã đăng ký" courses={courses?.subscribed} />
+          </View>
+        ) : (
+          <View style={{ gap: 5, paddingTop: 10 }}>
+            <CourseProgress courseUri={iconUri.course} user={user} />
+            <Section title="Khóa học đã tạo" courses={courses?.created} />
+            <Section title="Khóa học mới nhất" courses={courses?.newest} />
           </View>
         )}
-      />
-    </View>
+      </ScrollView>
+    </ImageBackground>
   );
-
-  // return (
-  //   <ImageBackground
-  //     source={require("@/assets/images/radiant-bg.png")}
-  //     style={defaultStyles.pageContainer}
-  //   >
-  //     <ScrollView style={home.container}>
-  //       {/* Greeting */}
-  //       <UserGreeting user={user} />
-
-  //       {user?.role === "Student" ? (
-  //         <View style={{ gap: 5, paddingTop: 10 }}>
-  //           {/* Study Time */}
-  //           <StudyTime clockUri={iconUri.clock} user={user} />
-
-  //           <Section title="Khóa học mới nhất" courses={courses?.newest} />
-  //           <Section title="Dành cho bạn" courses={courses?.suggested} />
-  //           <Section title="Đã đăng ký" courses={courses?.subscribed} />
-  //         </View>
-  //       ) : (
-  //         <View style={{ gap: 5, paddingTop: 10 }}>
-  //           <CourseProgress courseUri={iconUri.course} user={user} />
-  //           <Section title="Khóa học đã tạo" courses={courses?.created} />
-  //           <Section title="Khóa học mới nhất" courses={courses?.newest} />
-  //         </View>
-  //       )}
-  //     </ScrollView>
-  //   </ImageBackground>
-  // );
 }
 
 export const home = StyleSheet.create({
