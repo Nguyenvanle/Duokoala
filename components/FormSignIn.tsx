@@ -1,7 +1,8 @@
 import Colors from "@/constants/Colors";
 import { text } from "@/constants/Styles";
-import { LoginViewModel, loginScherma } from "@/screens/sign-in/v-model";
-import { useAuthViewModel } from "@/services/firebase/v-model";
+import { loginScherma } from "@/screens/sign-in/validation";
+
+import { useUserViewModel } from "@/vms/user";
 import { Formik } from "formik";
 import {
   View,
@@ -13,23 +14,16 @@ import {
 } from "react-native";
 
 const FormSignIn = () => {
-  const { onLoginPress, isLoading } = useAuthViewModel();
+  const { isLoading, loginUser, findUserById } = useUserViewModel();
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       validationSchema={loginScherma}
       onSubmit={(value) => {
-        onLoginPress(value.email, value.password);
+        loginUser(value.email, value.password);
       }}
     >
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        errors,
-        touched,
-      }) => (
+      {({ handleChange, handleSubmit, values, errors, touched }) => (
         <View style={container.input}>
           <Text style={text.subTitle}>Email</Text>
           <TextInput

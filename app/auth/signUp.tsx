@@ -1,6 +1,6 @@
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
-import { SignUpSchema, useSignupViewModel } from "@/screens/sign-up/v-model";
+
 import { router } from "expo-router";
 import { Formik } from "formik";
 import React from "react";
@@ -16,16 +16,18 @@ import {
   View,
 } from "react-native";
 import { logo } from "../index";
+import { useUserViewModel } from "@/vms/user";
+import { SignUpSchema } from "@/screens/sign-up/validation";
 
 export default function signUp() {
   const signUpImage = "@/assets/images/Frame10.png";
   const logIn = () => {
     router.replace("/sign-in");
   };
-  const signUp = () => {
-    router.replace("/auth/confirm");
-  };
-  const { handleSignUp, loading } = useSignupViewModel();
+  // const signUp = () => {
+  //   router.replace("/auth/confirm");
+  // };
+  const { isLoading, signUpUser } = useUserViewModel();
   return (
     <ImageBackground
       source={require("@/assets/images/radiant-bg.png")}
@@ -57,11 +59,19 @@ export default function signUp() {
               confirmPassword: "",
             }}
             validationSchema={SignUpSchema}
-            onSubmit={handleSignUp}
+            onSubmit={(value, { setSubmitting }) => {
+              signUpUser(
+                {
+                  name: value.name,
+                  email: value.email,
+                  password: value.password,
+                },
+                setSubmitting
+              );
+            }}
           >
             {({
               handleChange,
-              handleBlur,
               handleSubmit,
               values,
               errors,
@@ -189,10 +199,10 @@ export default function signUp() {
                 <TouchableOpacity
                   style={container.button}
                   //onPress={() => onLoginPress()}
-                  onPress={() => handleSubmit}
+                  onPress={handleSubmit as any}
                   disabled={isSubmitting}
                 >
-                  {loading ? (
+                  {isLoading ? (
                     <ActivityIndicator size={"large"} color={"white"} />
                   ) : (
                     <Text style={[text.btnText, { color: Colors.light }]}>

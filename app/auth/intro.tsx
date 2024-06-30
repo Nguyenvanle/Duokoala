@@ -1,11 +1,19 @@
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
-import UserViewModel from "@/models/user/v-model";
+
+import { useUserViewModel } from "@/vms";
 
 import { router } from "expo-router";
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ImageBackground,
+  Alert,
+} from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 
 const slides = [
@@ -40,7 +48,7 @@ const slides = [
 ];
 
 export default function Intro() {
-  const userViewModel = UserViewModel();
+  const { user, updateUser } = useUserViewModel();
   const _renderItem = ({ item }: any) => {
     return (
       <ImageBackground
@@ -56,12 +64,15 @@ export default function Intro() {
     );
   };
   const _onDone = () => {
-    // User finished the introduction. Navigate to main screen here.
-    // Maybe let's redirect him to createStackNavigator...
-    console.log("Intro finished");
-    console.log("User được đem theo qua intro");
-    console.log(userViewModel.user);
-    router.push("/suggest/cerSuggest");
+    if (user) {
+      updateUser(user.id, {
+        ...user,
+        isNewUser: false,
+      });
+      router.push("/suggest/cerSuggest");
+    } else {
+      alert("sai nữa nè");
+    }
   };
 
   const _skipHandler = () => {

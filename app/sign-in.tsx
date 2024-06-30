@@ -2,21 +2,19 @@ import CustomAlert from "@/components/CustomAlert";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
-import useSignInViewModel, { loginScherma } from "@/screens/sign-in/v-model";
 
 import {
-  ActivityIndicator,
   ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import { index, koalaUri, logo } from "./index";
+import { koalaUri, logo } from "./index";
 import React from "react";
 import FormSignIn from "@/components/FormSignIn";
+import useSignInViewModel from "@/screens/sign-in/validation";
 
 const faceUri: string =
   "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
@@ -24,20 +22,7 @@ const faceUri: string =
 const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
 
 export default function SignInScreen() {
-  const {
-    // setEmail,
-    // email,
-    // setPassword,
-    // password,
-    // signInHandler,
-    // using firebase user v-model instead
-    showTrueAlert,
-    confirmAlertHandler,
-    showErrorAlert,
-    setShowErrorAlert,
-    signUpHandler,
-  } = useSignInViewModel();
-
+  const { signUpHandler } = useSignInViewModel();
   return (
     <ImageBackground
       source={require("@/assets/images/radiant-bg.png")}
@@ -65,7 +50,7 @@ export default function SignInScreen() {
 
             {/* button container */}
 
-            <CustomAlert
+            {/* <CustomAlert
               title={"Đăng nhập thành công"}
               message={"Chào mừng bạn đến với DuoKoala"}
               textButton={"Xác nhận"}
@@ -84,7 +69,7 @@ export default function SignInScreen() {
                 setShowErrorAlert(false);
               }}
               color={Colors.red}
-            />
+            /> */}
 
             {/* line container */}
             <View style={container.center}>
@@ -172,6 +157,12 @@ export const container = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     flexDirection: "row",
+  },
+  input: {
+    alignItems: "flex-start",
+    gap: 5,
+    flex: 0,
+    alignSelf: "stretch",
   },
 });
 
