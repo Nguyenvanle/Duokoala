@@ -53,7 +53,7 @@ export default function userScreen() {
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
             <FlaticonIcon
-              size={150}
+              size={100}
               uri={userInfo.imgUser as string}
             ></FlaticonIcon>
           </TouchableOpacity>

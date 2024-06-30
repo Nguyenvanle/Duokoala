@@ -186,7 +186,7 @@ export function useUserViewModel() {
         fetchUser(userLogin.uid);
         alert("Đăng nhập thành công" + userLogin.uid);
         if (userStore?.isNewUser) {
-          router.replace("/suggest");
+          router.replace("/auth/intro");
         } else {
           router.replace("/tabs/homes");
         }
