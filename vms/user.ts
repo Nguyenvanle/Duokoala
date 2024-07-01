@@ -33,6 +33,7 @@ export function useUserViewModel() {
   useEffect(() => {
     setIsFetch(isFetch + 1);
     console.log("state user: " + user?.email);
+    console.log(user);
   }, [user]);
   const fetchUser = async (id: string) => {
     return await userViewModel
