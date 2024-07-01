@@ -23,8 +23,8 @@ export default function HomeScreen() {
 
   if (courses.length === 0) return <KoalaLoading />;
 
-  const { isSuggestLoading, setSuggestLoading, findSuggest, currentCourses } =
-    useSuggestViewModel();
+  // const { isSuggestLoading, setSuggestLoading, findSuggest, currentCourses } =
+  //   useSuggestViewModel();
 
   return (
     <ImageBackground
