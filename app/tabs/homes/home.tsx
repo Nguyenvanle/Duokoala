@@ -7,7 +7,7 @@ import { CourseProps, toeicUrl } from "@/models/course/model";
 import { Section } from "@/screens/home/Section";
 import { CourseViewModel, useCourseViewModel } from "@/vms";
 import { data, useHomeViewModel } from "@/vms/home";
-import { useEffect, useState } from "react";
+import { useSuggestViewModel } from "@/vms/suggest";
 import {
   Button,
   FlatList,
@@ -22,6 +22,9 @@ export default function HomeScreen() {
   const { user, courses } = useHomeViewModel();
 
   if (courses.length === 0) return <KoalaLoading />;
+
+  const { isSuggestLoading, setSuggestLoading, findSuggest, currentCourses } =
+    useSuggestViewModel();
 
   return (
     <ImageBackground

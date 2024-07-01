@@ -19,7 +19,6 @@ export function useCourseViewModel() {
 
   useEffect(() => {
     const controller = new AbortController();
-
     const fetchCourses = async () => {
       await courseViewModel
         .getAllItems()

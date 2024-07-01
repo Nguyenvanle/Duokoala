@@ -1,7 +1,7 @@
 import {
   CerProps,
   QuestProps,
-  Suggest,
+  SuggestProp,
   useSuggestStore,
 } from "@/models/suggestion/model";
 import {
@@ -12,10 +12,15 @@ import {
   questPhotoProps,
   questTextProps,
 } from "@/screens/suggest/data";
+import { useCourseViewModel } from "@/vms";
+import { useSuggestViewModel } from "@/vms/suggest";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { CourseProps } from "../course/model";
 
 //< - Import - >//
+
+//< - - - - - - - - - - - - - - - - - - - - >//
 
 export function getCerNames(props: CerProps): string[] {
   return props.map((prop) => prop.cerName) || [];
@@ -27,20 +32,6 @@ export function getCerAims(props: CerProps, cerName: any): string[] {
   const foundCer = props.find((prop) => prop.cerName === cerName);
   return foundCer ? foundCer.aims : [];
 }
-
-//< - - - - - - - - - - - - - - - - - - - - >//
-
-export const useSuggestViewModel = () => {
-  const store = useSuggestStore();
-  return {
-    suggest: store.suggest,
-    setSuggest: (suggest: Suggest) => store.setSuggest(suggest),
-    setCer: (cer: string) => store.setCer(cer),
-    setAim: (aim: string) => store.setAim(aim),
-    setTime: (time: string) => store.setTime(time),
-    setScore: (score: string | number) => store.setScore(score),
-  };
-};
 
 //< - - - - - - - - - - - - - - - - - - - - >//
 
@@ -99,8 +90,14 @@ export const useTestViewModel = () => {
     } else handleFinish("/tabs/homes");
   };
 
-  const handleFinish = (routerName: string) => {
-    viewModel.setScore((stateAnswer / ArrayLength) * 10);
+  const setFinalScore = async () => {
+    await viewModel.setScore((stateAnswer / ArrayLength) * 10);
+  };
+
+  const handleFinish = async (routerName: string) => {
+    await setFinalScore();
+    await console.log(viewModel.suggest.score);
+    await viewModel.updateSuggest();
     router.replace(routerName);
   };
 
@@ -153,16 +150,6 @@ export const useHandlerButtonViewModel = () => {
     router.replace(address);
   };
 
-  const SetNullSuggest = () => {
-    viewModel.setSuggest({
-      id: "",
-      cer: "",
-      aim: "",
-      time: "",
-      score: "",
-    });
-  };
-
   return {
     cautionNotConfirm,
     setCautionNotConfirm,
@@ -170,7 +157,6 @@ export const useHandlerButtonViewModel = () => {
     setCautionSkip,
     CautionSkipHandler,
     SkipHandler,
-    SetNullSuggest,
     arrayOpsAims,
     AimsBackHandler,
     statusTestAlert,
@@ -209,6 +195,7 @@ export function getRandomArray<T>(quantity: number, array: T[]): T[] {
 }
 
 //< - - - - - - - - - - - - - - - - - - - - >//
+
 export function RandomAnswerProps(array: QuestProps): QuestProps {
   return array.map((item) => {
     return {
@@ -226,5 +213,3 @@ export function CombineAndRandom(array1: QuestProps, array2: QuestProps) {
   const ArrayQuest = R1.concat(R2);
   return shuffleArray(ArrayQuest);
 }
-
-//< - - - - - - - - - - - - - - - - - - - - >//
