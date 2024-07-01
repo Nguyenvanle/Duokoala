@@ -23,6 +23,7 @@ export function useCourseViewModel() {
       await courseViewModel
         .getAllItems()
         .catch((e) => {
+          console.log("flag");
           throw new Error("courseViewModel.getAllItems() fail", e);
         })
         .then((allCourses) => setCourses(allCourses));
