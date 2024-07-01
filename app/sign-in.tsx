@@ -2,21 +2,19 @@ import CustomAlert from "@/components/CustomAlert";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
-import useSignInViewModel, { loginScherma } from "@/screens/sign-in/v-model";
-import { useAuthViewModel } from "@/services/firebase/v-model";
+
 import {
-  ActivityIndicator,
   ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import { index, koalaUri, logo } from "./index";
+import { koalaUri, logo } from "./index";
 import React from "react";
-import { Formik, FormikHelpers, FormikValues } from "formik";
+import FormSignIn from "@/components/FormSignIn";
+import useSignInViewModel from "@/screens/sign-in/validation";
 
 const faceUri: string =
   "https://cdn-icons-png.flaticon.com/128/15047/15047667.png";
@@ -24,22 +22,7 @@ const faceUri: string =
 const ggUri: string = "https://cdn-icons-png.flaticon.com/128/2875/2875331.png";
 
 export default function SignInScreen() {
-  const {
-    // setEmail,
-    // email,
-    // setPassword,
-    // password,
-    // signInHandler,
-    // using firebase user v-model instead
-    showTrueAlert,
-    confirmAlertHandler,
-    showErrorAlert,
-    setShowErrorAlert,
-    signUpHandler,
-  } = useSignInViewModel();
-
-  const { onLoginPress, isLoading } = useAuthViewModel();
-
+  const { signUpHandler } = useSignInViewModel();
   return (
     <ImageBackground
       source={require("@/assets/images/radiant-bg.png")}
@@ -63,100 +46,11 @@ export default function SignInScreen() {
             <Text style={text.title}>Đăng nhập</Text>
 
             {/* input container */}
-            <Formik
-              initialValues={{ email: "", password: "" }}
-              validationSchema={loginScherma}
-              onSubmit={(value) => {
-                onLoginPress(value.email, value.password);
-              }}
-            >
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-              }) => (
-                <View style={container.input}>
-                  <Text style={text.subTitle}>Email</Text>
-                  <TextInput
-                    style={{
-                      ...input.normal,
-                      borderColor:
-                        errors.email && touched.email
-                          ? Colors.red
-                          : Colors.blue.text,
-                      color:
-                        errors.email && touched.email
-                          ? Colors.red
-                          : Colors.blue.text,
-                    }}
-                    placeholder={"kola@gmail.com"}
-                    placeholderTextColor={Colors.mute}
-                    //onChangeText={(inputEmail) => setEmail(inputEmail)}
-                    onChangeText={handleChange("email")}
-                    onBlur={handleBlur("email")}
-                    value={values.email}
-                    secureTextEntry={false}
-                    autoCapitalize="none"
-                  />
-
-                  {errors.email && touched.email && (
-                    <Text style={signIn.errorText}>{errors.email}</Text>
-                  )}
-
-                  {/* pass container */}
-                  <View style={signIn.passContainer}>
-                    <Text style={text.subTitle}>Mật khẩu</Text>
-
-                    <TouchableOpacity style={signIn.forgotContainer}>
-                      <Text style={signIn.passLinkText}>Quên mật khẩu?</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <TextInput
-                    style={{
-                      ...input.normal,
-                      borderColor:
-                        errors.password && touched.password
-                          ? Colors.red
-                          : Colors.blue.text,
-                      color:
-                        errors.password && touched.password
-                          ? Colors.red
-                          : Colors.blue.text,
-                    }}
-                    placeholder={"matkhau123"}
-                    placeholderTextColor={Colors.mute}
-                    onChangeText={handleChange("password")}
-                    onBlur={handleBlur("password")}
-                    value={values.password}
-                    secureTextEntry={true}
-                    autoCapitalize="none"
-                  />
-                  {errors.password && touched.password && (
-                    <Text style={signIn.errorText}>{errors.password}</Text>
-                  )}
-                  <TouchableOpacity
-                    style={container.button}
-                    //onPress={() => onLoginPress()}
-                    onPress={handleSubmit as any}
-                  >
-                    {isLoading ? (
-                      <ActivityIndicator size={"large"} color={"white"} />
-                    ) : (
-                      <Text style={[text.btnText, { color: Colors.light }]}>
-                        ĐĂNG NHẬP
-                      </Text>
-                    )}
-                  </TouchableOpacity>
-                </View>
-              )}
-            </Formik>
+            <FormSignIn />
 
             {/* button container */}
 
-            <CustomAlert
+            {/* <CustomAlert
               title={"Đăng nhập thành công"}
               message={"Chào mừng bạn đến với DuoKoala"}
               textButton={"Xác nhận"}
@@ -175,7 +69,7 @@ export default function SignInScreen() {
                 setShowErrorAlert(false);
               }}
               color={Colors.red}
-            />
+            /> */}
 
             {/* line container */}
             <View style={container.center}>
@@ -238,27 +132,7 @@ export const container = StyleSheet.create({
     paddingTop: 10,
     overflow: "hidden",
   },
-  input: {
-    alignItems: "flex-start",
-    gap: 5,
-    flex: 0,
-    alignSelf: "stretch",
-  },
-  button: {
-    backgroundColor: Colors.blue.regular,
-    borderRadius: 40,
-    borderWidth: 2,
-    borderColor: Colors.blue.text,
-    height: 50,
-    textAlign: "center",
-    fontSize: 14,
-    fontWeight: "700",
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-    alignSelf: "stretch",
-    marginTop: 10,
-  },
+
   line: {
     height: 2,
     width: "25%",
@@ -284,6 +158,12 @@ export const container = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
+  input: {
+    alignItems: "flex-start",
+    gap: 5,
+    flex: 0,
+    alignSelf: "stretch",
+  },
 });
 
 export const signIn = StyleSheet.create({
@@ -295,47 +175,12 @@ export const signIn = StyleSheet.create({
     paddingBottom: 20,
     margin: -1,
   },
-  passContainer: {
-    flex: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignSelf: "stretch",
-    alignItems: "flex-end",
-  },
-  passLinkText: {
-    ...text.link,
-    height: "100%",
-    textAlignVertical: "center",
-  },
-  forgotContainer: {
-    flex: 0,
-    alignSelf: "stretch",
-    flexDirection: "row",
-  },
+
   signInWithContainer: {
     ...container.center,
     paddingLeft: 5,
     paddingRight: 5,
     flexDirection: "row",
     gap: 4,
-  },
-  errorText: {
-    ...text.note,
-    color: Colors.red,
-
-    marginLeft: 1,
-  },
-});
-const input = StyleSheet.create({
-  normal: {
-    ...text.mainContent,
-    textAlign: "left",
-    backgroundColor: Colors.light,
-    borderWidth: 2,
-    borderRadius: 40,
-    borderColor: Colors.blue.text,
-    height: 50,
-    paddingLeft: 20,
-    alignSelf: "stretch",
   },
 });
