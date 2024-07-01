@@ -55,41 +55,41 @@ interface CourseProgressProps {
   courseUri: string;
 }
 
-export const CourseProgress: React.FC<CourseProgressProps> = (props) => {
-  const { user, courseUri } = props;
+// export const CourseProgress: React.FC<CourseProgressProps> = (props) => {
+//   const { user, courseUri } = props;
 
-  if (user === null) return;
+//   if (user === null) return;
 
-  const process: number = user.createdCourses / user.targetCourses;
+//   const process: number = user.createdCourses / user.targetCourses;
 
-  return (
-    <View style={studyTime.container}>
-      <View style={studyTime.leftContainer}>
-        <Text style={{ ...text.btnText, color: "black" }}>
-          Số khóa học đã tạo
-        </Text>
+//   return (
+//     <View style={studyTime.container}>
+//       <View style={studyTime.leftContainer}>
+//         <Text style={{ ...text.btnText, color: "black" }}>
+//           Số khóa học đã tạo
+//         </Text>
 
-        <Text style={home.timeTextRed} numberOfLines={1} ellipsizeMode="tail">
-          {user.createdCourses}/
-          {<Text style={home.timeTextMilk}>{user.targetCourses} khóa</Text>}
-        </Text>
+//         <Text style={home.timeTextRed} numberOfLines={1} ellipsizeMode="tail">
+//           {user.createdCourses}/
+//           {<Text style={home.timeTextMilk}>{user.targetCourses} khóa</Text>}
+//         </Text>
 
-        <Progress.Bar
-          progress={process}
-          color={Colors.red}
-          unfilledColor={Colors.milk}
-          borderWidth={0}
-          height={10}
-          width={170}
-        />
-      </View>
+//         <Progress.Bar
+//           progress={process}
+//           color={Colors.red}
+//           unfilledColor={Colors.milk}
+//           borderWidth={0}
+//           height={10}
+//           width={170}
+//         />
+//       </View>
 
-      <View style={studyTime.rightContainer}>
-        <FlaticonIcon size={80} uri={courseUri} />
-      </View>
-    </View>
-  );
-};
+//       <View style={studyTime.rightContainer}>
+//         <FlaticonIcon size={80} uri={courseUri} />
+//       </View>
+//     </View>
+//   );
+// };
 
 const home = StyleSheet.create({
   timeTextRed: {

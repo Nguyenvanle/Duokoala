@@ -1,5 +1,5 @@
 import { defaultStyles, text } from "@/constants/Styles";
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -9,9 +9,8 @@ import {
 } from "react-native";
 import AwesomeAlert from "react-native-awesome-alerts";
 import { FlaticonIcon } from "./FlaticonIcon";
-import { koalaUri } from "./KoalaLoading";
+
 import Colors from "@/constants/Colors";
-import { transform } from "@babel/core";
 
 interface CustomAlertProps {
   title: string;
