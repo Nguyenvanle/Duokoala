@@ -6,7 +6,7 @@ import { defaultStyles } from "@/constants/Styles";
 import { CourseProps, toeicUrl } from "@/models/course/model";
 import { Section } from "@/screens/home/Section";
 import { CourseViewModel, useCourseViewModel } from "@/vms";
-import { useHomeViewModel } from "@/vms/home";
+import { data, useHomeViewModel } from "@/vms/home";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -35,7 +35,7 @@ export default function HomeScreen() {
         {user?.role === "Student" ? (
           <View style={{ gap: 5, paddingTop: 10 }}>
             {/* Study Time */}
-            {/* <StudyTime clockUri={iconUri.clock} user={user} /> */}
+            <StudyTime clockUri={data.iconUri.clock} user={user} />
 
             <Section title="Khóa học mới nhất" courses={courses} />
             {/* <Section title="Dành cho bạn" courses={courses?.suggested} /> */}

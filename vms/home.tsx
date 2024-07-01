@@ -1,5 +1,7 @@
+import { db } from "@/services/firebase";
 import { useCourseViewModel } from "@/vms/course";
 import { ViewModel } from "@/vms/viewmodel";
+import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 // Temp User View Model

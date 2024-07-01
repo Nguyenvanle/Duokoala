@@ -5,12 +5,12 @@ import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 import Course from "@/components/Course";
 import { home } from "@/app/tabs/homes/home";
 import StudyTime from "@/components/StudyTime";
-import useHomeViewModel from "@/screens/home/v-model";
+import { useHomeViewModel, data } from "@/vms/home";
 
 export default function CoursesList() {
   const { categorizedCourses, handleSegmentChange, selectedCategory } =
     useCourseViewModel();
-  const { iconUri, user } = useHomeViewModel();
+  const { user } = useHomeViewModel();
 
   return (
     <View style={container.pageContainer}>
@@ -20,7 +20,7 @@ export default function CoursesList() {
       >
         <SegmentButtons onSegmentChange={handleSegmentChange} />
 
-        <StudyTime clockUri={iconUri.clock} user={user} />
+        <StudyTime clockUri={data.iconUri.clock} user={user} />
 
         <FlatList
           contentContainerStyle={{ gap: 6 }}
