@@ -247,3 +247,4 @@ export function useUserViewModel() {
 function logOut(auth: Auth) {
   throw new Error("Function not implemented.");
 }
+//fix
