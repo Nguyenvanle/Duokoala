@@ -10,8 +10,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect } from "react";
 import { Easing, useSharedValue, withTiming } from "react-native-reanimated";
 
-export const showLogoDuration = 0;
-export const redirectDuration = 0;
+export const showLogoDuration = 1000;
+export const redirectDuration = 1000;
 
 const useIndexScreenViewModel = (routerHref: string): IndexScreenModel => {
   // Disable Auto Hide Loading Screen

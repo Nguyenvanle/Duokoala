@@ -4,6 +4,8 @@ import React from "react";
 import Course from "@/components/Course";
 import { Link } from "expo-router";
 import { CourseProps } from "@/models/course/model";
+import { ActivityIndicator } from "react-native-paper";
+import KoalaLoading from "@/components/KoalaLoading";
 const routerHref: string = "/tabs/join/join-courses";
 
 interface SectionProps {
@@ -25,11 +27,10 @@ export function Section(props: SectionProps) {
           Xem thêm
         </Link>
       </View>
-
       <FlatList
         contentContainerStyle={{ gap: 6 }}
         data={limitCourses}
-        keyExtractor={(item) => item.title}
+        keyExtractor={(item) => item.id}
         scrollEnabled={false}
         renderItem={({ item }) => (
           <Course
@@ -38,6 +39,22 @@ export function Section(props: SectionProps) {
             instructor={item.instructor}
             level={item.level}
             tags={item.tags}
+            id={item.id}
+            description={item.description}
+            duration={item.duration}
+            price={item.price}
+            rating={item.rating}
+            reviewsCount={item.reviewsCount}
+            lessonsCount={item.lessonsCount}
+            language={item.language}
+            createdAt={item.createdAt}
+            updatedAt={item.updatedAt}
+            isFeatured={item.isFeatured}
+            isFree={item.isFree}
+            prerequisites={item.prerequisites}
+            category={item.category}
+            videoUrl={item.videoUrl}
+            enrolledUsers={item.enrolledUsers}
           />
         )}
       />

@@ -85,7 +85,7 @@ export function useUserViewModel() {
         gender: "other",
         subscriptionType: "free",
         currentTime: 0,
-        targetTime: 0,
+        targetTime: 1,
         address: "",
         avatarUrl: defaultImageUser,
         registrationDate: new Date(),
@@ -188,7 +188,7 @@ export function useUserViewModel() {
         if (userStore?.isNewUser) {
           router.replace("/auth/intro");
         } else {
-          router.replace("/tabs/homes");
+          router.replace("/tabs");
         }
       }
     } catch (error) {

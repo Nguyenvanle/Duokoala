@@ -4,14 +4,16 @@ import { defaultStyles } from "@/constants/Styles";
 import {
   getCerNames,
   useHandlerButtonViewModel,
-  useSuggestViewModel,
 } from "@/models/suggestion/v-model";
 import { cerProps } from "@/screens/suggest/data";
 import SuggestPage from "@/screens/suggest/suggestScreen";
+import { useSuggestViewModel } from "@/vms/suggest";
 import { ImageBackground } from "react-native";
 
 const NextRouter = "/suggest/aimsSuggest";
 const SkipRouter = "/suggest/timeSuggest";
+
+const uid = /*auth.currentUser?.uid*/ "1Y6E3b1HK2Pqy7xppmErRIMSgpg2";
 
 export default function MainSuggestion() {
   const viewModel = useSuggestViewModel();
@@ -23,7 +25,6 @@ export default function MainSuggestion() {
     setCautionSkip,
     CautionSkipHandler,
     SkipHandler,
-    SetNullSuggest,
     NextHandler,
   } = useHandlerButtonViewModel();
 
@@ -88,7 +89,7 @@ export default function MainSuggestion() {
         isShow={cautionSkip}
         handlerConfirm={() => {
           setCautionSkip(false);
-          SetNullSuggest();
+          viewModel.setNull();
           SkipHandler(SkipRouter);
         }}
         handlerCancel={() => {

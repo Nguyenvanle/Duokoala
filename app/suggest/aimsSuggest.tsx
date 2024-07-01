@@ -1,13 +1,9 @@
 import CustomAlert from "@/components/CustomAlert";
 import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
-import {
-  useHandlerButtonViewModel,
-  useSuggestViewModel,
-} from "@/models/suggestion/v-model";
-
+import { useHandlerButtonViewModel } from "@/models/suggestion/v-model";
 import SuggestPage from "@/screens/suggest/suggestScreen";
-
+import { useSuggestViewModel } from "@/vms/suggest";
 import React from "react";
 import { ImageBackground } from "react-native";
 

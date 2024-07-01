@@ -1,7 +1,3 @@
-import {
-  useHandlerButtonViewModel,
-  useSuggestViewModel,
-} from "@/models/suggestion/v-model";
 import { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, View } from "react-native";
 import {
@@ -12,6 +8,7 @@ import {
   SelectedOption,
   WrongOption,
 } from "./Option";
+import { useSuggestViewModel } from "@/vms/suggest";
 interface OptionProps {
   Options: string[];
 }
