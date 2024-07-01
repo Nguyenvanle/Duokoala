@@ -3,9 +3,10 @@ import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { SelectButton } from "@/components/SelectButton";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
-import { useUserAuthStore } from "@/services/firebase/model";
+
+import { useUserViewModel } from "@/vms/user";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -18,14 +19,13 @@ import {
 export default function userScreen() {
   // const userViewModel = UserViewModel();
 
-  const { logout, user } = useUserAuthStore();
+  const { user, signOutUser } = useUserViewModel();
 
   const userInfo = {
-    name: user?.displayName || "undefined",
+    name: user?.name || "undefined",
     email: user?.email || "undefined",
-    role: "Student",
-    imgUser:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS55av9IkGPlJ4mHAdYajWqaC4FecNhSiOo-Q&s",
+    role: user?.role,
+    imgUser: user?.avatarUrl,
   };
 
   const icon = {
@@ -37,7 +37,7 @@ export default function userScreen() {
   };
 
   const logoutHandler = () => {
-    logout();
+    signOutUser();
     console.log("log out");
     router.replace("/sign-in");
   };
@@ -52,7 +52,10 @@ export default function userScreen() {
         {/* info container */}
         <View style={container.info}>
           <TouchableOpacity style={container.icon}>
-            <FlaticonIcon size={150} uri={userInfo.imgUser}></FlaticonIcon>
+            <FlaticonIcon
+              size={100}
+              uri={userInfo.imgUser as string}
+            ></FlaticonIcon>
           </TouchableOpacity>
           <Text style={text.subTitle}>{userInfo.name}</Text>
           <Text style={textStyle.email}>{userInfo.email}</Text>
@@ -62,7 +65,6 @@ export default function userScreen() {
           </View>
         </View>
         {/* setting container */}
-        <Text style={[text.title, { textAlign: "left" }]}>Cài đặt</Text>
         <View style={container.profile}>
           <SelectButton
             hrefIcon={icon.user}
@@ -89,7 +91,6 @@ export default function userScreen() {
             hrefIcon={icon.change}
             title={"Thay đổi đề xuất"}
             onPress={() => {
-              logout;
               console.log("change suggest");
               router.replace("/suggest");
             }}

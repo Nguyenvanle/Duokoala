@@ -1,6 +1,6 @@
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
-import { SignUpSchema, useSignupViewModel } from "@/screens/sign-up/v-model";
+
 import { router } from "expo-router";
 import { Formik } from "formik";
 import React from "react";
@@ -16,17 +16,18 @@ import {
   View,
 } from "react-native";
 import { logo } from "../index";
-import { signIn } from "../sign-in";
+import { useUserViewModel } from "@/vms/user";
+import { SignUpSchema } from "@/screens/sign-up/validation";
 
 export default function signUp() {
   const signUpImage = "@/assets/images/Frame10.png";
   const logIn = () => {
     router.replace("/sign-in");
   };
-  const signUp = () => {
-    router.replace("/auth/confirm");
-  };
-  const { handleSignUp, loading } = useSignupViewModel();
+  // const signUp = () => {
+  //   router.replace("/auth/confirm");
+  // };
+  const { isLoading, signUpUser } = useUserViewModel();
   return (
     <ImageBackground
       source={require("@/assets/images/radiant-bg.png")}
@@ -58,11 +59,19 @@ export default function signUp() {
               confirmPassword: "",
             }}
             validationSchema={SignUpSchema}
-            onSubmit={handleSignUp}
+            onSubmit={(value, { setSubmitting }) => {
+              signUpUser(
+                {
+                  name: value.name,
+                  email: value.email,
+                  password: value.password,
+                },
+                setSubmitting
+              );
+            }}
           >
             {({
               handleChange,
-              handleBlur,
               handleSubmit,
               values,
               errors,
@@ -86,9 +95,7 @@ export default function signUp() {
                   }}
                   placeholder={"kola@gmail.com"}
                   placeholderTextColor={Colors.mute}
-                  //onChangeText={(inputEmail) => setEmail(inputEmail)}
                   onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
                   value={values.email}
                   secureTextEntry={false}
                   autoCapitalize="none"
@@ -114,7 +121,6 @@ export default function signUp() {
                   placeholder={"Koalaaaa"}
                   placeholderTextColor={Colors.mute}
                   onChangeText={handleChange("name")}
-                  onBlur={handleBlur("name")}
                   value={values.name}
                   secureTextEntry={false}
                   autoCapitalize="none"
@@ -140,7 +146,6 @@ export default function signUp() {
                   placeholder={"matkhau123"}
                   placeholderTextColor={Colors.mute}
                   onChangeText={handleChange("password")}
-                  onBlur={handleBlur("password")}
                   value={values.password}
                   secureTextEntry={true}
                   autoCapitalize="none"
@@ -165,7 +170,6 @@ export default function signUp() {
                   placeholder={"matkhau123"}
                   placeholderTextColor={Colors.mute}
                   onChangeText={handleChange("confirmPassword")}
-                  onBlur={handleBlur("confirmPassword")}
                   value={values.confirmPassword}
                   secureTextEntry={true}
                   autoCapitalize="none"
@@ -195,10 +199,10 @@ export default function signUp() {
                 <TouchableOpacity
                   style={container.button}
                   //onPress={() => onLoginPress()}
-                  onPress={() => handleSubmit}
+                  onPress={handleSubmit as any}
                   disabled={isSubmitting}
                 >
-                  {loading ? (
+                  {isLoading ? (
                     <ActivityIndicator size={"large"} color={"white"} />
                   ) : (
                     <Text style={[text.btnText, { color: Colors.light }]}>
@@ -294,5 +298,38 @@ const input = StyleSheet.create({
     height: 50,
     paddingLeft: 20,
     alignSelf: "stretch",
+  },
+});
+export const signIn = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignContent: "center",
+
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    margin: -1,
+  },
+  passContainer: {
+    flex: 0,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignSelf: "stretch",
+    alignItems: "flex-end",
+  },
+  errorText: {
+    ...text.note,
+    color: Colors.red,
+
+    marginLeft: 1,
+  },
+  passLinkText: {
+    ...text.link,
+    height: "100%",
+    textAlignVertical: "center",
+  },
+  forgotContainer: {
+    flex: 0,
+    alignSelf: "stretch",
+    flexDirection: "row",
   },
 });

@@ -1,86 +1,55 @@
+import { auth } from "@/services/firebase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { signOut } from "firebase/auth";
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 export interface UserProps {
-  id: string;
+  id: string; //id duy nhất của người dùng
+  email: string; // email đăng ký
+  isNewUser: boolean; // có phải người dùng mới
+  name: string; // tên của người dùng
+  role: string; // chức vụ của người dùng
+  currentTime: number; // thời gian học hiện tại của người dùng
+  targetTime: number; // thời gian học dự kiến của người dùng
+  avatarUrl: string; // URL ảnh đại diện của người dùng
+  phoneNumber?: string; // Số điện thoại của người dùng
+  dateOfBirth?: Date; // Ngày sinh của người dùng
+  gender?: "male" | "female" | "other"; // Giới tính của người dùng
+  address?: string; // Địa chỉ của người dùng
+  registrationDate: Date; // Ngày đăng ký tài khoản
+  lastLoginDate: Date; // Ngày đăng nhập cuối cùng
+  coursesEnrolled: string[]; // Danh sách các khóa học đã đăng ký
+  progress: { [courseId: string]: number }; // Tiến độ học tập theo khóa học
+  completedCourses: string[]; // Danh sách các khóa học đã hoàn thành
+  subscriptionType?: "free" | "premium"; // Loại gói đăng ký
+  preferences?: { [key: string]: any }; // Các tùy chọn cá nhân hóa
+  notificationsEnabled: boolean; // Trạng thái bật/tắt thông báo
+}
+
+export interface UserRegisterProps {
+  name: string;
   email: string;
   password: string;
-  isNewUser: boolean;
-  name: string;
-  role: string;
-  currentTime: number;
-  targetTime: number;
-  createdCourses: number;
-  targetCourses: number;
 }
 interface UserState {
   user: UserProps | null;
   setUser: (user: UserProps) => void;
   logout: () => void;
-  addCourse: () => void;
+  // addCourse: () => void;
 }
-export const useUserStore = create<UserState>((set) => ({
-  user: null,
-  setUser: (user: UserProps) => set({ user }),
-  logout: () => set({ user: null }),
-  addCourse: () =>
-    set((state) => {
-      if (state.user) {
-        return {
-          user: {
-            ...state.user,
-            createdCourses: state.user.createdCourses + 1,
-          },
-        };
-      }
-      return state;
+export const useUserStore = create<UserState>()(
+  persist(
+    (set, get) => ({
+      user: null,
+      setUser: (user: UserProps | null) => set({ user }),
+      logout: () => {
+        set({ user: null });
+      },
     }),
-}));
-
+    {
+      name: "user-auth-storage", // tên của mục trong bộ nhớ (phải là duy nhất)
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);
 export default UserProps;
-
-export const ListUser = [
-  {
-    email: "a",
-    password: "a",
-    isNewUser: false,
-    name: "Nguyễn Hưng Thịnh",
-    role: "Student",
-    currentTime: 5,
-    targetTime: 10,
-    createdCourses: 0,
-    targetCourses: 0,
-  },
-  {
-    email: "b",
-    password: "b",
-    isNewUser: true,
-    name: "Nguyễn Lê Tiến Đạt",
-    role: "Student",
-    currentTime: 3,
-    targetTime: 10,
-    createdCourses: 2,
-    targetCourses: 2,
-  },
-  {
-    email: "c",
-    password: "c",
-    isNewUser: false,
-    name: "Nguyễn Văn Lẹ",
-    role: "Teacher",
-    currentTime: 5,
-    targetTime: 5,
-    createdCourses: 1,
-    targetCourses: 7,
-  },
-  {
-    email: "d",
-    password: "d",
-    isNewUser: false,
-    name: "Lê Dương Anh Tú",
-    role: "Teacher",
-    currentTime: 9,
-    targetTime: 10,
-    createdCourses: 9,
-    targetCourses: 15,
-  },
-  // more users...
-];
