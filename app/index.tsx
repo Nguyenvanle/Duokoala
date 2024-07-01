@@ -9,7 +9,7 @@ LogBox.ignoreLogs(["@firebase/auth: Auth (10.12.2): "]);
 
 export const koalaUri: string =
   "https://cdn-icons-png.flaticon.com/512/3069/3069172.png";
-const routerHref: string = "/suggest/cerSuggest";
+const routerHref: string = "/sign-in";
 
 export default function IndexScreen() {
   const { fontsLoaded, opacity, onLayoutRootView } =
