@@ -1,5 +1,6 @@
 // screens/IndexScreen/IndexScreenViewModel.ts
 import IndexScreenModel from "@/screens/index/model";
+import { useUserViewModel } from "@/vms";
 import {
   Roboto_400Regular,
   Roboto_700Bold,
@@ -29,6 +30,9 @@ const useIndexScreenViewModel = (routerHref: string): IndexScreenModel => {
     }
   }, [fontsLoaded]);
 
+  // Load User Auth
+  const { user } = useUserViewModel();
+
   // Load Animation
   useEffect(() => {
     opacity.value = withTiming(1, {
@@ -43,7 +47,8 @@ const useIndexScreenViewModel = (routerHref: string): IndexScreenModel => {
       });
 
       setTimeout(() => {
-        router.replace(routerHref);
+        if (user) router.replace("/tabs");
+        else router.replace(routerHref);
       }, redirectDuration); // Thời gian chờ trước khi chuyển hướng (ví dụ: 2000ms)
     }, showLogoDuration); // Thời gian hiển thị logo (ví dụ: 4000ms)
   }, []);

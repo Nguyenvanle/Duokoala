@@ -1,7 +1,3 @@
-import UserProps, {
-  UserRegisterProps,
-  useUserStore,
-} from "@/models/user/model";
 import { ViewModel } from "./viewmodel";
 import { UserRepository } from "@/services/repositories";
 import { useEffect, useState } from "react";
@@ -15,6 +11,10 @@ import {
 import { auth, db } from "@/services/firebase";
 import { router } from "expo-router";
 import { doc, setDoc } from "firebase/firestore";
+import UserProps, {
+  UserRegisterProps,
+  useUserStore,
+} from "@/models/user/model";
 
 export class UserViewModel extends ViewModel<UserProps> {
   constructor() {
@@ -26,12 +26,10 @@ export function useUserViewModel() {
   const { user, setUser, logout } = useUserStore();
   // const [user, setUser] = useState<UserProps | null>();
   const [isLoading, setLoading] = useState<Boolean>(false);
-  const [isFetch, setIsFetch] = useState<number>(1);
   const userViewModel = new UserViewModel();
   const defaultImageUser =
     "https://cdn-icons-png.flaticon.com/512/2424/2424348.png";
   useEffect(() => {
-    setIsFetch(isFetch + 1);
     console.log("state user: " + user?.email);
   }, [user]);
   const fetchUser = async (id: string) => {
@@ -40,7 +38,6 @@ export function useUserViewModel() {
       .then((user) => {
         if (user) {
           setUser(user);
-          setIsFetch(isFetch + 1);
           console.log("fetch user " + user.id);
         } else {
           alert("Find error in fetch user");

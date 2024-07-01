@@ -19,7 +19,14 @@ const StudyTime: React.FC<StudyTimeProps> = (props) => {
 
   if (user === null) return;
 
-  const process: number = user.currentTime / user.targetTime;
+  const process = (): number => {
+    const targetTime = user.targetTime;
+    if (targetTime !== 0) return user.currentTime / targetTime;
+    else {
+      console.error("0/0 not allow");
+      return 1;
+    }
+  };
 
   return (
     <View style={studyTime.container}>
@@ -34,7 +41,7 @@ const StudyTime: React.FC<StudyTimeProps> = (props) => {
         </Text>
 
         <Progress.Bar
-          progress={process}
+          progress={process()}
           color={Colors.red}
           unfilledColor={Colors.milk}
           borderWidth={0}

@@ -5,7 +5,7 @@ import UserGreeting from "@/components/UserGreeting";
 import { defaultStyles } from "@/constants/Styles";
 import { CourseProps, toeicUrl } from "@/models/course/model";
 import { Section } from "@/screens/home/Section";
-import { CourseViewModel, useCourseViewModel } from "@/vms";
+import { CourseViewModel, useCourseViewModel, useUserViewModel } from "@/vms";
 import { data, useHomeViewModel } from "@/vms/home";
 import { useSuggestViewModel } from "@/vms/suggest";
 import {
@@ -19,12 +19,17 @@ import {
 } from "react-native";
 
 export default function HomeScreen() {
-  const { user, courses } = useHomeViewModel();
+  // Suggest Loading
+  const { isSuggestLoading, setSuggestLoading, findSuggest, currentCourses } =
+    useSuggestViewModel();
+
+  // Courses Loading
+  const { courses } = useHomeViewModel();
+
+  // User Loading
+  const { user } = useUserViewModel();
 
   if (courses.length === 0) return <KoalaLoading />;
-
-  // const { isSuggestLoading, setSuggestLoading, findSuggest, currentCourses } =
-  //   useSuggestViewModel();
 
   return (
     <ImageBackground

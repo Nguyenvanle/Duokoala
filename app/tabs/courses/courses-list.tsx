@@ -5,12 +5,13 @@ import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 import Course from "@/components/Course";
 import { home } from "@/app/tabs/homes/home";
 import StudyTime from "@/components/StudyTime";
-import { useHomeViewModel, data } from "@/vms/home";
+import { data } from "@/vms/home";
+import { useUserViewModel } from "@/vms";
 
 export default function CoursesList() {
   const { categorizedCourses, handleSegmentChange, selectedCategory } =
     useCourseViewModel();
-  const { user } = useHomeViewModel();
+  const { user } = useUserViewModel();
 
   return (
     <View style={container.pageContainer}>

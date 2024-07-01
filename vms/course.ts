@@ -13,34 +13,27 @@ export function useCourseViewModel() {
   const [courses, setCourses] = useState<CourseProps[]>([]);
   const [subCourses, setSubCourses] = useState<CourseProps[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [count, increase] = useState<number>(1);
 
   const courseViewModel = new CourseViewModel();
 
   useEffect(() => {
-    const controller = new AbortController();
-    const fetchCourses = async () => {
-      await courseViewModel
-        .getAllItems()
-        .catch((e) => {
-          console.log("flag");
-          throw new Error("courseViewModel.getAllItems() fail", e);
-        })
-        .then((allCourses) => setCourses(allCourses));
-    };
+    console.log("state courses: " + courses.length);
+  }, [courses]);
 
+  useEffect(() => {
     fetchCourses();
+  }, []);
 
-    console.log("fetch times: " + count);
-    increase(count + 1);
-
-    return () => {
-      controller.abort();
-    };
-  }, [isLoading]);
+  const fetchCourses = async () => {
+    await courseViewModel
+      .getAllItems()
+      .catch((e) => {
+        throw new Error("courseViewModel.getAllItems() fail", e);
+      })
+      .then((allCourses) => setCourses(allCourses));
+  };
 
   const addCourse = async () => {
-    setLoading(true);
     const newCourse = {
       title: "Khóa học IELTS 7.0+",
       imageUrl: toeicUrl,
@@ -69,11 +62,10 @@ export function useCourseViewModel() {
         console.log("Add success");
       })
       .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
+      .finally(fetchCourses);
   };
 
   const deleteCourse = async (id: string) => {
-    // setLoading(true);
     await courseViewModel
       .deleteItem(id)
       .then(() => {
@@ -83,11 +75,9 @@ export function useCourseViewModel() {
         console.log("Delete success");
       })
       .catch((error) => console.error(error));
-    // .finally(() => setLoading(false));
   };
 
   const findCourse = async (id: string) => {
-    // setLoading(true);
     await courseViewModel
       .getItemById(id)
       .then((course) => {
@@ -106,11 +96,9 @@ export function useCourseViewModel() {
         console.log(course);
       })
       .catch((error) => console.error(error));
-    // .finally(() => setLoading(false));
   };
 
   const updateCourse = async (id: string, course: CourseProps) => {
-    // setLoading(true);
     await courseViewModel
       .updateItem(id, course)
       .then(() => {
@@ -126,16 +114,6 @@ export function useCourseViewModel() {
         console.log("Update Success");
       })
       .catch((error) => console.error(error));
-    // .finally(() => setLoading(false));
-  };
-
-  const getAllCourses = async () => {
-    await courseViewModel
-      .getAllItems()
-      .catch((e) => {
-        throw new Error("courseViewModel.getAllItems() fail", e);
-      })
-      .then((allCourses) => setCourses(allCourses));
   };
 
   return {

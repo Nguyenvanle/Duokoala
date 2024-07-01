@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 import { router } from "expo-router";
+import { useUserViewModel } from "@/vms";
 
 // validation sign in page
 export const loginScherma = Yup.object().shape({
