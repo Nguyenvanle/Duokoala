@@ -9,7 +9,6 @@ import {
   WrongOption,
 } from "./Option";
 import { useSuggestViewModel } from "@/vms/suggest";
-import { useSynSuggest } from "@/models/suggestion/v-model";
 interface OptionProps {
   Options: string[];
 }
@@ -52,7 +51,7 @@ export interface SuggestOpsProps {
 }
 
 export function SuggestRadioBG(props: SuggestOpsProps) {
-  const viewModel = useSynSuggest();
+  const viewModel = useSuggestViewModel();
   const { For, Options, Default } = props;
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
@@ -97,7 +96,7 @@ export interface AnswerOpsProps {
 }
 
 export function AnswerRadioBG(props: AnswerOpsProps) {
-  const viewModel = useSynSuggest();
+  const viewModel = useSuggestViewModel();
 
   const { Options, Correct, Status } = props;
   const [selectedItem, setSelectedItem] = useState<string | null>(null);

@@ -1,11 +1,9 @@
 import CustomAlert from "@/components/CustomAlert";
 import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
-import {
-  useHandlerButtonViewModel,
-  useSynSuggest,
-} from "@/models/suggestion/v-model";
+import { useHandlerButtonViewModel } from "@/models/suggestion/v-model";
 import SuggestPage from "@/screens/suggest/suggestScreen";
+import { useSuggestViewModel } from "@/vms/suggest";
 import React from "react";
 import { ImageBackground } from "react-native";
 
@@ -20,7 +18,7 @@ const BackRouter = "/suggest/cerSuggest";
 const NextRouter = "/suggest/timeSuggest";
 
 export default function MainSuggestion() {
-  const viewModel = useSynSuggest();
+  const viewModel = useSuggestViewModel();
 
   const {
     cautionNotConfirm,

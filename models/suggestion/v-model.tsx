@@ -34,20 +34,6 @@ export function getCerAims(props: CerProps, cerName: any): string[] {
 }
 
 //< - - - - - - - - - - - - - - - - - - - - >//
-export const useSynSuggest = () => {
-  const store = useSuggestStore();
-  return {
-    suggest: store.suggest,
-    setSuggest: (suggest: SuggestProp) => store.setSuggest(suggest),
-    setCer: (cer: string) => store.setCer(cer),
-    setAim: (aim: string) => store.setAim(aim),
-    setTime: (time: string) => store.setTime(time),
-    setScore: (score: string | number) => store.setScore(score),
-    setNull: () => store.setNull(),
-  };
-};
-
-//< - - - - - - - - - - - - - - - - - - - - >//
 
 const TextQuestion = getRandomArray(5, questTextProps); // so cau hoi Chu
 const PhotoQuestion = getRandomArray(5, questPhotoProps); // so cau hoi Hinh
@@ -55,7 +41,7 @@ const ArrayQuestion = CombineAndRandom(TextQuestion, PhotoQuestion); // dua vao 
 const ArrayLength = ArrayQuestion.length;
 
 export const useTestViewModel = () => {
-  const viewModel = useSynSuggest();
+  const viewModel = useSuggestViewModel();
   const [IPage, setIPage] = useState(0);
 
   const [stateColor, setStateColor] = useState(Confirm.colors);
@@ -104,10 +90,14 @@ export const useTestViewModel = () => {
     } else handleFinish("/tabs/homes");
   };
 
-  const handleFinish = (routerName: string) => {
-    viewModel.setScore((stateAnswer / ArrayLength) * 10);
-    // console.log("ok!");
-    // updateSuggest();
+  const setFinalScore = async () => {
+    await viewModel.setScore((stateAnswer / ArrayLength) * 10);
+  };
+
+  const handleFinish = async (routerName: string) => {
+    await setFinalScore();
+    await console.log(viewModel.suggest.score);
+    await viewModel.updateSuggest();
     router.replace(routerName);
   };
 
@@ -134,7 +124,7 @@ export const useTestViewModel = () => {
 //< - - - - - - - - - - - - - - - - - - - - >//
 
 export const useHandlerButtonViewModel = () => {
-  const viewModel = useSynSuggest();
+  const viewModel = useSuggestViewModel();
   const [cautionNotConfirm, setCautionNotConfirm] = useState(false);
   const [cautionSkip, setCautionSkip] = useState(false);
   const [statusTestAlert, setStatusTestAlert] = useState(false);

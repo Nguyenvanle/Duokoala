@@ -1,8 +1,8 @@
-import { Suggest } from "@/models/suggestion/model";
 import { FirestoreRepository } from "./firestore";
+import { SuggestProp } from "@/models/suggestion/model";
 
-export class SuggestRepository extends FirestoreRepository<Suggest> {
+export class SuggestRepository extends FirestoreRepository<SuggestProp> {
   constructor() {
-    super("suggest");
+    super("suggests");
   }
 }

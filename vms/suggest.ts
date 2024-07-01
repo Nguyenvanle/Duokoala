@@ -11,9 +11,6 @@ import {
   where,
 } from "firebase/firestore";
 import { auth, db } from "@/services/firebase";
-import { useSynSuggest } from "@/models/suggestion/v-model";
-import { CourseViewModel } from "./course";
-import { data } from "./../screens/home/segment-button/data";
 export class SuggestViewModel extends ViewModel<SuggestProp> {
   constructor() {
     super(new SuggestRepository());
@@ -22,8 +19,7 @@ export class SuggestViewModel extends ViewModel<SuggestProp> {
 const uid = /*auth.currentUser?.uid;*/ "1Y6E3b1HK2Pqy7xppmErRIMSgpg2";
 
 export function useSuggestViewModel() {
-  const synSuggest = useSynSuggest();
-  // const CourseDB = new CourseViewModel();
+  const store = useSuggestStore();
   const suggestVM = new SuggestViewModel();
   const [currentSuggest, setSuggest] = useState<SuggestProp>();
   const [currentCourses, setCourses] = useState<CourseProps[]>([]);
@@ -59,7 +55,7 @@ export function useSuggestViewModel() {
       .catch((error) => console.error(error))
       .finally(() => {
         setSuggestLoading(false);
-        synSuggest.setNull();
+        store.setNull();
       });
   };
 
@@ -87,7 +83,6 @@ export function useSuggestViewModel() {
         else if (score <= 7.5) level = "Hard";
         else level = "Advanced";
         conditions.push(where("level", "==", level));
-        console.log("cer: " + currentSuggest.cer);
       }
       // if (aim) {
       //   conditions.push(where('aim', '==', aim));
@@ -128,11 +123,18 @@ export function useSuggestViewModel() {
 
   const updateSuggest = async () => {
     const id = currentSuggest?.id ?? "";
-    const suggest = synSuggest.suggest;
+    const suggest = {
+      cer: store.suggest.cer,
+      aim: store.suggest.aim,
+      time: store.suggest.time,
+      score: store.suggest.score as number,
+      uid: uid,
+    };
+    console.log(suggest);
     await suggestVM
       .updateItem(id, suggest)
       .then(() => {
-        setSuggest(synSuggest.suggest);
+        setSuggest(store.suggest);
         console.log("Update Suggest ID: " + id + " Success");
       })
       .catch((error) => console.error(error));
@@ -142,6 +144,13 @@ export function useSuggestViewModel() {
     setSuggestLoading,
     findSuggest,
     currentCourses,
-    // updateSuggest,
+    updateSuggest,
+    suggest: store.suggest,
+    setSuggest: (suggest: SuggestProp) => store.setSuggest(suggest),
+    setCer: (cer: string) => store.setCer(cer),
+    setAim: (aim: string) => store.setAim(aim),
+    setTime: (time: string) => store.setTime(time),
+    setScore: (score: string | number) => store.setScore(score),
+    setNull: () => store.setNull(),
   };
 }
