@@ -2,6 +2,7 @@ import { CourseProps, toeicUrl } from "@/models/course/model";
 import { CourseRepository } from "@/services/repositories/courses";
 import { useEffect, useState } from "react";
 import { ViewModel } from "./viewmodel";
+import { getUsers } from "@/api/user.api";
 
 export class CourseViewModel extends ViewModel<CourseProps> {
   constructor() {
@@ -25,6 +26,7 @@ export function useCourseViewModel() {
   }, []);
 
   const fetchCourses = async () => {
+    getUsers().then((res) => console.log(res[0].name));
     await courseViewModel
       .getAllItems()
       .catch((e) => {

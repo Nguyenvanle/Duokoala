@@ -1,7 +1,9 @@
+import { getAuthToken, getHeaders } from "@/api/user.api";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import Colors from "@/constants/Colors";
 import { defaultStyles, text } from "@/constants/Styles";
 import useIndexScreenViewModel from "@/screens/index/v-model";
+import { useEffect } from "react";
 import { ImageBackground, LogBox, StyleSheet, Text, View } from "react-native";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 

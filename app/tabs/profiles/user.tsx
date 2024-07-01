@@ -1,3 +1,4 @@
+import { getHeaders } from "@/api/user.api";
 import { OnPressButton } from "@/components/Button";
 import { FlaticonIcon } from "@/components/FlaticonIcon";
 import { SelectButton } from "@/components/SelectButton";
@@ -6,7 +7,7 @@ import { defaultStyles, text } from "@/constants/Styles";
 
 import { useUserViewModel } from "@/vms/user";
 import { router } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -18,7 +19,6 @@ import {
 
 export default function userScreen() {
   // const userViewModel = UserViewModel();
-
   const { user, signOutUser } = useUserViewModel();
 
   const userInfo = {
