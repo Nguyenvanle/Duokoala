@@ -1,4 +1,4 @@
-import { getUsers } from "@/api/user.api";
+import { getUsers, updateUser } from "@/api/user.api";
 import { CRUDList, renderCourseItem } from "@/components/CRUDList";
 import KoalaLoading from "@/components/KoalaLoading";
 import StudyTime from "@/components/StudyTime";
@@ -19,7 +19,30 @@ import {
 import courseAPI from "@/api/course.api";
 import { getAuthToken } from "@/services/auth/auth.service";
 import { CourseProps, toeicUrl } from "@/models/course/model";
+import UserProps from "@/models/user/model";
+import { CourseData, UserData } from "@/api/api-conver-class";
 
+const newUser: UserProps = {
+  id: "user123",
+  email: "john.doe@example.com",
+  isNewUser: true,
+  name: "John Doe",
+  role: "Student",
+  phoneNumber: "",
+  gender: "other",
+  subscriptionType: "free",
+  currentTime: 0,
+  targetTime: 1,
+  address: "",
+  avatarUrl: "defaultImageUser",
+  registrationDate: new Date(),
+  lastLoginDate: new Date(),
+  coursesEnrolled: [],
+  progress: {},
+  preferences: {},
+  completedCourses: [],
+  notificationsEnabled: false,
+};
 const newCourse: CourseProps = {
   id: "1",
   title: "dsfsdf",
@@ -57,13 +80,16 @@ export default function HomeScreen() {
     const fetchCourses = async () => {
       try {
         const token = await getAuthToken();
-
         console.log(token);
-        const courses = await courseAPI.updateCourse(
-          "wcoGVVbGIO98ZCyW5ZHf",
-          newCourse
-        );
-
+        const courses = await courseAPI
+          .getCourseById(
+            "wcoGVVbGIO98ZCyW5ZHf"
+            // newCourse
+          )
+          .then((res) => {
+            const course = new CourseData(res);
+            alert(course.getTags());
+          });
         // Xử lý dữ liệu courses ở đây
         console.log(courses);
       } catch (e) {
@@ -71,8 +97,23 @@ export default function HomeScreen() {
         console.log("Lỗi khi lấy courses");
       }
     };
-
     fetchCourses();
+    // getAuthToken().then((res) => console.log(res?.toString()));
+    // getUsers("L4cbtMjWPuNEMqqbjK1HEWOmbS12").then((res) => {
+    //   const user = new UserData(res);
+    //   alert();
+    // });
+    // updateUser("hahahahaahaha", newUser)
+    //   .then((user) => {
+    //     if (user) {
+    //       console.log("User created successfully:", user);
+    //     } else {
+    //       console.log("Failed to create user.");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error creating user:", error);
+    //   });
   };
 
   // User Loading
@@ -88,12 +129,7 @@ export default function HomeScreen() {
       <ScrollView style={home.container}>
         {/* Greeting */}
         <UserGreeting user={user} />
-        <Button
-          title="bấm"
-          onPress={() => {
-            getUsers("3Mcv7K7qiqg5S1zm6JcJr6Hw1iF2").then((res) => alert(res));
-          }}
-        ></Button>
+        <Button title="bấm" onPress={pressHandler}></Button>
         <View style={{ gap: 5, paddingTop: 10 }}>
           {/* Study Time */}
           <StudyTime clockUri={data.iconUri.clock} user={user} />

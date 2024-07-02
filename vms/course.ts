@@ -49,7 +49,7 @@ export function useCourseViewModel() {
     fetchCourses();
 
     getAuthToken().then((res) => console.log(res?.toString()));
-    //getUsers("L4cbtMjWPuNEMqqbjK1HEWOmbS12").then((res) => console.log(res));
+    getUsers("L4cbtMjWPuNEMqqbjK1HEWOmbS12").then((res) => console.log(res));
     updateUser("hahahahaahaha", newUser)
       .then((user) => {
         if (user) {
