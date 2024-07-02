@@ -43,6 +43,39 @@ export interface CourseState {
   categorizeCourses: (courses: CourseProps[]) => void;
 }
 
+// Định nghĩa một Record type mapping từ kiểu dữ liệu gốc sang kiểu dữ liệu mong muốn
+const fieldValueMapping: Record<
+  string,
+  (value: any) => any
+> = {
+  string: (value: string) => ({ stringValue: value }),
+  number: (value: number) => ({ doubleValue: value.toString() }),
+  boolean: (value: boolean) => ({ booleanValue: value }),
+  object: (value: any) => {
+    if (value instanceof Date) {
+      return { timestampValue: value.toISOString() };
+    } else if (Array.isArray(value)) {
+      return {
+        arrayValue: {
+          values: value.map((item: string) => ({ stringValue: item })),
+        },
+      };
+    }
+    // Xử lý trường hợp object không phải Date hoặc Array (nếu cần)
+    return {};
+  },
+};
+
+export const transformCourseToFields = (course: CourseProps) => {
+  return Object.fromEntries(
+    Object.entries(course).map(([key, value]) => {
+      const valueType = typeof value;
+      const transformFn = fieldValueMapping[valueType];
+      return [key, transformFn ? transformFn(value) : {}];
+    })
+  );
+};
+
 export const useCourseStore = create<CourseState>((set, get) => ({
   course: {
     id: "",

@@ -2,7 +2,7 @@ import { CourseProps, toeicUrl } from "@/models/course/model";
 import { CourseRepository } from "@/services/repositories/courses";
 import { useEffect, useState } from "react";
 import { ViewModel } from "./viewmodel";
-import { getAuthToken, getUsers } from "@/api/user.api";
+import { getUsers } from "@/api/user.api";
 import { ErrorApiCatching } from "@/utils/errors/error.api";
 
 export class CourseViewModel extends ViewModel<CourseProps> {
@@ -24,8 +24,6 @@ export function useCourseViewModel() {
 
   useEffect(() => {
     fetchCourses();
-
-    getUsers(`04KW36KMd4ScVjJaMpthgs1`).then((res) => console.log(res));
   }, []);
 
   const fetchCourses = async () => {
