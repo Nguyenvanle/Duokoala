@@ -1,9 +1,12 @@
+import { updateUser } from "./../api/user.api";
 import { CourseProps, toeicUrl } from "@/models/course/model";
 import { CourseRepository } from "@/services/repositories/courses";
 import { useEffect, useState } from "react";
 import { ViewModel } from "./viewmodel";
-import { getAuthToken, getUsers } from "@/api/user.api";
+import { createUserWithId, getUsers } from "@/api/user.api";
 import { ErrorApiCatching } from "@/utils/errors/error.api";
+import { getAuthToken } from "@/services/auth/auth.service";
+import UserProps from "@/models/user/model";
 
 export class CourseViewModel extends ViewModel<CourseProps> {
   constructor() {
@@ -17,6 +20,27 @@ export function useCourseViewModel() {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const courseViewModel = new CourseViewModel();
+  const newUser: UserProps = {
+    id: "user123",
+    email: "john.doe@example.com",
+    isNewUser: true,
+    name: "John Doe",
+    role: "Student",
+    phoneNumber: "",
+    gender: "other",
+    subscriptionType: "free",
+    currentTime: 0,
+    targetTime: 1,
+    address: "",
+    avatarUrl: "defaultImageUser",
+    registrationDate: new Date(),
+    lastLoginDate: new Date(),
+    coursesEnrolled: [],
+    progress: {},
+    preferences: {},
+    completedCourses: [],
+    notificationsEnabled: false,
+  };
 
   useEffect(() => {
     console.log("state courses: " + courses.length);
@@ -25,7 +49,19 @@ export function useCourseViewModel() {
   useEffect(() => {
     fetchCourses();
 
-    getUsers(`04KW36KMd4ScVjJaMpthgs1`).then((res) => console.log(res));
+    getAuthToken().then((res) => console.log(res?.toString()));
+    //getUsers("L4cbtMjWPuNEMqqbjK1HEWOmbS12").then((res) => console.log(res));
+    updateUser("hahahahaahaha", newUser)
+      .then((user) => {
+        if (user) {
+          console.log("User created successfully:", user);
+        } else {
+          console.log("Failed to create user.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error creating user:", error);
+      });
   }, []);
 
   const fetchCourses = async () => {

@@ -1,4 +1,4 @@
-import { getHeaders, getUsers } from "@/api/user.api";
+import { getUsers } from "@/api/user.api";
 import { CRUDList, renderCourseItem } from "@/components/CRUDList";
 import KoalaLoading from "@/components/KoalaLoading";
 import StudyTime from "@/components/StudyTime";
@@ -40,7 +40,12 @@ export default function HomeScreen() {
       <ScrollView style={home.container}>
         {/* Greeting */}
         <UserGreeting user={user} />
-
+        <Button
+          title="bấm"
+          onPress={() => {
+            getUsers("3Mcv7K7qiqg5S1zm6JcJr6Hw1iF2").then((res) => alert(res));
+          }}
+        ></Button>
         <View style={{ gap: 5, paddingTop: 10 }}>
           {/* Study Time */}
           <StudyTime clockUri={data.iconUri.clock} user={user} />

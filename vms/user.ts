@@ -15,7 +15,6 @@ import UserProps, {
   UserRegisterProps,
   useUserStore,
 } from "@/models/user/model";
-import { getUsers } from "@/api/user.api";
 
 export class UserViewModel extends ViewModel<UserProps> {
   constructor() {
