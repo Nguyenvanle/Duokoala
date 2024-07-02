@@ -1,16 +1,15 @@
 import { transform } from "@babel/core";
 // src/services/userAPI.ts
 import axios from "axios";
-import { BASE_URL } from "@/config";
-import { getAuthToken, getHeaders } from "@/services/auth/auth.service";
-
+import { getBaseUrl } from "@/config";
+import { getHeaders } from "@/services/auth/auth.service";
 import { ErrorApiCatching } from "@/utils/errors/error.api";
 import UserProps from "@/models/user/model";
 import { data } from "@/vms/home";
 
 export const getUsers = async (id: string) => {
   try {
-    const response = await axios.get(`${BASE_URL}/${id}`, {
+    const response = await axios.get(`${getBaseUrl(`users`)}/${id}`, {
       headers: await getHeaders(),
     });
 
