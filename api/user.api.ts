@@ -30,7 +30,6 @@ export const getHeaders = async () => ({
 
 // Ví dụ: Lấy danh sách tất cả documents trong collection "users"
 export const getUsers = async () => {
-  console.log(`${BASE_URL}`);
   try {
     const response = await axios.get(`${BASE_URL}`, {
       headers: await getHeaders(),
