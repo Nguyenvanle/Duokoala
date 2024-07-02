@@ -3,10 +3,9 @@ import { CourseProps, toeicUrl } from "@/models/course/model";
 import { CourseRepository } from "@/services/repositories/courses";
 import { useEffect, useState } from "react";
 import { ViewModel } from "./viewmodel";
-import { createUserWithId, getUsers } from "@/api/user.api";
-import { ErrorApiCatching } from "@/utils/errors/error.api";
 import { getAuthToken } from "@/services/auth/auth.service";
 import UserProps from "@/models/user/model";
+import { getUsers } from "@/api/user.api";
 
 export class CourseViewModel extends ViewModel<CourseProps> {
   constructor() {
