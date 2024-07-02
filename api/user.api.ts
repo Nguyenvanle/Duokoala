@@ -34,6 +34,7 @@ export const createUserWithId = async (
   userData: UserProps
 ): Promise<UserProps | null> => {
   try {
+    const BASE_URL = getBaseUrl("users");
     const response = await axios.post(
       `${BASE_URL}/?documentId=${id}`,
       {
@@ -105,6 +106,7 @@ export const updateUser = async (
   userData: UserProps
 ): Promise<UserProps | null> => {
   try {
+    const BASE_URL = getBaseUrl("users");
     const response = await axios.patch(
       `${BASE_URL}/${id}`,
       {
