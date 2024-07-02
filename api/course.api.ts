@@ -1,12 +1,12 @@
 // src/services/userAPI.ts
 import axios from "axios";
-import { BASE_URL } from "@/config";
+import { COURSES_BASE_URL } from "@/config";
 import { getHeaders } from "@/services/auth/auth.service";
 import { ErrorApiCatching } from "@/utils/errors/error.api";
 
-export const getUsers = async (id: string) => {
+export const getCourses = async (id: string) => {
   try {
-    const response = await axios.get(`${BASE_URL}/${id}`, {
+    const response = await axios.get(`${COURSES_BASE_URL}/${id}`, {
       headers: await getHeaders(),
     });
 
